@@ -567,3 +567,232 @@
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
+
+/* خلفية مخصصة لقسم التعريف في صفحة من نحن */
+.background-about {
+  position: relative;
+  background-image: linear-gradient(rgba(5,44,31,0.65), rgba(5,44,31,0.65)), url('../images/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.background-about .about-content,
+.background-about .stats-container {
+  position: relative;
+  z-index: 2;
+}
+
+.background-about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(5,44,31,0.25) 100%);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .background-about {
+    background-position: top;
+    border-radius: var(--border-radius);
+  }
+}
+
+/* توسيط وتنظيم نص قسم التعريف فوق الخلفية */
+.background-about .about-content {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: var(--spacing-8) 0;
+}
+
+.background-about .about-content h2 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-4);
+}
+
+.background-about .about-content .lead {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-4);
+}
+
+.background-about .about-content p {
+  font-size: 1rem;
+  margin-bottom: var(--spacing-3);
+}
+
+.background-about .stats-container {
+  justify-content: center;
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-6);
+}
+
+.background-about .stat-item {
+  text-align: center;
+}
+
+/* جعل قسم الرؤية والرسالة في صف أفقي */
+.vision-mission .row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-8);
+}
+
+.vision-mission .col-12.col-md-4 {
+  flex: 1 1 0;
+  max-width: 33.3333%;
+}
+
+@media (max-width: 992px) {
+  .vision-mission .row {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  .vision-mission .col-12.col-md-4 {
+    max-width: 100%;
+  }
+}
+
+/* نصوص متباينة مع الخلفية في جميع الأقسام الداكنة */
+.background-about .about-content h2,
+.background-about .about-content .lead,
+.background-about .about-content p,
+.background-about .stat-number,
+.background-about .stat-label,
+.vision-mission,
+.vision-mission h3,
+.vision-mission p,
+.team-section,
+.team-section h2,
+.team-section .section-description,
+.team-member,
+.team-member h4,
+.team-member p,
+.achievements-section,
+.achievements-section h2,
+.achievements-section .section-description,
+.achievement-card h4,
+.achievement-card p,
+.cta-section,
+.cta-card,
+.cta-card h2,
+.cta-card p {
+  color: #fff !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.18);
+}
+
+.background-about .about-content h2,
+.vision-mission h3,
+.team-section h2,
+.achievements-section h2,
+.cta-card h2 {
+  color: #D4AF37 !important;
+}
+
+/* نصوص داكنة على الخلفيات الفاتحة (للتأكد من التباين) */
+body,
+.main-content,
+section:not(.background-about):not(.vision-mission):not(.team-section):not(.achievements-section):not(.cta-section) h2,
+section:not(.background-about):not(.vision-mission):not(.team-section):not(.achievements-section):not(.cta-section) p {
+  color: var(--text-color) !important;
+  text-shadow: none;
+}
+
+/* نص أبيض فقط على الخلفيات الداكنة الحقيقية */
+.background-about .about-content h2,
+.background-about .about-content .lead,
+.background-about .about-content p,
+.background-about .stat-number,
+.background-about .stat-label,
+.background-about .about-content {
+  color: #fff !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.18);
+}
+.background-about .about-content h2 {
+  color: #D4AF37 !important;
+}
+
+.cta-card,
+.cta-card h2,
+.cta-card p {
+  color: #fff !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.18);
+}
+.cta-card h2 {
+  color: #D4AF37 !important;
+}
+
+/* ألوان النصوص الافتراضية للبطاقات والخلفيات الفاتحة */
+.value-card h3,
+.value-card p,
+.team-member h4,
+.team-member p,
+.achievement-card h4,
+.achievement-card p {
+  color: var(--primary-color) !important;
+  text-shadow: none;
+}
+.value-card p,
+.team-member p,
+.achievement-card p {
+  color: var(--text-muted) !important;
+}
+
+/* هيرو مخصص لصفحة من نحن */
+.hero-about {
+  position: relative;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+.hero-about .page-header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+  color:white;
+}
+.hero-about .page-title {
+  font-size: 3rem;
+  color: #D4AF37;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+.hero-about .page-description {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.18);
+}
+.hero-about .btn {
+  font-size: 1.1rem;
+  padding: 0.75rem 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+@media (max-width: 768px) {
+  .hero-about {
+    padding: 60px 0 40px 0;
+  }
+  .hero-about .page-title {
+    font-size: 2rem;
+  }
+  .hero-about .page-description {
+    font-size: 1rem;
+  }
+}
+
+.hero-about .page-title,
+.hero-about .page-description {
+  color: #fff !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+/* هيرو صفحة اتصل بنا */
+.hero-contact .page-description {
+  color: #fff !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
