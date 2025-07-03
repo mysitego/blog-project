@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات | لوحة التحكم</title>
+    <meta name="description" content="إعدادات الموقع في لوحة تحكم المدونة">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin-images.css">
+    <link rel="stylesheet" href="../css/admin-responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../images/logo.png" type="image/jpeg">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Summernote WYSIWYG Editor -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+</head>
+<body class="admin-dashboard">
+    <!-- الشريط الجانبي -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="../images/logo.png" alt="شعار المدونة" class="sidebar-logo-img">
+                <div class="sidebar-logo-text">
+                    <h3>مدونة المعرفة</h3>
+                    <span>لوحة التحكم</span>
+                </div>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>لوحة التحكم</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="posts.html" class="nav-link">
+                        <i class="fas fa-edit"></i>
+                        <span>المقالات</span>
+                        <span class="nav-badge">25</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="categories.html" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>الفئات</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="comments.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <span>التعليقات</span>
+                        <span class="nav-badge new">12</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="users.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>المستخدمون</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-dropdown-toggle">
+                        <i class="fas fa-chart-line"></i>
+                        <span>التقارير</span>
+                        <i class="fas fa-chevron-down nav-arrow"></i>
+                    </a>
+                    <ul class="nav-dropdown">
+                        <li><a href="analytics.html">الإحصائيات</a></li>
+                        <li><a href="reports.html">التقارير</a></li>
+                        <li><a href="performance.html">الأداء</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="media.html" class="nav-link">
+                        <i class="fas fa-images"></i>
+                        <span>الوسائط</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item active">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <img src="../images/avatar-1.png" alt="صورة المستخدم" class="user-avatar">
+                <div class="user-details">
+                    <span class="user-name">المدير العام</span>
+                    <span class="user-role">مدير</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="page-title">
+                    <h1>إعدادات الموقع</h1>
+                    <span class="page-subtitle">تخصيص إعدادات المدونة</span>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button type="button" class="btn btn-primary" id="saveSettings">
+                    <i class="fas fa-save"></i>
+                    حفظ التغييرات
+                </button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="settings-nav">
+                        <div class="list-group">
+                            <a href="#general" class="list-group-item list-group-item-action active" data-bs-toggle="list">
+                                <i class="fas fa-cog me-2"></i>
+                                الإعدادات العامة
+                            </a>
+                            <a href="#reading" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-book-reader me-2"></i>
+                                إعدادات القراءة
+                            </a>
+                            <a href="#writing" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-edit me-2"></i>
+                                إعدادات الكتابة
+                            </a>
+                            <a href="#discussion" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-comments me-2"></i>
+                                إعدادات التعليقات
+                            </a>
+                            <a href="#media" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-images me-2"></i>
+                                الوسائط
+                            </a>
+                            <a href="#permalinks" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-link me-2"></i>
+                                الروابط الدائمة
+                            </a>
+                            <a href="#seo" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-search me-2"></i>
+                                تحسين محركات البحث
+                            </a>
+                            <a href="#email" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-envelope me-2"></i>
+                                إعدادات البريد
+                            </a>
+                            <a href="#security" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                الأمان
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-9">
+                    <div class="tab-content">
+                        <!-- تبويب الإعدادات العامة -->
+                        <div class="tab-pane fade show active" id="general">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">الإعدادات العامة</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="siteTitle" class="form-label">عنوان الموقع</label>
+                                            <input type="text" class="form-control" id="siteTitle" value="مدونة المعرفة">
+                                            <div class="form-text">اسم موقعك كما تريد أن يظهر للمستخدمين.</div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="siteDescription" class="form-label">وصف الموقع</label>
+                                            <textarea class="form-control" id="siteDescription" rows="3">مدونة متخصصة في البرمجة وتطوير الويب</textarea>
+                                            <div class="form-text">وصف قصير عن موقعك.</div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="siteUrl" class="form-label">رابط الموقع (URL)</label>
+                                            <input type="url" class="form-control" id="siteUrl" value="https://example.com">
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="adminEmail" class="form-label">البريد الإلكتروني</label>
+                                            <input type="email" class="form-control" id="adminEmail" value="admin@example.com">
+                                            <div class="form-text">يستخدم هذا العنوان لأغراض إدارية.</div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="timezone" class="form-label">المنطقة الزمنية</label>
+                                            <select class="form-select" id="timezone">
+                                                <option value="Asia/Riyadh" selected>الرياض (توقيت السعودية)</option>
+                                                <option value="Asia/Dubai">دبي (توقيت الإمارات)</option>
+                                                <option value="Asia/Qatar">الدوحة (توقيت قطر)</option>
+                                                <option value="Africa/Cairo">القاهرة (توقيت مصر)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="dateFormat" class="form-label">تنسيق التاريخ</label>
+                                            <select class="form-select" id="dateFormat">
+                                                <option value="j F Y">1 يناير 2025</option>
+                                                <option value="Y/m/d">2025/01/01</option>
+                                                <option value="d/m/Y">01/01/2025</option>
+                                                <option value="m/d/Y">01/01/2025</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="timeFormat" class="form-label">تنسيق الوقت</label>
+                                            <select class="form-select" id="timeFormat">
+                                                <option value="H:i">14:30</option>
+                                                <option value="g:i a">2:30 م</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="siteLogo" class="form-label">شعار الموقع</label>
+                                            <div class="d-flex align-items-center">
+                                                <img src="../images/logo.png" alt="شعار الموقع" class="img-thumbnail me-3" style="max-width: 100px;">
+                                                <div>
+                                                    <input type="file" class="form-control" id="siteLogo">
+                                                    <div class="form-text">الحجم الموصى به: 180 × 60 بكسل</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="siteIcon" class="form-label">أيقونة الموقع (Favicon)</label>
+                                            <div class="d-flex align-items-center">
+                                                <img src="../images/favicon.ico" alt="أيقونة الموقع" class="img-thumbnail me-3" style="width: 32px; height: 32px;">
+                                                <div>
+                                                    <input type="file" class="form-control" id="siteIcon">
+                                                    <div class="form-text">صورة بحجم 32 × 32 بكسل بصيغة .ico</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تبويب إعدادات القراءة -->
+                        <div class="tab-pane fade" id="reading">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">إعدادات الصفحة الرئيسية</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="showLatestPosts" checked>
+                                            <label class="form-check-label" for="showLatestPosts">عرض أحدث المقالات في الصفحة الرئيسية</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="postsPerPage" class="form-label">عدد المقالات في الصفحة الواحدة</label>
+                                        <input type="number" class="form-control" id="postsPerPage" value="10" min="1" max="100">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="postsPerRSS" class="form-label">عدد المقالات في خلاصة RSS</label>
+                                        <input type="number" class="form-control" id="postsPerRSS" value="10" min="1" max="100">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">عرض كل مقال</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="showFullText" id="showFullText1" checked>
+                                            <label class="form-check-label" for="showFullText1">النص الكامل</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="showFullText" id="showFullText2">
+                                            <label class="form-check-label" for="showFullText2">مقتطف</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تبويب إعدادات الكتابة -->
+                        <div class="tab-pane fade" id="writing">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">التنسيق الافتراضي</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="defaultCategory" class="form-label">التصنيف الافتراضي</label>
+                                        <select class="form-select" id="defaultCategory">
+                                            <option value="1">غير مصنف</option>
+                                            <option value="2">تطوير الويب</option>
+                                            <option value="3">تصميم المواقع</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="defaultPostFormat" class="form-label">تنسيق المنشور الافتراضي</label>
+                                        <select class="form-select" id="defaultPostFormat">
+                                            <option value="standard">قياسي</option>
+                                            <option value="gallery">معرض</option>
+                                            <option value="video">فيديو</option>
+                                            <option value="audio">صوتي</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="postEditor" class="form-label">محرر المنشورات</label>
+                                        <select class="form-select" id="postEditor">
+                                            <option value="rich">المحرر المرئي</option>
+                                            <option value="html">محرر النص</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- باقي التبويبات -->
+                        <div class="tab-pane fade" id="discussion">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">إعدادات التعليقات</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="allowComments" checked>
+                                            <label class="form-check-label" for="allowComments">السماح بالتعليقات على المقالات الجديدة</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="commentModeration" checked>
+                                            <label class="form-check-label" for="commentModeration">الموافقة على التعليقات يدوياً</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="commentRegistration" checked>
+                                            <label class="form-check-label" for="commentRegistration">يجب على المستخدمين التسجيل للتعليق</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="media">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">إعدادات الوسائط</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="thumbnailSizeW" class="form-label">حجم الصورة المصغرة</label>
+                                        <div class="row g-3">
+                                            <div class="col">
+                                                <input type="number" class="form-control" id="thumbnailSizeW" placeholder="العرض" value="150">
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" id="thumbnailSizeH" placeholder="الارتفاع" value="150">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="mediumSizeW" class="form-label">الحجم المتوسط</label>
+                                        <div class="row g-3">
+                                            <div class="col">
+                                                <input type="number" class="form-control" id="mediumSizeW" placeholder="العرض" value="300">
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" id="mediumSizeH" placeholder="الارتفاع" value="300">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="largeSizeW" class="form-label">الحجم الكبير</label>
+                                        <div class="row g-3">
+                                            <div class="col">
+                                                <input type="number" class="form-control" id="largeSizeW" placeholder="العرض" value="1024">
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" id="largeSizeH" placeholder="الارتفاع" value="1024">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript Files -->
+    <script src="../js/main.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+        // تفعيل محرر النصوص
+        $(document).ready(function() {
+            $('#siteDescription').summernote({
+                height: 150,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ]
+            });
+            
+            // حفظ الإعدادات
+            $('#saveSettings').on('click', function() {
+                // إضافة رسالة نجاح
+                const toast = document.createElement('div');
+                toast.className = 'toast align-items-center text-white bg-success border-0 position-fixed bottom-0 end-0 m-3';
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            تم حفظ الإعدادات بنجاح
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+                
+                const toastBootstrap = new bootstrap.Toast(toast);
+                toastBootstrap.show();
+                
+                // إزالة الرسالة بعد 3 ثوانٍ
+                setTimeout(() => {
+                    toastBootstrap.hide();
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 150);
+                }, 3000);
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

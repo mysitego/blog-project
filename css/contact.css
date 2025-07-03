@@ -1,0 +1,590 @@
+/* ===================================================================
+   أنماط صفحة اتصل بنا
+   =================================================================== */
+
+/* ===================================================================
+   قسم معلومات الاتصال السريع
+   =================================================================== */
+.contact-info-section {
+  padding: var(--spacing-16) 0 var(--spacing-8);
+}
+
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.contact-info-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8);
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.contact-info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+
+.info-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto var(--spacing-6);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  transition: transform var(--transition-normal);
+}
+
+.contact-info-card:hover .info-icon {
+  transform: scale(1.1);
+}
+
+.contact-info-card h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-lg);
+}
+
+.contact-info-card p {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+.info-link {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.info-link:hover {
+  color: var(--secondary-color);
+}
+
+/* ===================================================================
+   قسم نموذج الاتصال
+   =================================================================== */
+.contact-form-section {
+  padding: var(--spacing-16) 0;
+}
+
+.contact-form-container {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8);
+  box-shadow: var(--shadow);
+}
+
+.form-header {
+  margin-bottom: var(--spacing-8);
+  text-align: center;
+}
+
+.form-header h2 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-4);
+}
+
+.form-header p {
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+}
+
+.contact-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.contact-form .form-group {
+  margin-bottom: var(--spacing-4);
+}
+
+.contact-form .form-control {
+  border: 2px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+.contact-form .form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(10, 61, 44, 0.1);
+}
+
+.form-text {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--spacing-1);
+}
+
+.form-link {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.form-link:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+  margin-top: 2px;
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
+  margin-top: var(--spacing-8);
+}
+
+/* ===================================================================
+   الشريط الجانبي
+   =================================================================== */
+.contact-sidebar {
+  margin-top: var(--spacing-8);
+}
+
+.sidebar-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-6);
+  margin-bottom: var(--spacing-6);
+  box-shadow: var(--shadow);
+}
+
+.sidebar-card h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-lg);
+}
+
+.sidebar-card p {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+/* روابط التواصل الاجتماعي */
+.social-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.social-link-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-color);
+}
+
+.social-link-item:hover {
+  transform: translateX(-4px);
+  box-shadow: var(--shadow);
+}
+
+.social-link-item i {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.social-link-item.facebook i {
+  background-color: #1877f2;
+}
+
+.social-link-item.twitter i {
+  background-color: #1da1f2;
+}
+
+.social-link-item.linkedin i {
+  background-color: #0077b5;
+}
+
+.social-link-item.instagram i {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-name {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-1);
+}
+
+.social-handle {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+/* معلومات سريعة */
+.quick-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  border-right: 3px solid var(--primary-color);
+}
+
+[dir="ltr"] .info-item {
+  border-right: none;
+  border-left: 3px solid var(--primary-color);
+}
+
+.info-item i {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.info-item span {
+  color: var(--text-color);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+/* طرق التواصل البديلة */
+.contact-alternatives {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.alt-contact-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+}
+
+.alt-contact-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateX(-4px);
+}
+
+.alt-contact-link i {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--border-color);
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.alt-contact-link:hover i {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* ===================================================================
+   قسم الأسئلة الشائعة
+   =================================================================== */
+.faq-section {
+  padding: var(--spacing-16) 0;
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  margin-top: var(--spacing-16);
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-4);
+  overflow: hidden;
+  transition: box-shadow var(--transition-fast);
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-5);
+  cursor: pointer;
+  background-color: var(--surface-color);
+  transition: background-color var(--transition-fast);
+  user-select: none;
+}
+
+.faq-question:hover {
+  background-color: var(--border-color);
+}
+
+.faq-question h4 {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.faq-question i {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  transition: transform var(--transition-fast);
+}
+
+.faq-item.active .faq-question i {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 var(--spacing-5);
+  max-height: 0;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.faq-item.active .faq-answer {
+  padding: var(--spacing-4) var(--spacing-5) var(--spacing-5);
+  max-height: 300px;
+}
+
+.faq-answer p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ===================================================================
+   التصميم المتجاوب
+   =================================================================== */
+@media (max-width: 992px) {
+  .contact-form .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-sidebar {
+    margin-top: var(--spacing-12);
+  }
+  
+  .social-links-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .social-link-item {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+  }
+  
+  .contact-info-card {
+    padding: var(--spacing-6);
+  }
+  
+  .info-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .contact-form-container {
+    padding: var(--spacing-6);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .sidebar-card {
+    padding: var(--spacing-4);
+  }
+  
+  .social-links-list {
+    flex-direction: column;
+  }
+  
+  .social-link-item {
+    min-width: auto;
+  }
+  
+  .faq-section {
+    padding: var(--spacing-12) var(--spacing-4);
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-info-card {
+    padding: var(--spacing-4);
+  }
+  
+  .contact-info-card h3 {
+    font-size: var(--font-size-base);
+  }
+  
+  .form-header h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .contact-form-container {
+    padding: var(--spacing-4);
+  }
+  
+  .checkbox-label {
+    font-size: var(--font-size-xs);
+  }
+  
+  .faq-question {
+    padding: var(--spacing-4);
+  }
+  
+  .faq-question h4 {
+    font-size: var(--font-size-sm);
+  }
+  
+  .social-link-item {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--spacing-4);
+  }
+  
+  .social-info {
+    align-items: center;
+  }
+}
+
+/* ===================================================================
+   تحسينات الوصولية
+   =================================================================== */
+.faq-question:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+.contact-form .form-control:invalid {
+  border-color: var(--danger-color);
+}
+
+.contact-form .form-control:valid {
+  border-color: var(--success-color);
+}
+
+/* تحسينات إضافية */
+.contact-info-card:hover .info-icon {
+  animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* تأثيرات تفاعلية للنماذج */
+.contact-form .form-group {
+  position: relative;
+}
+
+.contact-form .form-control:focus + .form-label,
+.contact-form .form-control:not(:placeholder-shown) + .form-label {
+  transform: translateY(-25px) scale(0.9);
+  color: var(--primary-color);
+}
+
+/* تحسين تجربة التنقل بالكيبورد */
+.faq-question {
+  outline: none;
+}
+
+.faq-question:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--primary-color);
+}
+
+/* نمط خاص للوضع الليلي */
+[data-theme="dark"] .social-link-item {
+  background-color: var(--dark-surface);
+  border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .info-item {
+  background-color: var(--dark-surface);
+}

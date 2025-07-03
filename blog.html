@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المدونة - جميع المقالات | مدونة المعرفة</title>
+    <meta name="description" content="تصفح جميع مقالات مدونة المعرفة في التكنولوجيا، الصحة، والأعمال">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/blog.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo.png" type="image/jpeg">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- شريط التنقل الرئيسي -->
+    <header class="navbar">
+        <nav class="navbar-nav">
+            <div class="container">
+                <div class="navbar-container">
+                    <!-- الشعار -->
+                    <div class="navbar-brand">
+                        <a href="index.html" class="logo-link">
+                            <img src="images/logo.png" alt="شعار المدونة" class="logo-img">
+                            <span class="logo-text" data-translate="ريم محمد الجهني">مدونة المعرفة</span>
+                        </a>
+                    </div>
+                    
+                    <!-- قائمة التنقل -->
+                    <div class="navbar-menu" data-mobile-menu>
+                        <ul class="nav-links">
+                            <li><a href="index.html" class="nav-link" data-translate="home">الرئيسية</a></li>
+                            <li><a href="blog.html" class="nav-link active" data-translate="blog">المدونة</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-translate="categories">الفئات</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="blog.html?category=creative-writing" data-translate="creative-writing">الكتابة الإبداعية</a></li>
+                                    <li><a href="blog.html?category=content-writing" data-translate="content-writing">كتابة المحتوى</a></li>
+                                    <li><a href="blog.html?category=self-development" data-translate="self-development">تطوير الذات</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="about.html" class="nav-link" data-translate="about">من نحن</a></li>
+                            <li><a href="contact.html" class="nav-link" data-translate="contact">اتصل بنا</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- أدوات التحكم -->
+                    <div class="navbar-tools">
+                        <a href="admin/login.html" class="btn btn-secondary btn-sm navbar-tool-btn">
+                            <i class="fas fa-user-shield"></i>
+                            <span data-translate="admin" class="btn-text">لوحة التحكم</span>
+                        </a>
+                        
+                        <!-- تبديل اللغة -->
+                        <button class="btn btn-outline btn-sm navbar-tool-btn" data-lang-toggle title="تغيير اللغة">
+                            <i class="fas fa-language"></i>
+                        </button>
+                        
+                        <!-- تبديل الثيم -->
+                        <button class="btn btn-outline btn-sm navbar-tool-btn" data-theme-toggle title="تبديل الوضع الليلي">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        
+                        <!-- قائمة الموبايل -->
+                        <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu" title="فتح القائمة الجانبية">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- خريطة التنقل -->
+    <div class="breadcrumb-section">
+        <nav class="breadcrumb">
+            <a href="index.html" data-translate="home">الرئيسية</a>
+            <i class="fas fa-chevron-left"></i>
+            <span>المدونة</span>
+        </nav>
+    </div>
+
+    <!-- رأس الصفحة -->
+    <section class="blog-hero-header improved-blog-hero">
+      <div class="container">
+        <div class="blog-hero-content">
+          <div class="blog-hero-icon">
+            <i class="fas fa-blog"></i>
+          </div>
+          <h1 class="blog-hero-title">جميع المقالات</h1>
+          <p class="blog-hero-desc">اكتشف مجموعة واسعة من المقالات المفيدة والملهمة</p>
+       
+        </div>
+      </div>
+      <div class="blog-hero-bg-svg"></div>
+    </section>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-layout">
+                <!-- المحتوى الأساسي -->
+                <div class="content-main">
+                    <!-- شريط البحث والفلترة -->
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <div class="search-input-group">
+                                <input type="text" class="form-control" placeholder="ابحث في المقالات..." data-search>
+                                <button class="search-btn" title="بحث المقالات">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-controls">
+                            <div class="filter-group">
+                                <label for="categoryFilter" class="filter-label">الفئة:</label>
+                                <select id="categoryFilter" class="form-control">
+                                    <option value="">جميع الفئات</option>
+                                    <option value="creative-writing">الكتابة الإبداعية</option>
+                                    <option value="content-writing">كتابة المحتوى</option>
+                                    <option value="self-development">تطوير الذات</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="sortFilter" class="filter-label">ترتيب حسب:</label>
+                                <select id="sortFilter" class="form-control">
+                                    <option value="date-desc">الأحدث أولاً</option>
+                                    <option value="date-asc">الأقدم أولاً</option>
+                                    <option value="title">العنوان</option>
+                                    <option value="views">الأكثر مشاهدة</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- نتائج البحث -->
+                    <div class="search-results" data-search-results style="display: none;"></div>
+
+                    <!-- قائمة المقالات -->
+                    <div class="posts-container">
+                        <div class="posts-grid" id="posts-grid">
+                            <!-- مقال 1 -->
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="الكتابة الإبداعية">
+                                    <div class="post-category">
+                                        <span class="badge badge-secondary" data-translate="creative-writing">الكتابة الإبداعية</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            10 مايو 2024
+                                        </span>
+                                        <span class="post-read-time">
+                                            <i class="fas fa-clock"></i>
+                                            6 دقائق
+                                        </span>
+                                        <span class="post-views">
+                                            <i class="fas fa-eye"></i>
+                                            1,250
+                                        </span>
+                                    </div>
+                                    <h3 class="post-title">
+                                        <a href="post.html?id=1">كيف تطلق العنان لإبداعك في الكتابة الأدبية</a>
+                                    </h3>
+                                    <p class="post-excerpt">
+                                        اكتشف أسرار الكتابة الإبداعية، وتعلم كيف تكتب قصة أو نصًا أدبيًا يلامس القلوب ويثير الخيال.
+                                    </p>
+                                    <div class="post-footer">
+                                        <div class="post-author">
+                                            <span class="author-icon"><i class="fas fa-user-edit"></i></span>
+                                            <span>ريم محمد الجهني</span>
+                                        </div>
+                                        <a href="post.html?id=1" class="btn btn-secondary btn-sm" data-translate="read-more">
+                                            اقرأ المزيد
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- مقال 2 -->
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="كتابة المحتوى">
+                                    <div class="post-category">
+                                        <span class="badge badge-secondary" data-translate="content-writing">كتابة المحتوى</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            8 مايو 2024
+                                        </span>
+                                        <span class="post-read-time">
+                                            <i class="fas fa-clock"></i>
+                                            5 دقائق
+                                        </span>
+                                        <span class="post-views">
+                                            <i class="fas fa-eye"></i>
+                                            980
+                                        </span>
+                                    </div>
+                                    <h3 class="post-title">
+                                        <a href="post.html?id=2">دليلك لكتابة محتوى مؤثر وجذاب على الإنترنت</a>
+                                    </h3>
+                                    <p class="post-excerpt">
+                                        تعرف على خطوات كتابة محتوى احترافي يجذب القارئ ويحقق أهدافك التسويقية أو التعليمية.
+                                    </p>
+                                    <div class="post-footer">
+                                        <div class="post-author">
+                                            <span class="author-icon"><i class="fas fa-user-edit"></i></span>
+                                            <span>ريم محمد الجهني</span>
+                                        </div>
+                                        <a href="post.html?id=2" class="btn btn-secondary btn-sm" data-translate="read-more">
+                                            اقرأ المزيد
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- مقال 3 -->
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80" alt="تطوير الذات">
+                                    <div class="post-category">
+                                        <span class="badge badge-secondary" data-translate="self-development">تطوير الذات</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            5 مايو 2024
+                                        </span>
+                                        <span class="post-read-time">
+                                            <i class="fas fa-clock"></i>
+                                            7 دقائق
+                                        </span>
+                                        <span class="post-views">
+                                            <i class="fas fa-eye"></i>
+                                            1,100
+                                        </span>
+                                    </div>
+                                    <h3 class="post-title">
+                                        <a href="post.html?id=3">خطوات عملية لتطوير الذات وتحقيق النجاح</a>
+                                    </h3>
+                                    <p class="post-excerpt">
+                                        اكتشف أهم استراتيجيات تطوير الذات، وكيف تضع خطة نجاح شخصي وتحقق أهدافك بثقة.
+                                    </p>
+                                    <div class="post-footer">
+                                        <div class="post-author">
+                                            <span class="author-icon"><i class="fas fa-user-edit"></i></span>
+                                            <span>ريم محمد الجهني</span>
+                                        </div>
+                                        <a href="post.html?id=3" class="btn btn-secondary btn-sm" data-translate="read-more">
+                                            اقرأ المزيد
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- مقال 4 -->
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="الإلهام الأدبي">
+                                    <div class="post-category">
+                                        <span class="badge badge-secondary" data-translate="creative-writing">الكتابة الإبداعية</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            2 مايو 2024
+                                        </span>
+                                        <span class="post-read-time">
+                                            <i class="fas fa-clock"></i>
+                                            4 دقائق
+                                        </span>
+                                        <span class="post-views">
+                                            <i class="fas fa-eye"></i>
+                                            870
+                                        </span>
+                                    </div>
+                                    <h3 class="post-title">
+                                        <a href="post.html?id=4">مصادر الإلهام في الكتابة الأدبية</a>
+                                    </h3>
+                                    <p class="post-excerpt">
+                                        تعرف على أهم مصادر الإلهام للكتّاب، وكيف تستلهم أفكارك لكتابة نصوص إبداعية مميزة.
+                                    </p>
+                                    <div class="post-footer">
+                                        <div class="post-author">
+                                            <span class="author-icon"><i class="fas fa-user-edit"></i></span>
+                                            <span>ريم محمد الجهني</span>
+                                        </div>
+                                        <a href="post.html?id=4" class="btn btn-secondary btn-sm" data-translate="read-more">
+                                            اقرأ المزيد
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- مقال 5 -->
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="https://images.unsplash.com/photo-1515168833906-d2a3b82b302b?auto=format&fit=crop&w=600&q=80" alt="كتابة السيرة الذاتية">
+                                    <div class="post-category">
+                                        <span class="badge badge-secondary" data-translate="content-writing">كتابة المحتوى</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            28 إبريل 2024
+                                        </span>
+                                        <span class="post-read-time">
+                                            <i class="fas fa-clock"></i>
+                                            5 دقائق
+                                        </span>
+                                        <span class="post-views">
+                                            <i class="fas fa-eye"></i>
+                                            1,050
+                                        </span>
+                                    </div>
+                                    <h3 class="post-title">
+                                        <a href="post.html?id=5">كيف تكتب سيرة ذاتية إبداعية</a>
+                                    </h3>
+                                    <p class="post-excerpt">
+                                        خطوات كتابة سيرة ذاتية بأسلوب إبداعي يجذب القارئ ويبرز نقاط قوتك ومهاراتك.
+                                    </p>
+                                    <div class="post-footer">
+                                        <div class="post-author">
+                                            <span class="author-icon"><i class="fas fa-user-edit"></i></span>
+                                            <span>ريم محمد الجهني</span>
+                                        </div>
+                                        <a href="post.html?id=5" class="btn btn-secondary btn-sm" data-translate="read-more">
+                                            اقرأ المزيد
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- مقال 6 -->
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="تطوير الذات - التحفيز">
+                                    <div class="post-category">
+                                        <span class="badge badge-secondary" data-translate="self-development">تطوير الذات</span>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            20 إبريل 2024
+                                        </span>
+                                        <span class="post-read-time">
+                                            <i class="fas fa-clock"></i>
+                                            6 دقائق
+                                        </span>
+                                        <span class="post-views">
+                                            <i class="fas fa-eye"></i>
+                                            1,320
+                                        </span>
+                                    </div>
+                                    <h3 class="post-title">
+                                        <a href="post.html?id=6">التحفيز الذاتي: كيف تحافظ على شغفك</a>
+                                    </h3>
+                                    <p class="post-excerpt">
+                                        نصائح عملية للحفاظ على الحماس والشغف في مسيرتك الشخصية والمهنية.
+                                    </p>
+                                    <div class="post-footer">
+                                        <div class="post-author">
+                                            <span class="author-icon"><i class="fas fa-user-edit"></i></span>
+                                            <span>ريم محمد الجهني</span>
+                                        </div>
+                                        <a href="post.html?id=6" class="btn btn-secondary btn-sm" data-translate="read-more">
+                                            اقرأ المزيد
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- زر تحميل المزيد -->
+                        <div class="load-more-container">
+                            <button class="btn btn-primary btn-lg" data-load-more data-target="#posts-grid" data-type="posts">
+                                <i class="fas fa-plus"></i>
+                                <span data-translate="load-more">تحميل المزيد</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الشريط الجانبي -->
+                <aside class="sidebar">
+                    <!-- عن المدونة -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">عن المدونة</h3>
+                        <div class="widget-content">
+                            <p>مدونة المعرفة هي منصة تعليمية تهدف إلى نشر المحتوى المفيد والملهم في مختلف المجالات.</p>
+                            <a href="about.html" class="btn btn-outline btn-sm">اعرف المزيد</a>
+                        </div>
+                    </div>
+
+                    <!-- الفئات -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">الفئات</h3>
+                        <div class="widget-content">
+                            <ul class="categories-list">
+                                <li>
+                                    <a href="blog.html?category=creative-writing">
+                                        <i class="fas fa-feather-alt"></i>
+                                        <span>الكتابة الإبداعية</span>
+                                        <span class="count">(20)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blog.html?category=content-writing">
+                                        <i class="fas fa-pen-nib"></i>
+                                        <span>كتابة المحتوى</span>
+                                        <span class="count">(18)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blog.html?category=self-development">
+                                        <i class="fas fa-user-graduate"></i>
+                                        <span>تطوير الذات</span>
+                                        <span class="count">(15)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- أحدث التعليقات -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">أحدث التعليقات</h3>
+                        <div class="widget-content">
+                            <div class="recent-comments">
+                                <div class="comment-item">
+                                    <div class="comment-author">
+                                        <img src="images/avatar-1.png" alt="المعلق" class="comment-avatar">
+                                        <div class="comment-info">
+                                            <strong>أحمد محمد</strong>
+                                            <span>على: مقدمة في تطوير الويب</span>
+                                        </div>
+                                    </div>
+                                    <p class="comment-text">مقال رائع ومفيد جداً...</p>
+                                </div>
+                                
+                                <div class="comment-item">
+                                    <div class="comment-author">
+                                        <img src="images/avatar-2.jpg" alt="المعلق" class="comment-avatar">
+                                        <div class="comment-info">
+                                            <strong>فاطمة علي</strong>
+                                            <span>على: أهمية الصحة النفسية</span>
+                                        </div>
+                                    </div>
+                                    <p class="comment-text">شكراً على المعلومات القيمة...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أرشيف المقالات -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">الأرشيف</h3>
+                        <div class="widget-content">
+                            <ul class="archive-list">
+                                <li>
+                                    <a href="blog.html?month=2024-01">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>يناير 2024</span>
+                                        <span class="count">(12)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blog.html?month=2023-12">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>ديسمبر 2023</span>
+                                        <span class="count">(8)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blog.html?month=2023-11">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>نوفمبر 2023</span>
+                                        <span class="count">(15)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- الوسوم -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">الوسوم</h3>
+                        <div class="widget-content">
+                            <div class="tags-cloud">
+                                <a href="#" class="tag">تطوير الويب</a>
+                                <a href="#" class="tag">JavaScript</a>
+                                <a href="#" class="tag">الصحة النفسية</a>
+                                <a href="#" class="tag">ريادة الأعمال</a>
+                                <a href="#" class="tag">التكنولوجيا</a>
+                                <a href="#" class="tag">التعلم</a>
+                                <a href="#" class="tag">الإنتاجية</a>
+                                <a href="#" class="tag">الذكاء الاصطناعي</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="images/logo.png" alt="شعار المدونة" class="footer-logo">
+                        <h3>مدونة المعرفة</h3>
+                        <p>منصة معرفية شاملة تهدف إلى نشر المحتوى المفيد والملهم</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="blog.html">المدونة</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>الفئات</h4>
+                    <ul class="footer-links">
+                        <li><a href="blog.html?category=creative-writing">الكتابة الإبداعية</a></li>
+                        <li><a href="blog.html?category=content-writing">كتابة المحتوى</a></li>
+                        <li><a href="blog.html?category=self-development">تطوير الذات</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>تابعنا</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" title="تويتر">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" title="لينكدإن">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link" title="إنستغرام">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 مدونة المعرفة. جميع الحقوق محفوظة.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">سياسة الخصوصية</a>
+                        <a href="#">شروط الاستخدام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+
+<style>
+#minimax-floating-ball {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 12px;
+  background: #222222;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  color: #F8F8F8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  z-index: 9999;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#minimax-floating-ball:hover {
+  transform: translateY(-2px);
+  background: #383838;
+}
+
+.minimax-ball-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.minimax-logo-wave {
+  width: 26px;
+  height: 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='22' viewBox='0 0 26 22' fill='none'%3E%3Cg clip-path='url(%23clip0_3442_102412)'%3E%3Cpath d='M12.8405 14.6775C12.8405 14.9897 13.0932 15.2424 13.4055 15.2424C13.7178 15.2424 13.9705 14.9897 13.9705 14.6775V2.98254C13.9705 1.88957 13.0809 1 11.9879 1C10.895 1 10.0054 1.88957 10.0054 2.98254V11.566V17.1068C10.0054 17.5773 9.62327 17.9594 9.1528 17.9594C8.68233 17.9594 8.30021 17.5773 8.30021 17.1068V8.04469C8.30021 6.95172 7.41063 6.06215 6.31767 6.06215C5.22471 6.06215 4.33513 6.95172 4.33513 8.04469V11.8855C4.33513 12.3559 3.953 12.7381 3.48254 12.7381C3.01207 12.7381 2.62994 12.3559 2.62994 11.8855V10.4936C2.62994 10.1813 2.37725 9.92861 2.06497 9.92861C1.7527 9.92861 1.5 10.1813 1.5 10.4936V11.8855C1.5 12.9784 2.38957 13.868 3.48254 13.868C4.5755 13.868 5.46508 12.9784 5.46508 11.8855V8.04469C5.46508 7.57422 5.8472 7.19209 6.31767 7.19209C6.78814 7.19209 7.17026 7.57422 7.17026 8.04469V17.1068C7.17026 18.1998 8.05984 19.0894 9.1528 19.0894C10.2458 19.0894 11.1353 18.1998 11.1353 17.1068V2.98254C11.1353 2.51207 11.5175 2.12994 11.9879 2.12994C12.4584 2.12994 12.8405 2.51207 12.8405 2.98254V14.6775Z' fill='%23F8F8F8'/%3E%3Cpath d='M23.3278 6.06215C22.2348 6.06215 21.3452 6.95172 21.3452 8.04469V15.6143C21.3452 16.0847 20.9631 16.4669 20.4926 16.4669C20.0222 16.4669 19.6401 16.0847 19.6401 15.6143V2.98254C19.6401 1.88957 18.7505 1 17.6575 1C16.5645 1 15.675 1.88957 15.675 2.98254V19.0175C15.675 19.4879 15.2928 19.8701 14.8224 19.8701C14.3519 19.8701 13.9698 19.4879 13.9698 19.0175V17.0329C13.9698 16.7206 13.7171 16.4679 13.4048 16.4679C13.0925 16.4679 12.8398 16.7206 12.8398 17.0329V19.0175C12.8398 20.1104 13.7294 21 14.8224 21C15.9153 21 16.8049 20.1104 16.8049 19.0175V2.98254C16.8049 2.51207 17.187 2.12994 17.6575 2.12994C18.128 2.12994 18.5101 2.51207 18.5101 2.98254V15.6143C18.5101 16.7072 19.3997 17.5968 20.4926 17.5968C21.5856 17.5968 22.4752 16.7072 22.4752 15.6143V8.04469C22.4752 7.57422 22.8573 7.19209 23.3278 7.19209C23.7982 7.19209 24.1804 7.57422 24.1804 8.04469V14.6775C24.1804 14.9897 24.4331 15.2424 24.7453 15.2424C25.0576 15.2424 25.3103 14.9897 25.3103 14.6775V8.04469C25.3103 6.95172 24.4207 6.06215 23.3278 6.06215Z' fill='%23F8F8F8'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_3442_102412'%3E%3Crect width='25' height='22' fill='white' transform='translate(0.5)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.minimax-ball-text {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.minimax-close-icon {
+  margin-left: 8px;
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.minimax-close-icon:hover {
+  opacity: 1;
+}
+</style>
+
+<script>
+// Initialize floating ball functionality
+function initFloatingBall() {
+  const ball = document.getElementById('minimax-floating-ball');
+  if (!ball) return;
+
+  // Initial animation
+  ball.style.opacity = '0';
+  ball.style.transform = 'translateY(20px)';
+
+  setTimeout(() => {
+    ball.style.opacity = '1';
+    ball.style.transform = 'translateY(0)';
+  }, 500);
+
+  // Handle logo click
+  const ballContent = ball.querySelector('.minimax-ball-content');
+  ballContent.addEventListener('click', function (e) {
+    e.stopPropagation();
+    window.open('https://agent.minimax.io/agent', '_blank');
+    ball.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      ball.style.transform = 'scale(1)';
+    }, 100);
+  });
+
+  // Handle close button click
+  const closeIcon = ball.querySelector('.minimax-close-icon');
+  closeIcon.addEventListener('click', function (e) {
+    e.stopPropagation();
+    ball.style.opacity = '0';
+    ball.style.transform = 'translateY(20px)';
+
+    setTimeout(() => {
+      ball.style.display = 'none';
+    }, 300);
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initFloatingBall); 
+</script>
+
+</body>
+</html>

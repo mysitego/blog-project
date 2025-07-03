@@ -1,0 +1,742 @@
+/* ===================================================================
+   أنماط لوحة التحكم الإدارية
+   =================================================================== */
+
+/* ===================================================================
+   الإعدادات الأساسية للوحة الإدارية
+   =================================================================== */
+.admin-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #0c4a35 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===================================================================
+   صفحة تسجيل الدخول
+   =================================================================== */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  box-shadow: var(--shadow-xl);
+}
+
+/* جانب الترحيب */
+.login-welcome {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #0c4a35 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-welcome::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-30px, -30px) rotate(10deg); }
+}
+
+.welcome-content {
+  text-align: center;
+  max-width: 400px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-section {
+  margin-bottom: var(--spacing-12);
+}
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-4);
+  border: 3px solid var(--secondary-color);
+  object-fit: cover;
+}
+
+.welcome-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  margin-bottom: var(--spacing-2);
+  color: var(--secondary-color);
+}
+
+.welcome-subtitle {
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+.welcome-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-12);
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.feature-item i {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.feature-item span {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.welcome-footer {
+  opacity: 0.7;
+  font-size: var(--font-size-sm);
+}
+
+/* نموذج تسجيل الدخول */
+.login-form-section {
+  flex: 1;
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-8);
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.back-to-site {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.back-to-site:hover {
+  color: var(--primary-color);
+}
+
+.login-tools {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.tool-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-muted);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tool-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.form-header h2 {
+  color: var(--primary-color);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-3);
+}
+
+.form-header p {
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+}
+
+.login-form {
+  margin-bottom: var(--spacing-8);
+}
+
+.login-form .form-group {
+  margin-bottom: var(--spacing-6);
+}
+
+.login-form .form-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.login-form .form-label i {
+  color: var(--primary-color);
+}
+
+.login-form .form-control {
+  height: 50px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+}
+
+.login-form .form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(10, 61, 44, 0.1);
+}
+
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--spacing-2);
+  transition: color var(--transition-fast);
+}
+
+[dir="ltr"] .password-toggle {
+  left: auto;
+  right: var(--spacing-3);
+}
+
+.password-toggle:hover {
+  color: var(--primary-color);
+}
+
+.field-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--spacing-1);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+}
+
+.forgot-password {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.forgot-password:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.login-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: var(--spacing-6);
+  padding: var(--spacing-4);
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-1);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.system-info {
+  text-align: center;
+  padding: var(--spacing-4);
+  background-color: rgba(10, 61, 44, 0.1);
+  border-radius: var(--border-radius);
+  border-right: 4px solid var(--primary-color);
+}
+
+[dir="ltr"] .system-info {
+  border-right: none;
+  border-left: 4px solid var(--primary-color);
+}
+
+.system-info p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.system-info i {
+  color: var(--primary-color);
+  margin-left: var(--spacing-1);
+}
+
+[dir="rtl"] .system-info i {
+  margin-left: 0;
+  margin-right: var(--spacing-1);
+}
+
+/* ===================================================================
+   النافذة المنبثقة لاستعادة كلمة المرور
+   =================================================================== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-6);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.modal-body {
+  padding: var(--spacing-6);
+}
+
+.modal-body p {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-6);
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: flex-end;
+  margin-top: var(--spacing-6);
+}
+
+/* ===================================================================
+   بيانات تجريبية
+   =================================================================== */
+.demo-credentials {
+  position: fixed;
+  bottom: var(--spacing-4);
+  right: var(--spacing-4);
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  max-width: 300px;
+}
+
+.demo-credentials h4 {
+  color: var(--primary-color);
+  margin: 0 0 var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.credential-item {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-2);
+  padding: var(--spacing-2);
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius-sm);
+  border-right: 3px solid var(--secondary-color);
+}
+
+[dir="ltr"] .credential-item {
+  border-right: none;
+  border-left: 3px solid var(--secondary-color);
+}
+
+.credential-item:last-child {
+  margin-bottom: 0;
+}
+
+.credential-item strong {
+  color: var(--text-color);
+}
+
+/* ===================================================================
+   حالات التحميل والتفاعل
+   =================================================================== */
+.login-form .btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-form .btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.login-form .btn.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ===================================================================
+   التصميم المتجاوب
+   =================================================================== */
+@media (max-width: 992px) {
+  .login-container {
+    flex-direction: column;
+  }
+  
+  .login-welcome {
+    flex: none;
+    min-height: 40vh;
+    padding: var(--spacing-6);
+  }
+  
+  .welcome-features {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-3);
+  }
+  
+  .feature-item {
+    padding: var(--spacing-3);
+  }
+  
+  .feature-item i {
+    font-size: 1.2rem;
+  }
+  
+  .feature-item span {
+    font-size: var(--font-size-xs);
+  }
+  
+  .login-form-section {
+    flex: none;
+    padding: var(--spacing-6);
+  }
+  
+  .demo-credentials {
+    position: static;
+    margin-top: var(--spacing-4);
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-welcome {
+    min-height: 30vh;
+    padding: var(--spacing-4);
+  }
+  
+  .welcome-title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .welcome-features {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .login-form-section {
+    padding: var(--spacing-4);
+  }
+  
+  .login-form-container {
+    max-width: none;
+  }
+  
+  .form-options {
+    flex-direction: column;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+  }
+  
+  .login-stats {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+  
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+  
+  [dir="rtl"] .stat-item {
+    text-align: right;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: var(--spacing-4);
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-body {
+    background: var(--primary-color);
+  }
+  
+  .login-welcome {
+    min-height: 25vh;
+    padding: var(--spacing-3);
+  }
+  
+  .login-logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .welcome-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .welcome-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .welcome-features {
+    display: none;
+  }
+  
+  .login-form-section {
+    padding: var(--spacing-3);
+  }
+  
+  .login-controls {
+    flex-direction: column;
+    gap: var(--spacing-3);
+    align-items: stretch;
+  }
+  
+  .login-tools {
+    justify-content: center;
+  }
+  
+  .form-header h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .login-form .form-control {
+    height: 45px;
+  }
+  
+  .demo-credentials {
+    padding: var(--spacing-3);
+  }
+}
+
+/* ===================================================================
+   تحسينات الوصولية
+   =================================================================== */
+.login-form .form-control:focus {
+  outline: none;
+}
+
+.tool-btn:focus,
+.modal-close:focus,
+.forgot-password:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* تحسين تباين الألوان في الوضع الليلي */
+[data-theme="dark"] .login-welcome {
+  background: linear-gradient(135deg, #1a4b3a 0%, #0f3829 100%);
+}
+
+[data-theme="dark"] .demo-credentials {
+  border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .feature-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .feature-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================================================
+   تأثيرات انتقالية سلسة
+   =================================================================== */
+.login-form-container,
+.welcome-content {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-item,
+.stat-item,
+.credential-item {
+  transition: all var(--transition-normal);
+}
+
+.login-form .form-control {
+  transition: all var(--transition-fast);
+}
+
+.login-form .form-control:hover {
+  border-color: var(--primary-color);
+}

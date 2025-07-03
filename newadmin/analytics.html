@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحليلات - المدونة</title>
+  <link rel="icon" href="../images/logo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#052c1f',
+            gold: '#D4AF37',
+            goldLight: '#e6d8a3',
+            darkgreen: '#0a3d2c',
+            blue: '#4e73df',
+            green: '#1cc88a',
+            cyan: '#36b9cc',
+            yellow: '#f6c23e',
+          },
+          fontFamily: {
+            arabic: ["'IBM Plex Sans Arabic'", 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+    .stat-card { transition: box-shadow .2s; }
+    .stat-card:hover { box-shadow: 0 4px 24px #0002; }
+    .chart-box { min-height: 320px; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-arabic">
+  <div class="p-0 transition-all duration-300 flex flex-col gap-8">
+    <!-- قسم الرسوم البيانية الرئيسي (أولاً) -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-2">
+      <div class="lg:col-span-2 bg-white rounded-2xl shadow chart-box flex flex-col p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+          <h2 class="text-lg font-bold text-primary flex items-center gap-2"><i class="fas fa-chart-line"></i> حركة الزوار</h2>
+          <div class="flex gap-2">
+            <button class="px-3 py-1 rounded bg-gray-100 text-gray-700 text-xs hover:bg-gold/20 transition">أسبوع</button>
+            <button class="px-3 py-1 rounded bg-gray-100 text-gray-700 text-xs hover:bg-gold/20 transition">شهر</button>
+            <button class="px-3 py-1 rounded bg-gray-100 text-gray-700 text-xs hover:bg-gold/20 transition">سنة</button>
+          </div>
+        </div>
+        <canvas id="visitorsChart" height="220" class="w-full"></canvas>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div class="bg-white rounded-2xl shadow p-6 flex-1 flex flex-col">
+          <h2 class="text-lg font-bold text-primary mb-2 flex items-center gap-2"><i class="fas fa-globe"></i> مصادر الزيارات</h2>
+          <canvas id="trafficSourcesChart" height="120" class="w-full"></canvas>
+          <div class="mt-4 space-y-2">
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#4e73df"></span><span class="text-xs text-gray-600">محركات البحث (45%)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#1cc88a"></span><span class="text-xs text-gray-600">الوسائط الاجتماعية (30%)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#36b9cc"></span><span class="text-xs text-gray-600">روابط مباشرة (25%)</span></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow p-6 flex-1 flex flex-col">
+          <h2 class="text-lg font-bold text-primary mb-2 flex items-center gap-2"><i class="fas fa-mobile-alt"></i> أجهزة الزوار</h2>
+          <canvas id="devicesChart" height="120" class="w-full"></canvas>
+        </div>
+      </div>
+    </section>
+    <!-- البطاقات الإحصائية (ثانياً) -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
+      <div class="stat-card bg-gradient-to-br from-primary to-goldLight text-white rounded-xl shadow p-5 flex flex-col items-center gap-2">
+        <div class="text-3xl"><i class="fas fa-users"></i></div>
+        <div class="text-2xl font-bold">12,345</div>
+        <div class="text-xs">الزوار</div>
+        <div class="text-green-200 text-xs flex items-center gap-1"><i class="fas fa-arrow-up"></i> 12.5%</div>
+      </div>
+      <div class="stat-card bg-gradient-to-br from-green-600 to-green-300 text-white rounded-xl shadow p-5 flex flex-col items-center gap-2">
+        <div class="text-3xl"><i class="fas fa-eye"></i></div>
+        <div class="text-2xl font-bold">45,678</div>
+        <div class="text-xs">مشاهدات الصفحة</div>
+        <div class="text-green-200 text-xs flex items-center gap-1"><i class="fas fa-arrow-up"></i> 8.2%</div>
+      </div>
+      <div class="stat-card bg-gradient-to-br from-yellow-600 to-yellow-300 text-white rounded-xl shadow p-5 flex flex-col items-center gap-2">
+        <div class="text-3xl"><i class="fas fa-clock"></i></div>
+        <div class="text-2xl font-bold">2:45</div>
+        <div class="text-xs">متوسط مدة الجلسة</div>
+        <div class="text-red-200 text-xs flex items-center gap-1"><i class="fas fa-arrow-down"></i> 3.1%</div>
+      </div>
+      <div class="stat-card bg-gradient-to-br from-blue-600 to-blue-300 text-white rounded-xl shadow p-5 flex flex-col items-center gap-2">
+        <div class="text-3xl"><i class="fas fa-percentage"></i></div>
+        <div class="text-2xl font-bold">64.8%</div>
+        <div class="text-xs">معدل الارتداد</div>
+        <div class="text-green-200 text-xs flex items-center gap-1"><i class="fas fa-arrow-up"></i> 2.4%</div>
+      </div>
+    </section>
+    <!-- قائمة أكثر المقالات مشاهدة (أخيراً) -->
+    <section class="bg-white rounded-2xl shadow p-6 w-full">
+      <h2 class="text-lg font-bold text-primary mb-4 flex items-center gap-2"><i class="fas fa-fire"></i> أكثر المقالات مشاهدة</h2>
+      <div class="divide-y max-h-72 overflow-y-auto scrollbar-hide">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+          <div class="flex items-center gap-2 sm:gap-3">
+            <div class="text-primary"><i class="fas fa-file-alt"></i></div>
+            <div>
+              <div class="font-semibold text-sm sm:text-base">دليل شامل لتطوير تطبيقات الويب</div>
+              <div class="text-xs text-gray-400">/post/web-development-guide</div>
+            </div>
+          </div>
+          <span class="bg-primary/10 text-primary rounded-full px-2 sm:px-3 py-1 text-xs">1,234 مشاهدة</span>
+        </div>
+        <!-- المزيد من العناصر ... -->
+      </div>
+    </section>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // رسم بياني لحركة الزوار
+    document.addEventListener('DOMContentLoaded', function() {
+      const visitorsCtx = document.getElementById('visitorsChart').getContext('2d');
+      new Chart(visitorsCtx, {
+        type: 'line',
+        data: {
+          labels: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+          datasets: [
+            {
+              label: 'الزوار الجدد',
+              data: [1200, 1900, 1500, 2500, 2200, 3000, 2800],
+              borderColor: '#4e73df',
+              backgroundColor: 'rgba(78, 115, 223, 0.05)',
+              tension: 0.3,
+              fill: true
+            },
+            {
+              label: 'الزوار العائدون',
+              data: [800, 1200, 1000, 1500, 1300, 2000, 1800],
+              borderColor: '#1cc88a',
+              backgroundColor: 'rgba(28, 200, 138, 0.05)',
+              tension: 0.3,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+              rtl: true
+            }
+          }
+        }
+      });
+      // رسم بياني لمصادر الزيارات
+      const trafficCtx = document.getElementById('trafficSourcesChart').getContext('2d');
+      new Chart(trafficCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['محركات البحث', 'الوسائط الاجتماعية', 'روابط مباشرة'],
+          datasets: [{
+            data: [45, 30, 25],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              rtl: true
+            }
+          }
+        }
+      });
+      // رسم بياني لأجهزة الزوار
+      const devicesCtx = document.getElementById('devicesChart').getContext('2d');
+      new Chart(devicesCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['جوال', 'كمبيوتر', 'تابلت'],
+          datasets: [{
+            data: [60, 30, 10],
+            backgroundColor: ['#f6c23e', '#4e73df', '#1cc88a'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              rtl: true
+            }
+          }
+        }
+      });
+    });
+    // ربط عناصر السايدبار
+    document.querySelectorAll('#sidebar-links a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.endsWith('.html')) {
+          e.preventDefault();
+          window.location.href = href;
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

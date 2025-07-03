@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مقال جديد | لوحة التحكم</title>
+    <meta name="description" content="إضافة مقال جديد في لوحة تحكم المدونة">
+    
+    <!-- Bootstrap RTL CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin-images.css">
+    <link rel="stylesheet" href="../css/admin-editor.css">
+    <link rel="stylesheet" href="../css/admin-responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../images/logo.png" type="image/jpeg">
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="admin-dashboard">
+    <!-- الشريط الجانبي -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="../images/logo.png" alt="شعار المدونة" class="sidebar-logo-img">
+                <div class="sidebar-logo-text">
+                    <h3>مدونة المعرفة</h3>
+                    <span>لوحة التحكم</span>
+                </div>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle" title="إظهار/إخفاء القائمة الجانبية">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>لوحة التحكم</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item active">
+                    <a href="posts.html" class="nav-link">
+                        <i class="fas fa-edit"></i>
+                        <span>المقالات</span>
+                        <span class="nav-badge">25</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="categories.html" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <span>الفئات</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="comments.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <span>التعليقات</span>
+                        <span class="nav-badge new">12</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="users.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>المستخدمون</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-dropdown-toggle">
+                        <i class="fas fa-chart-line"></i>
+                        <span>التقارير</span>
+                        <i class="fas fa-chevron-down nav-arrow"></i>
+                    </a>
+                    <ul class="nav-dropdown">
+                        <li><a href="analytics.html">الإحصائيات</a></li>
+                        <li><a href="reports.html">التقارير</a></li>
+                        <li><a href="performance.html">الأداء</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="media.html" class="nav-link">
+                        <i class="fas fa-images"></i>
+                        <span>الوسائط</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="admin-main">
+        <!-- رأس الصفحة (navbar) من الداشبورد -->
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle" title="إظهار/إخفاء القائمة الجانبية">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="page-title">
+                    <h1>إضافة مقال جديد</h1>
+                    <span class="page-subtitle">أنشئ مقالك وشارك المعرفة مع الجميع</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-tools">
+                    <!-- الإشعارات -->
+                    <div class="header-tool dropdown">
+                        <button class="tool-btn notification-btn" data-dropdown-toggle title="عرض الإشعارات">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count">3</span>
+                        </button>
+                        <div class="dropdown-menu notification-dropdown">
+                            <div class="dropdown-header">
+                                <h4>الإشعارات</h4>
+                                <span class="mark-all-read">قراءة الكل</span>
+                            </div>
+                            <div class="notifications-list">
+                                <div class="notification-item unread">
+                                    <i class="fas fa-comment text-primary"></i>
+                                    <div class="notification-content">
+                                        <p>تعليق جديد على مقال "تطوير الويب"</p>
+                                        <span class="notification-time">منذ 5 دقائق</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user text-success"></i>
+                                    <div class="notification-content">
+                                        <p>مستخدم جديد انضم للمدونة</p>
+                                        <span class="notification-time">منذ ساعة</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-chart-line text-info"></i>
+                                    <div class="notification-content">
+                                        <p>تقرير الأداء الأسبوعي جاهز</p>
+                                        <span class="notification-time">منذ 3 ساعات</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-footer">
+                                <a href="notifications.html">عرض جميع الإشعارات</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- المستخدم -->
+                    <div class="header-tool dropdown">
+                        <button class="tool-btn user-btn" data-dropdown-toggle title="قائمة المستخدم">
+                            <img src="../images/avatar-1.png" alt="صورة المستخدم" class="user-avatar-small">
+                            <span class="user-name-header" id="headerUserName">المدير العام</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu user-dropdown">
+                            <div class="user-dropdown-header">
+                                <img src="../images/avatar-1.png" alt="صورة المستخدم" class="user-avatar-large">
+                                <div class="user-info">
+                                    <h4 id="dropdownUserName">المدير العام</h4>
+                                    <span id="dropdownUserEmail">admin@blog.com</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                الملف الشخصي
+                            </a>
+                            <a href="settings.html" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                الإعدادات
+                            </a>
+                            <a href="../index.html" class="dropdown-item">
+                                <i class="fas fa-eye"></i>
+                                عرض الموقع
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="login.html" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الخروج
+                            </a>
+                        </div>
+                    </div>
+                    <!-- زر ملء الشاشة -->
+                    <button class="tool-btn fullscreen-btn" id="fullscreenBtn" title="وضع ملء الشاشة">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <!-- زر تغيير اللغة -->
+                    <button class="tool-btn" data-lang-toggle title="تغيير اللغة">
+                        <i class="fas fa-language"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- محتوى الصفحة -->
+        <div class="admin-content">
+            <div class="main-section">
+                <div class="content-header">
+                    <div class="header-actions">
+                        <a href="posts.html" class="btn btn-secondary">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>عودة إلى قائمة المقالات</span>
+                        </a>
+                        <button type="submit" form="postForm" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            <span>حفظ المقال</span>
+                        </button>
+                    </div>
+                    
+                    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="dashboard.html">الرئيسية</a></li>
+                            <li class="breadcrumb-item"><a href="posts.html">المقالات</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">إضافة مقال جديد</li>
+                        </ol>
+                    </nav>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">محتوى المقال</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="postForm">
+                            <div class="mb-4">
+                                <label for="postTitle" class="form-label fw-bold">عنوان المقال <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-lg" id="postTitle" placeholder="اكتب عنوان المقال هنا..." required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="postSlug" class="form-label fw-bold">الرابط الدائم</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">https://example.com/blog/</span>
+                                    <input type="text" class="form-control" id="postSlug" placeholder="رابط-المقال">
+                                </div>
+                                <div class="form-text">رابط فريد للمقال في الموقع</div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="postContent" class="form-label fw-bold">محتوى المقال <span class="text-danger">*</span></label>
+                                <textarea id="postContent" required></textarea>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">ملخص المقال</label>
+                                <textarea class="form-control" id="postExcerpt" rows="3" placeholder="اكتب ملخصاً مختصراً للمقال..."></textarea>
+                                <div class="form-text">سيتم عرض هذا النص في صفحة المقالات الرئيسية</div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">إعدادات المقال</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="postCategory" class="form-label">التصنيف الرئيسي <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <select class="form-select" id="postCategory" required title="اختر تصنيفاً">
+                                                        <option value="">اختر تصنيفاً</option>
+                                                        <option value="تكنولوجيا">تكنولوجيا</option>
+                                                        <option value="برمجة">برمجة</option>
+                                                        <option value="تصميم">تصميم</option>
+                                                        <option value="أعمال">أعمال</option>
+                                                        <option value="تسويق">تسويق</option>
+                                                    </select>
+                                                    <button class="btn btn-outline-secondary" type="button" id="addNewCategory" title="إضافة تصنيف جديد">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">الوسوم</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="tagInput" placeholder="أضف وسوماً">
+                                                    <button class="btn btn-outline-secondary" type="button" id="addTagBtn">
+                                                        <i class="fas fa-plus me-1"></i> إضافة
+                                                    </button>
+                                                </div>
+                                                <div id="tagsContainer" class="mt-2">
+                                                    <!-- سيتم إضافة الوسوم هنا -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="featuredImage" class="form-label">الصورة المميزة</label>
+                                        <div class="card border-dashed p-3 text-center" style="cursor: pointer;" onclick="document.getElementById('featuredImage').click()">
+                                            <div id="imagePreviewContainer">
+                                                <img id="imagePreview" src="../images/image-placeholder.png" alt="معاينة الصورة" class="img-fluid mb-2" style="max-height: 150px; display: none;">
+                                            </div>
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-2"></i>
+                                            <p class="mb-0">انقر لرفع صورة مميزة للمقال</p>
+                                            <small class="text-muted">الحجم الموصى به: 1200 × 628 بيكسل</small>
+                                        </div>
+                                        <input class="d-none" type="file" id="featuredImage" accept="image/*">
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">حالة النشر</label>
+                                                <select class="form-select" id="postStatus">
+                                                    <option value="draft">مسودة</option>
+                                                    <option value="publish" selected>نشر</option>
+                                                    <option value="pending">قيد المراجعة</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="publishDate" class="form-label">تأريخ النشر</label>
+                                                <input type="datetime-local" class="form-control" id="publishDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="allowComments" checked>
+                                        <label class="form-check-label" for="allowComments">السماح بالتعليقات</label>
+                                    </div>
+                                    
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="featuredPost">
+                                        <label class="form-check-label" for="featuredPost">مقال مميز</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">تحسين محركات البحث (SEO)</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="seoTitle" class="form-label">عنوان SEO</label>
+                                        <input type="text" class="form-control" id="seoTitle" placeholder="عنوان الصفحة في نتائج البحث">
+                                        <div class="form-text">سيظهر هذا العنوان في نتائج محركات البحث بدلاً من عنوان المقال الأصلي</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="metaDescription" class="form-label">الوصف التعريفي (Meta Description)</label>
+                                        <textarea class="form-control" id="metaDescription" rows="2" maxlength="160" placeholder="وصف مختصر للمقال يظهر في نتائج البحث"></textarea>
+                                        <div class="form-text">الحد الأقصى 160 حرفاً</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="focusKeyword" class="form-label">الكلمة المفتاحية الرئيسية</label>
+                                        <input type="text" class="form-control" id="focusKeyword" placeholder="الكلمة الأساسية التي تستهدفها">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-4">
+                                <div class="card-header">
+                                    <h5 class="card-title">الكلمات المفتاحية (SEO)</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="metaKeywords" class="form-label">الكلمات المفتاحية</label>
+                                        <input type="text" class="form-control" id="metaKeywords" placeholder="أدخل الكلمات المفتاحية مفصولة بفواصل" title="الكلمات المفتاحية">
+                                        <small class="form-text text-muted">أدخل الكلمات المفتاحية التي تصف مقالتك لتحسين محركات البحث</small>
+                                    </div>
+                                    
+                                    <div class="form-group mt-3">
+                                        <label for="metaDescription" class="form-label">الوصف التعريفي (Meta Description)</label>
+                                        <textarea class="form-control" id="metaDescription" rows="2" maxlength="160"></textarea>
+                                        <small class="form-text text-muted">وصف مختصر للمقالة يظهر في نتائج البحث (يفضل ألا يزيد عن 160 حرفًا)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center border-top pt-4">
+                                <div>
+                                    <a href="posts.html" class="btn btn-outline-secondary me-2">
+                                        <i class="fas fa-arrow-right me-1"></i> إلغاء
+                                    </a>
+                                    <button type="button" class="btn btn-outline-primary me-2" id="saveDraftBtn">
+                                        <i class="far fa-save me-1"></i> حفظ مسودة
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-primary" id="publishBtn">
+                                        <i class="fas fa-paper-plane me-1"></i> نشر المقال
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <aside class="side-section">
+                <!-- بطاقة حالة النشر -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">حالة النشر</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button type="submit" form="postForm" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i> حفظ كمسودة
+                            </button>
+                            <button type="submit" form="postForm" class="btn btn-success">
+                                <i class="fas fa-paper-plane me-2"></i> نشر الآن
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#schedulePublish">
+                                <i class="far fa-clock me-2"></i> جدولة النشر
+                            </button>
+                            <div class="collapse mt-3" id="schedulePublish">
+                                <div class="form-group">
+                                    <label for="publishDate" class="form-label">تاريخ النشر</label>
+                                    <input type="datetime-local" class="form-control" id="publishDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="allowComments" checked>
+                                <label class="form-check-label" for="allowComments">
+                                    السماح بالتعليقات
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="featuredPost">
+                                <label class="form-check-label" for="featuredPost">
+                                    مقال مميز
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- بطاقة الفئات -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">الفئات</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <select class="form-select" id="postCategories" multiple title="اختر فئات المقال">
+                                <option value="1">تكنولوجيا</option>
+                                <option value="2">برمجة</option>
+                                <option value="3">تصميم</option>
+                                <option value="4">تسويق</option>
+                                <option value="5">أعمال</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                            <i class="fas fa-plus"></i> إضافة فئة جديدة
+                        </button>
+                    </div>
+                </div>
+                <!-- بطاقة الوسوم -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">الوسوم</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="postTags" placeholder="أضف وسومًا">
+                            <small class="form-text text-muted">اضغط Enter أو استخدم الفواصل لإضافة وسوم</small>
+                        </div>
+                        <div class="tags-container mt-2" id="tagsContainer">
+                            <!-- سيتم إضافة الوسوم هنا ديناميكيًا -->
+                        </div>
+                    </div>
+                </div>
+                <!-- بطاقة الصورة المميزة -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">الصورة المميزة</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="featured-image-upload mb-3" id="featuredImageUpload">
+                            <img src="../images/placeholder-image.jpg" alt="صورة المقال المميزة" class="img-fluid mb-2" id="featuredImagePreview">
+                            <button type="button" class="btn btn-sm btn-primary" id="uploadFeaturedImage">
+                                <i class="fas fa-upload me-1"></i> رفع صورة
+                            </button>
+                            <input type="file" id="featuredImageInput" accept="image/*" style="display: none;" title="رفع صورة مميزة">
+                        </div>
+                    </div>
+                </div>
+                <!-- قسم تحسين محركات البحث (SEO) -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">تحسين محركات البحث (SEO)</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="seoTitle" class="form-label">عنوان SEO</label>
+                            <input type="text" class="form-control" id="seoTitle" placeholder="عنوان الصفحة في نتائج البحث">
+                            <div class="form-text">سيظهر هذا العنوان في نتائج محركات البحث بدلاً من عنوان المقال الأصلي</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="metaDescription" class="form-label">الوصف التعريفي (Meta Description)</label>
+                            <textarea class="form-control" id="metaDescription" rows="2" maxlength="160" placeholder="وصف مختصر للمقال يظهر في نتائج البحث"></textarea>
+                            <div class="form-text">الحد الأقصى 160 حرفاً</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="focusKeyword" class="form-label">الكلمة المفتاحية الرئيسية</label>
+                            <input type="text" class="form-control" id="focusKeyword" placeholder="الكلمة الأساسية التي تستهدفها">
+                        </div>
+                    </div>
+                </div>
+                <!-- قسم الكلمات المفتاحية (SEO) -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">الكلمات المفتاحية (SEO)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="metaKeywords" class="form-label">الكلمات المفتاحية</label>
+                            <input type="text" class="form-control" id="metaKeywords" placeholder="أدخل الكلمات المفتاحية مفصولة بفواصل" title="الكلمات المفتاحية">
+                            <small class="form-text text-muted">أدخل الكلمات المفتاحية التي تصف مقالتك لتحسين محركات البحث</small>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="metaDescription" class="form-label">الوصف التعريفي (Meta Description)</label>
+                            <textarea class="form-control" id="metaDescription" rows="2" maxlength="160"></textarea>
+                            <small class="form-text text-muted">وصف مختصر للمقالة يظهر في نتائج البحث (يفضل ألا يزيد عن 160 حرفًا)</small>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- مودال إضافة فئة جديدة -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">إضافة فئة جديدة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="newCategoryName" class="form-label">اسم الفئة</label>
+                        <input type="text" class="form-control" id="newCategoryName" placeholder="أدخل اسم الفئة">
+                    </div>
+                    <div class="form-group">
+                        <label for="newCategorySlug" class="form-label">رابط الفئة (Slug)</label>
+                        <input type="text" class="form-control" id="newCategorySlug" placeholder="سيتم إنشاؤه تلقائيًا">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="newCategoryParent" class="form-label">الفئة الأم (اختياري)</label>
+                        <select class="form-select" id="newCategoryParent" title="اختر الفئة الأم (اختياري)">
+                            <option value="">لا توجد</option>
+                            <option value="1">تكنولوجيا</option>
+                            <option value="2">برمجة</option>
+                            <option value="3">تصميم</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" id="saveNewCategory">حفظ الفئة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/lang/summernote-ar-AR.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+    <script src="../js/editor-config.js"></script>
+    <script src="../js/post-form.js"></script>
+</body>
+</html>

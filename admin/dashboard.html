@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | مدونة المعرفة</title>
+    <meta name="description" content="لوحة تحكم عصرية لإدارة مدونة المعرفة">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#052c1f',
+              gold: '#D4AF37',
+              darkgreen: '#0a3d2c',
+              goldlight: '#e6d8a3',
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      body { font-family: 'Tajawal', 'Cairo', 'Segoe UI', sans-serif; }
+      .sidebar-transition { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+      .sidebar-collapsed { transform: translateX(100%); }
+      .sidebar-expanded { transform: translateX(0); }
+      .main-shifted { margin-right: 16rem; }
+      .main-full { margin-right: 0; }
+      @media (min-width: 1280px) {
+        .sidebar-overlay { display: none !important; }
+        .sidebar-collapsed { transform: translateX(0); }
+        .sidebar-expanded { transform: translateX(0); }
+      }
+      @media (max-width: 1279px) {
+        .main-shifted { margin-right: 0; }
+      }
+      @media (min-width: 1280px) {
+        .burger-btn { display: none !important; }
+      }
+      @media (max-width: 1279px) {
+        .burger-btn { display: block !important; }
+      }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen" dir="rtl">
+  <!-- زر البرجر للجوال والتابلت -->
+  <button id="openSidebar" class="burger-btn fixed top-4 right-4 bg-gold text-darkgreen rounded-full p-2 shadow-lg text-2xl z-50 transition" title="فتح القائمة">
+    <i class="fas fa-bars"></i>
+  </button>
+  <!-- Overlay للجوال/تابلت -->
+  <div id="sidebarOverlay" class="sidebar-overlay fixed inset-0 hidden bg-black/30 z-40"></div>
+  <div class="flex min-h-screen">
+    <!-- السايد بار -->
+    <aside id="sidebar" class="sidebar-transition bg-primary text-white w-64 flex flex-col justify-between shadow-lg fixed top-0 right-0 h-screen z-50 sidebar-expanded">
+      <div>
+        <div class="flex items-center gap-3 p-6 border-b border-gold/20">
+          <img src="../images/logo.png" alt="شعار المدونة" class="w-12 h-12 rounded">
+          <div>
+            <h3 class="font-bold text-xl">مدونة المعرفة</h3>
+            <span class="text-xs text-gold">لوحة التحكم</span>
+          </div>
+          <button class="ml-auto text-gold hover:text-white text-2xl focus:outline-none burger-btn" id="closeSidebar" title="إغلاق القائمة"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+          <ul class="flex flex-col gap-1 px-4">
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg font-bold bg-gold/20 text-gold"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</a></li>
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gold/10"><i class="fas fa-edit"></i> المقالات</a></li>
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gold/10"><i class="fas fa-tags"></i> الفئات</a></li>
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gold/10"><i class="fas fa-comments"></i> التعليقات</a></li>
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gold/10"><i class="fas fa-users"></i> المستخدمون</a></li>
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gold/10"><i class="fas fa-chart-line"></i> التقارير</a></li>
+            <li><a href="#" class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gold/10"><i class="fas fa-cog"></i> الإعدادات</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="p-6 border-t border-gold/20 flex items-center gap-3">
+        <img src="../images/avatar-1.png" alt="صورة المستخدم" class="w-12 h-12 rounded-full">
+        <div>
+          <span class="block font-bold">المدير العام</span>
+          <span class="block text-xs text-gold">مدير</span>
+        </div>
+      </div>
+    </aside>
+    <!-- المحتوى الرئيسي -->
+    <main id="mainContent" class="flex-1 transition-all duration-300 main-shifted py-8 px-4 max-w-[1440px] mx-auto flex flex-col gap-8">
+      <!-- الهيدر العلوي -->
+      <header class="bg-white rounded-xl shadow flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-6 mb-4 w-full">
+        <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-primary">لوحة التحكم</h1>
+            <span class="text-sm text-gray-500">مرحباً بك في لوحة التحكم الرئيسية</span>
+        </div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="relative">
+            <input type="text" placeholder="بحث سريع..." class="rounded-lg border border-gray-200 focus:ring-2 focus:ring-gold focus:border-gold px-3 py-2 text-sm w-40 sm:w-56 transition"/>
+            <button class="absolute left-2 top-1/2 -translate-y-1/2 text-gold hover:text-primary" title="بحث"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="relative">
+            <button class="relative text-xl text-gold hover:text-primary focus:outline-none" id="notificationBtn"><i class="fas fa-bell"></i><span class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">3</span></button>
+            <div class="hidden absolute left-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-100 z-50 p-4" id="notificationDropdown">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-bold text-primary text-base">الإشعارات</h4>
+                <span class="text-xs text-gold cursor-pointer hover:underline">قراءة الكل</span>
+              </div>
+              <div class="flex flex-col gap-2 max-h-48 overflow-y-auto">
+                <div class="flex items-start gap-2 bg-gold/10 rounded-lg p-2">
+                  <i class="fas fa-comment text-primary"></i>
+                  <div>
+                    <p class="text-xs">تعليق جديد على مقال "تطوير الويب"</p>
+                    <span class="text-xxs text-gray-400">منذ 5 دقائق</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 bg-gold/10 rounded-lg p-2">
+                  <i class="fas fa-user text-green-700"></i>
+                  <div>
+                    <p class="text-xs">مستخدم جديد انضم للمدونة</p>
+                    <span class="text-xxs text-gray-400">منذ ساعة</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 bg-gold/10 rounded-lg p-2">
+                  <i class="fas fa-chart-line text-blue-700"></i>
+                  <div>
+                    <p class="text-xs">تقرير الأداء الأسبوعي جاهز</p>
+                    <span class="text-xxs text-gray-400">منذ 3 ساعات</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-2 text-center">
+                <a href="#" class="text-xs text-gold hover:underline">عرض جميع الإشعارات</a>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <button class="flex items-center gap-2 text-primary hover:text-gold focus:outline-none" id="userBtn">
+              <img src="../images/avatar-1.png" alt="صورة المستخدم" class="w-8 h-8 rounded-full">
+              <span class="font-bold">المدير العام</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="hidden absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 z-50 p-4" id="userDropdown">
+              <div class="flex items-center gap-3 mb-2">
+                <img src="../images/avatar-1.png" alt="صورة المستخدم" class="w-10 h-10 rounded-full">
+                <div>
+                  <h4 class="font-bold text-primary">المدير العام</h4>
+                  <span class="text-xs text-gray-400">admin@blog.com</span>
+                </div>
+              </div>
+              <div class="border-t border-gray-100 my-2"></div>
+              <a href="#" class="flex items-center gap-2 text-sm text-gray-700 hover:text-gold py-1"><i class="fas fa-user"></i> الملف الشخصي</a>
+              <a href="#" class="flex items-center gap-2 text-sm text-gray-700 hover:text-gold py-1"><i class="fas fa-cog"></i> الإعدادات</a>
+              <a href="../index.html" class="flex items-center gap-2 text-sm text-gray-700 hover:text-gold py-1"><i class="fas fa-eye"></i> عرض الموقع</a>
+              <div class="border-t border-gray-100 my-2"></div>
+              <button class="flex items-center gap-2 text-sm text-red-600 hover:text-red-800 py-1 w-full text-right"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- بطاقات الإحصائيات -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 items-center text-center">
+          <div class="text-3xl text-primary bg-primary/10 rounded-full p-4 mb-2"><i class="fas fa-edit"></i></div>
+          <h3 class="text-base font-bold text-gray-700">إجمالي المقالات</h3>
+          <div class="text-2xl font-bold">485</div>
+          <div class="text-green-600 text-xs flex items-center gap-1 justify-center"><i class="fas fa-arrow-up"></i> +12% هذا الشهر</div>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 items-center text-center">
+          <div class="text-3xl text-green-700 bg-green-100 rounded-full p-4 mb-2"><i class="fas fa-users"></i></div>
+          <h3 class="text-base font-bold text-gray-700">إجمالي المستخدمين</h3>
+          <div class="text-2xl font-bold">1,249</div>
+          <div class="text-green-600 text-xs flex items-center gap-1 justify-center"><i class="fas fa-arrow-up"></i> +8% هذا الشهر</div>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 items-center text-center">
+          <div class="text-3xl text-yellow-600 bg-yellow-100 rounded-full p-4 mb-2"><i class="fas fa-comments"></i></div>
+          <h3 class="text-base font-bold text-gray-700">التعليقات</h3>
+          <div class="text-2xl font-bold">2,847</div>
+          <div class="text-green-600 text-xs flex items-center gap-1 justify-center"><i class="fas fa-arrow-up"></i> +15% هذا الشهر</div>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2 items-center text-center">
+          <div class="text-3xl text-blue-700 bg-blue-100 rounded-full p-4 mb-2"><i class="fas fa-eye"></i></div>
+          <h3 class="text-base font-bold text-gray-700">المشاهدات</h3>
+          <div class="text-2xl font-bold">45.2K</div>
+          <div class="text-red-600 text-xs flex items-center gap-1 justify-center"><i class="fas fa-arrow-down"></i> -3% هذا الشهر</div>
+        </div>
+      </section>
+      <!-- منطقة widgets أو الجداول -->
+      <section class="flex flex-col xl:flex-row gap-8">
+        <div class="flex-1 flex flex-col gap-8">
+          <div class="bg-white rounded-xl shadow p-6 min-h-[200px] flex items-center justify-center text-gray-400">ضع هنا الجداول أو الرسوم البيانية أو أي ملخص رئيسي</div>
+        </div>
+        <aside class="w-full xl:w-80 flex flex-col gap-6">
+          <section class="bg-white rounded-xl shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-lg text-primary">أحدث الأنشطة</h3>
+              <a href="#" class="text-gold text-sm hover:underline">عرض الكل</a>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start gap-3">
+                <div class="text-primary bg-primary/10 rounded-full p-2"><i class="fas fa-plus"></i></div>
+                <div>
+                  <p class="text-sm"><strong>أحمد محمد</strong> أضاف مقال جديد "أساسيات React"</p>
+                  <span class="text-xs text-gray-400">منذ 10 دقائق</span>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="text-green-700 bg-green-100 rounded-full p-2"><i class="fas fa-check"></i></div>
+                <div>
+                  <p class="text-sm"><strong>فاطمة علي</strong> وافقت على تعليق</p>
+                  <span class="text-xs text-gray-400">منذ 25 دقيقة</span>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="text-yellow-600 bg-yellow-100 rounded-full p-2"><i class="fas fa-edit"></i></div>
+                <div>
+                  <p class="text-sm"><strong>عمر الشامي</strong> عدّل مقال "ريادة الأعمال"</p>
+                  <span class="text-xs text-gray-400">منذ ساعة</span>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="text-blue-700 bg-blue-100 rounded-full p-2"><i class="fas fa-user-plus"></i></div>
+                <div>
+                  <p class="text-sm">انضم مستخدم جديد <strong>سارة أحمد</strong></p>
+                  <span class="text-xs text-gray-400">منذ ساعتين</span>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="text-red-600 bg-red-100 rounded-full p-2"><i class="fas fa-trash"></i></div>
+                <div>
+                  <p class="text-sm"><strong>المدير</strong> حذف تعليق مخالف</p>
+                  <span class="text-xs text-gray-400">منذ 3 ساعات</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="bg-white rounded-xl shadow p-6">
+            <div class="mb-4">
+              <h3 class="font-bold text-lg text-primary">روابط سريعة</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="#" class="flex flex-col items-center gap-1 p-3 bg-gold/10 rounded-lg hover:bg-gold/20 transition">
+                <i class="fas fa-plus text-xl text-gold"></i>
+                <span class="text-xs font-bold">مقال جديد</span>
+              </a>
+              <a href="#" class="flex flex-col items-center gap-1 p-3 bg-gold/10 rounded-lg hover:bg-gold/20 transition">
+                <i class="fas fa-tags text-xl text-gold"></i>
+                <span class="text-xs font-bold">إدارة الفئات</span>
+              </a>
+              <a href="#" class="flex flex-col items-center gap-1 p-3 bg-gold/10 rounded-lg hover:bg-gold/20 transition">
+                <i class="fas fa-user-plus text-xl text-gold"></i>
+                <span class="text-xs font-bold">إضافة مستخدم</span>
+              </a>
+              <a href="#" class="flex flex-col items-center gap-1 p-3 bg-gold/10 rounded-lg hover:bg-gold/20 transition">
+                <i class="fas fa-cog text-xl text-gold"></i>
+                <span class="text-xs font-bold">الإعدادات</span>
+              </a>
+              <a href="../index.html" class="flex flex-col items-center gap-1 p-3 bg-gold/10 rounded-lg hover:bg-gold/20 transition">
+                <i class="fas fa-eye text-xl text-gold"></i>
+                <span class="text-xs font-bold">عرض الموقع</span>
+              </a>
+              <a href="#" class="flex flex-col items-center gap-1 p-3 bg-gold/10 rounded-lg hover:bg-gold/20 transition">
+                <i class="fas fa-download text-xl text-gold"></i>
+                <span class="text-xs font-bold">نسخ احتياطي</span>
+              </a>
+            </div>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+  <script>
+    // Sidebar open/close logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const openSidebarBtn = document.getElementById('openSidebar');
+    const closeSidebarBtn = document.getElementById('closeSidebar');
+    const mainContent = document.getElementById('mainContent');
+
+    function openSidebar() {
+      sidebar.classList.remove('sidebar-collapsed');
+      sidebar.classList.add('sidebar-expanded');
+      sidebarOverlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      mainContent.classList.add('main-shifted');
+      mainContent.classList.remove('main-full');
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('sidebar-expanded');
+      sidebar.classList.add('sidebar-collapsed');
+      sidebarOverlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      mainContent.classList.remove('main-shifted');
+      mainContent.classList.add('main-full');
+    }
+    openSidebarBtn.addEventListener('click', openSidebar);
+    closeSidebarBtn.addEventListener('click', closeSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
+    // Responsive sidebar
+    function handleResize() {
+      if(window.innerWidth >= 1280) {
+        sidebar.classList.remove('sidebar-collapsed');
+        sidebar.classList.add('sidebar-expanded');
+        mainContent.classList.add('main-shifted');
+        mainContent.classList.remove('main-full');
+        sidebarOverlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      } else {
+        if (!sidebar.classList.contains('sidebar-expanded')) {
+          sidebar.classList.add('sidebar-collapsed');
+          mainContent.classList.remove('main-shifted');
+          mainContent.classList.add('main-full');
+        }
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    // Dropdowns
+const notificationBtn = document.getElementById('notificationBtn');
+const notificationDropdown = document.getElementById('notificationDropdown');
+const userBtn = document.getElementById('userBtn');
+const userDropdown = document.getElementById('userDropdown');
+    document.addEventListener('click', (e) => {
+      if (notificationBtn && notificationDropdown) {
+        if (notificationBtn.contains(e.target)) {
+  notificationDropdown.classList.toggle('hidden');
+          if (userDropdown) userDropdown.classList.add('hidden');
+        } else if (!notificationDropdown.contains(e.target)) {
+    notificationDropdown.classList.add('hidden');
+  }
+      }
+      if (userBtn && userDropdown) {
+        if (userBtn.contains(e.target)) {
+          userDropdown.classList.toggle('hidden');
+          if (notificationDropdown) notificationDropdown.classList.add('hidden');
+        } else if (!userDropdown.contains(e.target)) {
+    userDropdown.classList.add('hidden');
+  }
+      }
+});
+</script>
+</body>
+</html>

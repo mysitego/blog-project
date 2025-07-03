@@ -1,0 +1,569 @@
+/* ===================================================================
+   أنماط صفحة "من نحن"
+   =================================================================== */
+
+/* ===================================================================
+   قسم التعريف بالمدونة
+   =================================================================== */
+.about-intro {
+  padding: var(--spacing-16) 0;
+}
+
+.about-content h2 {
+  color: var(--primary-color);
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-6);
+}
+
+.about-content .lead {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-6);
+  line-height: 1.7;
+}
+
+.about-content p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-5);
+}
+
+.about-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+}
+
+.about-image img {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-normal);
+}
+
+.about-image img:hover {
+  transform: scale(1.02);
+}
+
+/* الإحصائيات */
+.stats-container {
+  display: flex;
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-number {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-2);
+}
+
+.stat-label {
+  font-size: var(--font-size-base);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ===================================================================
+   قسم الرؤية والرسالة
+   =================================================================== */
+.vision-mission {
+  padding: var(--spacing-16) 0;
+  background-color: var(--surface-color);
+  margin: var(--spacing-16) 0;
+  border-radius: var(--border-radius-lg);
+}
+
+.value-card {
+  text-align: center;
+  padding: var(--spacing-8);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.value-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-6);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  transition: transform var(--transition-normal);
+}
+
+.value-card:hover .value-icon {
+  transform: scale(1.1);
+}
+
+.value-card h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-xl);
+}
+
+.value-card p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ===================================================================
+   قسم الفريق
+   =================================================================== */
+.team-section {
+  padding: var(--spacing-16) 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-12);
+}
+
+.team-member {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8);
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.team-member::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.team-member:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+
+.member-image {
+  margin-bottom: var(--spacing-6);
+  position: relative;
+}
+
+.member-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--border-color);
+  transition: all var(--transition-normal);
+}
+
+.team-member:hover .member-photo {
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.member-name {
+  color: var(--primary-color);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-2);
+}
+
+.member-position {
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-base);
+}
+
+.member-bio {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-6);
+  font-size: var(--font-size-sm);
+}
+
+.member-social {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
+.member-social .social-link {
+  width: 40px;
+  height: 40px;
+  background-color: var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.member-social .social-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ===================================================================
+   قسم الإنجازات
+   =================================================================== */
+.achievements-section {
+  padding: var(--spacing-16) 0;
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  margin: var(--spacing-16) 0;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-12);
+}
+
+.achievement-card {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-6);
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+}
+
+.achievement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.achievement-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--spacing-4);
+  background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.achievement-card h4 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-lg);
+}
+
+.achievement-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+.achievement-year {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+/* ===================================================================
+   قسم الدعوة للعمل
+   =================================================================== */
+.cta-section {
+  padding: var(--spacing-16) 0;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, var(--primary-color), #0c4a35);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-12);
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-20px, -20px) rotate(5deg); }
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-content h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-6);
+  color: white;
+}
+
+.cta-content p {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-8);
+  opacity: 0.9;
+  line-height: 1.7;
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+.cta-actions .btn {
+  min-width: 200px;
+}
+
+/* ===================================================================
+   التصميم المتجاوب
+   =================================================================== */
+@media (max-width: 992px) {
+  .stats-container {
+    gap: var(--spacing-6);
+  }
+  
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-6);
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .about-intro {
+    padding: var(--spacing-12) 0;
+  }
+  
+  .about-intro .row {
+    flex-direction: column-reverse;
+  }
+  
+  .about-content {
+    margin-top: var(--spacing-6);
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    gap: var(--spacing-4);
+    text-align: center;
+  }
+  
+  .stat-item {
+    padding: var(--spacing-4);
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+  }
+  
+  .vision-mission {
+    padding: var(--spacing-8) var(--spacing-4);
+    margin: var(--spacing-8) 0;
+  }
+  
+  .value-card {
+    padding: var(--spacing-6);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .team-section {
+    padding: var(--spacing-12) 0;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+  
+  .achievements-section {
+    padding: var(--spacing-12) var(--spacing-4);
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-4);
+  }
+  
+  .cta-card {
+    padding: var(--spacing-8);
+  }
+  
+  .cta-content h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-content h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .about-content .lead {
+    font-size: var(--font-size-base);
+  }
+  
+  .stat-number {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .value-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .value-card h3 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .member-photo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .member-name {
+    font-size: var(--font-size-lg);
+  }
+  
+  .achievement-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .achievement-card h4 {
+    font-size: var(--font-size-base);
+  }
+  
+  .cta-content h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .cta-content p {
+    font-size: var(--font-size-base);
+  }
+  
+  .cta-actions .btn {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+/* ===================================================================
+   تحسينات للوصولية
+   =================================================================== */
+.team-member:focus-within,
+.value-card:focus-within,
+.achievement-card:focus-within {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 4px;
+}
+
+.member-social .social-link:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* تحسينات إضافية للتفاعل */
+.value-card,
+.team-member,
+.achievement-card {
+  cursor: default;
+}
+
+.value-card:hover .value-icon,
+.team-member:hover .member-photo,
+.achievement-card:hover .achievement-icon {
+  animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* تحسين النص في الوضع الليلي */
+[data-theme="dark"] .cta-card {
+  background: linear-gradient(135deg, var(--primary-color), #134e3a);
+}
+
+[data-theme="dark"] .achievement-year {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
