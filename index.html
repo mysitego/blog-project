@@ -1,581 +1,529 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" style="overflow-x:hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدونة المعرفة - اكتشف عالماً من المعرفة والإلهام</title>
     <meta name="description" content="مدونة عربية شاملة تغطي التكنولوجيا، الصحة، والأعمال. اكتشف محتوى ملهم ومفيد.">
-    
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
-    
-    <!-- Favicon -->
+    <!-- Tailwind CSS CDN with custom colors -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: '#0a2a1c', // أخضر داكن جداً (أقرب للأسود)
+                dark: '#05140d',
+                light: '#14532d',
+              },
+              gold: {
+                DEFAULT: '#bfa14a', // ذهبي أغمق وأكثر واقعية
+                dark: '#8c781c',
+                light: '#ffe7a3',
+                gradient: 'linear-gradient(90deg, #bfa14a 0%, #ffe7a3 100%)',
+              },
+              graybg: '#f6f6f6',
+            },
+            fontFamily: {
+              arabic: ["IBM Plex Sans Arabic", "IBM Plex Sans", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
     <link rel="icon" href="images/logo.png" type="image/jpeg">
-    
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: IBM Plex Sans Arabic & IBM Plex Sans -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif; }
+      /* تحسينات Responsive واحترافية إضافية */
+      @media (max-width: 768px) {
+        .hero-title { font-size: 2rem !important; }
+        .about-title, .section-title { font-size: 1.25rem !important; }
+        .footer-logo { width: 2.5rem !important; height: 2.5rem !important; }
+        .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+        .navbar-nav, .navbar-container { flex-direction: column !important; align-items: stretch !important; }
+        .navbar-brand { justify-content: center !important; width: 100%; }
+        .navbar-menu { justify-content: center !important; }
+        .nav-links { flex-direction: column !important; gap: 1rem !important; align-items: center !important; }
+        .navbar-tools { justify-content: center !important; margin-top: 1rem; }
+        .hero-content-wrapper, .hero-content { flex-direction: column !important; text-align: center !important; }
+        .hero-image-container, .hero-image { margin-bottom: 1.5rem !important; }
+        .hero-image { width: 90vw !important; max-width: 320px !important; margin: 0 auto !important; }
+        .hero-text { margin-bottom: 1.5rem !important; }
+        .hero-actions { flex-direction: column !important; gap: 0.75rem !important; }
+        .hero-actions a { width: 100% !important; justify-content: center !important; }
+        .about-content-wrapper, .creative-about-layout { flex-direction: column !important; align-items: center !important; }
+        .about-image-center { width: 90vw !important; max-width: 320px !important; margin-bottom: 1.5rem !important; }
+        .about-main-content { flex-direction: column !important; gap: 1rem !important; }
+        .about-card { width: 100% !important; margin: 0 !important; }
+        .categories-grid, .posts-grid { grid-template-columns: 1fr !important; }
+        .footer-content { flex-direction: column !important; gap: 2rem !important; align-items: center !important; }
+        .footer-section { width: 100% !important; text-align: center !important; }
+        .footer-bottom-content { flex-direction: column !important; gap: 1rem !important; align-items: center !important; }
+      }
+      @media (min-width: 641px) and (max-width: 1024px) {
+        .categories-grid, .posts-grid { grid-template-columns: 1fr 1fr !important; }
+        .about-image-center { width: 320px !important; height: 340px !important; }
+      }
+    </style>
+    <!-- تحسينات Responsive إضافية لجميع الشاشات -->
+    <style>
+      @media (max-width: 640px) {
+        .container, .about-image-center, .hero-image { padding-left: 1rem !important; padding-right: 1rem !important; }
+        .about-image-center, .hero-image { max-width: 95vw !important; }
+        .about-card, .category-card, .post-card { width: 100% !important; margin: 0 auto !important; }
+        .categories-grid, .posts-grid { grid-template-columns: 1fr !important; }
+        .footer-section { width: 100% !important; text-align: center !important; }
+      }
+      @media (min-width: 641px) and (max-width: 1024px) {
+        .categories-grid, .posts-grid { grid-template-columns: 1fr 1fr !important; }
+        .about-image-center, .hero-image { max-width: 340px !important; }
+      }
+      @media (min-width: 1025px) {
+        .categories-grid, .posts-grid { grid-template-columns: 1fr 1fr 1fr !important; }
+      }
+    </style>
+    <script>
+// قائمة جانبية للجوال (Drawer) - هيكل فقط
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-drawer');
+  if(menu) menu.classList.toggle('hidden');
+}
+</script>
 </head>
-<body>
-    <!-- المحتوى الرئيسي -->
-    <main>
-        <!-- قسم البطل (Hero Section) -->
-        <section class="hero-section hero-with-navbar improved-hero">
-            <!-- شريط التنقل الرئيسي -->
-            <header class="navbar">
-                <nav class="navbar-nav">
-                    <div class="container">
-                        <div class="navbar-container">
-                            <!-- الشعار -->
-                            <div class="navbar-brand">
-                                <a href="index.html" class="logo-link">
-                                    <img src="images/logo.png" alt="شعار المدونة" class="logo-img">
-                                    <span class="logo-text" data-translate="ريم محمد الجهني"> ريم محمد الجهني </span>
-                                </a>
-                            </div>
-                            
-                            <!-- قائمة التنقل -->
-                            <div class="navbar-menu" data-mobile-menu>
-                                <ul class="nav-links">
-                                    <li><a href="index.html" class="nav-link active" data-translate="home">الرئيسية</a></li>
-                                    <li><a href="blog.html" class="nav-link" data-translate="blog">المدونة</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-translate="categories">الفئات</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="blog.html?category=creative-writing" data-translate="creative-writing">الكتابة الإبداعية</a></li>
-                                            <li><a href="blog.html?category=content-writing" data-translate="content-writing">كتابة المحتوى</a></li>
-                                            <li><a href="blog.html?category=self-development" data-translate="self-development">تطوير الذات</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="about.html" class="nav-link" data-translate="about">من نحن</a></li>
-                                    <li><a href="contact.html" class="nav-link" data-translate="contact">اتصل بنا</a></li>
-                                </ul>
-                            </div>
-                            
-                            <!-- أدوات التحكم -->
-                            <div class="navbar-tools">
-                                <!-- زر CTA -->
-                                <a href="admin/login.html" class="btn btn-secondary btn-sm navbar-tool-btn">
-                                    <i class="fas fa-user-shield"></i>
-                                    <span data-translate="admin" class="btn-text">لوحة التحكم</span>
-                                </a>
-                                
-                                <!-- تبديل اللغة -->
-                                <button class="btn btn-outline btn-sm navbar-tool-btn" data-lang-toggle title="تغيير اللغة">
-                                    <i class="fas fa-language"></i>
-                                </button>
-                                
-                                <!-- تبديل الثيم -->
-                                <button class="btn btn-outline btn-sm navbar-tool-btn" data-theme-toggle title="تبديل الوضع الليلي">
-                                    <i class="fas fa-moon"></i>
-                                </button>
-                                
-                                <!-- قائمة الموبايل -->
-                                <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu" title="فتح القائمة الجانبية">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                            </div>
-                        </div>
+<body class="bg-white text-primary font-arabic min-h-screen flex flex-col overflow-x-hidden">
+    <main class="flex-1">
+        <!-- Hero Section -->
+        <section class="relative flex flex-col justify-center overflow-hidden max-w-full min-h-0 md:min-h-[420px] ">
+            <!-- SVG Abstract Background -->
+            <div class="absolute inset-0 z-0 pointer-events-none max-w-full overflow-x-hidden">
+                <svg width="100%" height="100%" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full max-w-full">
+                    <defs>
+                        <radialGradient id="circleGradient1" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.55"/>
+                            <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.38"/>
+                            <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.18"/>
+                        </radialGradient>
+                        <radialGradient id="circleGradient2" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.48"/>
+                            <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.32"/>
+                            <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.15"/>
+                        </radialGradient>
+                        <radialGradient id="circleGradient3" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.38"/>
+                            <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.28"/>
+                            <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.10"/>
+                        </radialGradient>
+                        <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stop-color="#bfa14a"/>
+                          <stop offset="100%" stop-color="#ffe7a3"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="-100" cy="300" r="300" stroke="url(#circleGradient1)" stroke-width="32" opacity="0.98"/>
+                    <circle cx="1300" cy="300" r="300" stroke="url(#circleGradient2)" stroke-width="24" opacity="0.98"/>
+                    <circle cx="600" cy="150" r="200" stroke="url(#circleGradient3)" stroke-width="18" opacity="0.93"/>
+                    <path d="M0 400 Q300 200 600 400 T1200 400" stroke="#0a2a1c" stroke-width="2" opacity="0.32" fill="none"/>
+                    <path d="M0 350 Q400 150 800 350 T1200 350" stroke="#0a2a1c" stroke-width="1.5" opacity="0.22" fill="none"/>
+                    <path d="M0 450 Q200 250 400 450 T800 450 T1200 450" stroke="#0a2a1c" stroke-width="1" opacity="0.18" fill="none"/>
+                </svg>
+                <div class="absolute inset-0 bg-primary/95 mix-blend-multiply"></div>
+            </div>
+            <!-- Navbar (unchanged) -->
+            <header class="relative z-10 border-b border-gold bg-transparent">
+                <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
+                    <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
+                        <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
+                        <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد الجهني</span>
+                    </a>
+                    <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
+                        <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow" style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
+                        <li><a href="blog.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">المدونة</a></li>
+                        <li class="relative group">
+                            <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
+                            <ul class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
+                                <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة الإبداعية</a></li>
+                                <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة المحتوى</a></li>
+                                <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير الذات</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
+                        <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li>
+                    </ul>
+                    <div class="hidden md:flex items-center gap-2 navbar-tools">
+                        <a href="admin/login.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
+                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
                     </div>
+                    <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية" onclick="toggleMobileMenu()">
+                        <span class="w-6 h-0.5 bg-gold"></span>
+                        <span class="w-6 h-0.5 bg-gold"></span>
+                        <span class="w-6 h-0.5 bg-gold"></span>
+                    </button>
                 </nav>
+                <!-- قائمة جانبية للجوال -->
+                <div id="mobile-drawer" class="fixed top-0 right-0 w-64 h-full bg-primary/95 z-50 shadow-lg hidden transition-all duration-300">
+                    <div class="flex flex-col gap-6 p-6">
+                        <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
+                        <a href="blog.html" class="text-white text-lg">المدونة</a>
+                        <a href="about.html" class="text-white text-lg">من نحن</a>
+                        <a href="contact.html" class="text-white text-lg">اتصل بنا</a>
+                        <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
+                        <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
+                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
+                        <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
+                    </div>
+                </div>
             </header>
-
-            <!-- خريطة التنقل -->
-            <!-- <div class="breadcrumb-section">
-                <nav class="breadcrumb">
-                    <a href="index.html" data-translate="home">الرئيسية</a>
-                    <i class="fas fa-chevron-left"></i>
-                    <span>الصفحة الرئيسية</span>
-                </nav>
-            </div> -->
-
-            <!-- <div class="hero-background improved-hero-bg">
-                <img src="images/hero-background.jpg" alt="صورة خلفية للبطل" class="hero-bg-img" loading="lazy">
-                <div class="hero-overlay"></div>
-            </div> -->
-            <div class="container hero-content-wrapper improved-hero-content-wrapper">
-                <div class="hero-content improved-hero-content">
-                    <div class="hero-text improved-hero-text">
-                        <h1 class="hero-title improved-hero-title" data-translate="discover-knowledge">
-                            ريم محمد: كاتبة مدونات ومحتوى إبداعي
-                        </h1>
-                        <p class="hero-description improved-hero-description">
-                            مرحباً بكم في مدونتي! هنا أشارككم أفكاري وخبراتي في عالم الكتابة الإبداعية، وأقدم محتوى يلهمكم ويثري معرفتكم.
-                        </p>
-                        <div class="hero-actions improved-hero-actions">
-                            <a href="blog.html" class="btn btn-secondary btn-lg">
-                                <i class="fas fa-book-open" aria-hidden="true"></i>
-                                <span data-translate="explore-articles">اكتشف مقالاتي</span>
-                            </a>
-                            <a href="#newsletter" class="btn btn-outline btn-lg">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <span data-translate="subscribe">اشترك في النشرة</span>
-                            </a>
-                        </div>
+            <!-- Hero Content -->
+            <div class="relative z-10 container mx-auto flex flex-col-reverse md:flex-row items-center gap-8 py-6 md:py-32   px-4 sm:px-6 md:px-8 max-w-full overflow-x-hidden">
+                <!-- Text -->
+                <div class="flex-1 space-y-6 text-center md:text-right md:pr-32">
+                    <h1 class="hero-title text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-4" style="text-shadow:0 2px 8px #000a">ريم محمد: كاتبة مدونات ومحتوى إبداعي</h1>
+                    <p class="text-lg text-gold-light mb-6 drop-shadow" style="text-shadow:0 1px 6px #000a">مرحباً بكم في مدونتي! هنا أشارككم أفكاري وخبراتي في عالم الكتابة الإبداعية، وأقدم محتوى يلهمكم ويثري معرفتكم.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="blog.html" class="px-6 py-2 rounded text-lg flex items-center gap-2 font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-book-open"></i> اكتشف مقالاتي</a>
+                        <a href="#newsletter" class="border-2 border-gold text-gold px-6 py-2 rounded text-lg flex items-center gap-2 font-bold hover:bg-gold/10 transition"><i class="fas fa-envelope"></i> اشترك في النشرة</a>
                     </div>
-                    <div class="hero-image-container improved-hero-image-container">
-                        <div class="hero-image improved-hero-image">
-                            <img src="images/hero.png" alt="صورة شخصية لريم محمد" class="img-fluid" loading="lazy">
-                            <div class="hero-image-overlays">
-                                <div class="writer-badge">
-                                    <i class="fas fa-pen-fancy" aria-hidden="true"></i>
-                                    <span>ريم محمد</span>
-                                </div>
-                                <!-- New Badges -->
-                                <div class="badge-overlay category-badge">
-                                    <i class="fas fa-tag" aria-hidden="true"></i>
-                                    <span data-translate="creative-writing">كتابة إبداعية</span>
-                                </div>
-                                <div class="badge-overlay posts-count-badge">
-                                    <i class="fas fa-newspaper" aria-hidden="true"></i>
-                                    <span>محتوى ملهم</span>
-                                </div>
-                                <div class="badge-overlay read-time-badge">
-                                    <i class="fas fa-clock" aria-hidden="true"></i>
-                                    <span>مدونة معرفية</span>
-                                </div>
-                            </div>
+                </div>
+                <!-- Hero Image -->
+                <div class="flex-1 flex justify-center items-center relative min-h-[320px] md:min-h-[420px] max-w-full">
+                    <div class="relative w-full max-w-xs sm:max-w-sm md:max-w-md h-80 md:h-[420px] flex items-end justify-center mx-auto">
+                        <img src="images/hero.png" alt="صورة شخصية لريم محمد" class="object-contain w-full h-full drop-shadow-2xl mx-auto" style="object-position: bottom;">
+                        <!-- Badges -->
+                        <div class="absolute bottom-4 right-4 bg-white/90 rounded px-3 py-1 flex items-center gap-2 shadow">
+                            <i class="fas fa-pen-fancy text-primary"></i>
+                            <span class="font-semibold text-primary">ريم محمد</span>
                         </div>
+                        <div class="absolute top-4 left-4 rounded px-2 py-1 flex items-center gap-1 text-primary text-xs shadow" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)"><i class="fas fa-tag"></i> كتابة إبداعية</div>
+                        <div class="absolute top-20 left-2 rounded px-2 py-1 flex items-center gap-1 text-primary text-xs shadow" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)"><i class="fas fa-newspaper"></i> محتوى ملهم</div>
+                        <div class="absolute bottom-2 left-8 rounded px-2 py-1 flex items-center gap-1 text-primary text-xs shadow" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)"><i class="fas fa-clock"></i> مدونة معرفية</div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- قسم عني (About Me) -->
-        <section class="about-section improved-about-section">
-            <div class="container about-content-wrapper">
-                <h2 class="about-title improved-section-title" data-translate="about-me">عن الكاتبة</h2>
-                <div class="about-main-content creative-about-layout">
-                    <!-- صورة الكاتبة كاملة بدون إطار -->
-                    <div class="about-image-center">
-                        <img src="images/hero.png" alt="صورة ريم محمد" class="about-image-full">
-                    </div>
-                    <!-- البطاقات الخمس حول الصورة -->
-                    <div class="about-card about-card-right-top">
-                        <h3>الإلهام</h3>
-                        <p>ريم تستمد إلهامها من تفاصيل الحياة اليومية وتؤمن أن كل تجربة تحمل قصة تستحق أن تُروى.</p>
-                    </div>
-                    <div class="about-card about-card-right-bottom">
-                        <h3>الخبرة</h3>
-                        <p>أكثر من 8 سنوات في مجال الكتابة الإبداعية وصناعة المحتوى الرقمي.</p>
-                    </div>
-                    <div class="about-card about-card-left-top">
-                        <h3>الإنجازات</h3>
-                        <p>حازت على جوائز في مسابقات أدبية، ونشرت مقالات في منصات عربية مرموقة.</p>
-                    </div>
-                    <div class="about-card about-card-left-bottom">
-                        <h3>الرؤية</h3>
-                        <p>تهدف ريم إلى تمكين القراء من تطوير ذواتهم واكتشاف شغفهم من خلال الكلمة.</p>
-                    </div>
-                    <div class="about-card about-card-bottom-right">
-                        <h3>الشغف</h3>
-                        <p>شغوفة بالتعلم المستمر ومشاركة المعرفة مع الآخرين بأسلوب بسيط وملهم.</p>
-                    </div>
-                    <div class="about-card about-card-bottom-lift">
-                        <h3>الشغف</h3>
-                        <p>شغوفة بالتعلم المستمر ومشاركة المعرفة مع الآخرين بأسلوب بسيط وملهم.</p>
-                    </div>
+        <!-- قسم عن الكاتبة مع تحسينات جمالية -->
+<section class="relative py-20" style="background:linear-gradient(135deg,#143325 70%,#cbb87c 100%);">
+  <!-- Abstract shapes -->
+  <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+    <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+      <circle cx="200" cy="100" r="120" fill="#cbb87c" fill-opacity="0.06"/>
+      <circle cx="1240" cy="220" r="90" fill="#cbb87c" fill-opacity="0.07"/>
+      <ellipse cx="700" cy="300" rx="180" ry="60" fill="#cbb87c" fill-opacity="0.05"/>
+    </svg>
+  </div>
+  <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 text-center drop-shadow-lg about-title" style="text-shadow:0 2px 8px #000a">عن الكاتبة</h2>
+    <div class="flex flex-col md:flex-row items-center gap-10 creative-about-layout justify-center">
+      <div class="flex-shrink-0 flex justify-center w-full md:w-auto about-image-center relative">
+        <!-- الدائرة الذهبية الخلفية -->
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-80 md:h-80 rounded-full bg-gold/20 blur-2xl z-0"></div>
+        <!-- صورة الكاتبة كبيرة وتخرج من الدائرة -->
+        <img src="images/hero.png" alt="صورة ريم محمد" class="w-56 h-56 md:w-80 md:h-80 rounded-3xl object-cover shadow-2xl relative z-10" style="max-width:100%;max-height:340px;object-position:center top;">
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 about-main-content">
+        <div class="bg-white/20 border border-gold/60 rounded-lg p-4 shadow about-card backdrop-blur-sm">
+          <h3 class="font-semibold text-gold mb-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الإلهام</h3>
+          <p class="text-white/90">ريم تستمد إلهامها من تفاصيل الحياة اليومية وتؤمن أن كل تجربة تحمل قصة تستحق أن تُروى.</p>
+        </div>
+        <div class="bg-white/20 border border-gold/60 rounded-lg p-4 shadow about-card backdrop-blur-sm">
+          <h3 class="font-semibold text-gold mb-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الخبرة</h3>
+          <p class="text-white/90">أكثر من 8 سنوات في مجال الكتابة الإبداعية وصناعة المحتوى الرقمي.</p>
+        </div>
+        <div class="bg-white/20 border border-gold/60 rounded-lg p-4 shadow about-card backdrop-blur-sm">
+          <h3 class="font-semibold text-gold mb-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الإنجازات</h3>
+          <p class="text-white/90">حازت على جوائز في مسابقات أدبية، ونشرت مقالات في منصات عربية مرموقة.</p>
+        </div>
+        <div class="bg-white/20 border border-gold/60 rounded-lg p-4 shadow about-card backdrop-blur-sm">
+          <h3 class="font-semibold text-gold mb-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الرؤية</h3>
+          <p class="text-white/90">تهدف ريم إلى تمكين القراء من تطوير ذواتهم واكتشاف شغفهم من خلال الكلمة.</p>
+        </div>
+        <div class="bg-white/20 border border-gold/60 rounded-lg p-4 shadow about-card backdrop-blur-sm">
+          <h3 class="font-semibold text-gold mb-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الشغف</h3>
+          <p class="text-white/90">شغوفة بالتعلم المستمر ومشاركة المعرفة مع الآخرين بأسلوب بسيط وملهم.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- موجة ذهبية تربط القسمين -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none z-10">
+    <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-20">
+      <path d="M0,40 Q360,80 720,40 T1440,40 V80 H0Z" fill="#cbb87c" fill-opacity="0.10"/>
+    </svg>
+  </div>
+</section>
+<!-- قسم الفئات الرئيسية مع تحسينات جمالية -->
+<section class="relative bg-gradient-to-b from-primary/90 via-primary/70 to-gold/10 py-16">
+  <!-- Abstract shapes -->
+  <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+    <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+      <ellipse cx="1240" cy="60" rx="100" ry="40" fill="#bfa14a" fill-opacity="0.10"/>
+      <ellipse cx="200" cy="220" rx="80" ry="30" fill="#bfa14a" fill-opacity="0.08"/>
+      <ellipse cx="700" cy="100" rx="160" ry="50" fill="#bfa14a" fill-opacity="0.07"/>
+    </svg>
+  </div>
+  <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+    <div class="section-header improved-section-header mb-8 text-center">
+      <h2 class="section-title improved-section-title text-2xl sm:text-3xl font-bold text-gold mb-2 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات الرئيسية</h2>
+      <p class="section-description improved-section-description text-base sm:text-lg text-white/90">اكتشف المحتوى حسب اهتماماتك</p>
+    </div>
+    <div class="grid categories-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <a href="blog.html?category=creative-writing" class="bg-green-950 border border-gold rounded-xl shadow-lg p-6 flex flex-col items-start hover:scale-105 hover:shadow-2xl hover:border-2 hover:border-gold transition-transform duration-200 category-card backdrop-blur-sm">
+        <div class="text-3xl text-gold mb-2"><i class="fas fa-feather-alt"></i></div>
+        <h3 class="font-semibold text-lg mb-1 text-gold">الكتابة الإبداعية</h3>
+        <p class="text-white/90 mb-2">استكشف عالم القصص، الشعر، والتعبير الأدبي الحر.</p>
+        <span class="text-xs text-gold bg-gold/10 rounded px-2 py-0.5 border border-gold">20 مقال</span>
+      </a>
+      <a href="blog.html?category=content-writing" class="bg-green-950 border border-gold rounded-xl shadow-lg p-6 flex flex-col items-start hover:scale-105 hover:shadow-2xl hover:border-2 hover:border-gold transition-transform duration-200 category-card backdrop-blur-sm">
+        <div class="text-3xl text-gold mb-2"><i class="fas fa-pen-nib"></i></div>
+        <h3 class="font-semibold text-lg mb-1 text-gold">كتابة المحتوى</h3>
+        <p class="text-white/90 mb-2">أساسيات كتابة المقالات، التسويق بالمحتوى، وصناعة النصوص المؤثرة.</p>
+        <span class="text-xs text-gold bg-gold/10 rounded px-2 py-0.5 border border-gold">18 مقال</span>
+      </a>
+      <a href="blog.html?category=self-development" class="bg-green-950 border border-gold rounded-xl shadow-lg p-6 flex flex-col items-start hover:scale-105 hover:shadow-2xl hover:border-2 hover:border-gold transition-transform duration-200 category-card backdrop-blur-sm">
+        <div class="text-3xl text-gold mb-2"><i class="fas fa-user-graduate"></i></div>
+        <h3 class="font-semibold text-lg mb-1 text-gold">تطوير الذات</h3>
+        <p class="text-white/90 mb-2">نصائح، أدوات، واستراتيجيات لتطوير الذات وتحقيق النجاح الشخصي.</p>
+        <span class="text-xs text-gold bg-gold/10 rounded px-2 py-0.5 border border-gold">15 مقال</span>
+      </a>
+    </div>
+  </div>
+</section>
+        <!-- Latest Posts Section -->
+        <section class="py-12">
+            <div class="container mx-auto">
+                <div class="mb-8 text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">أحدث المقالات</h2>
+                    <p class="text-primary/80">تابع آخر المحتوى المنشور</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- قسم الفئات الرئيسية -->
-        <section class="categories-section improved-categories-section">
-            <div class="container">
-                <div class="section-header improved-section-header">
-                    <h2 class="section-title improved-section-title" data-translate="الفئات الرئيسية">الفئات الرئيسية</h2>
-                    <p class="section-description improved-section-description">اكتشف المحتوى حسب اهتماماتك</p>
-                </div>
-                
-                <div class="categories-grid improved-categories-grid">
-                    <a href="blog.html?category=creative-writing" class="category-card improved-category-card">
-                       
-                        <div class="category-icon improved-category-icon">
-                            <i class="fas fa-feather-alt"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <article class="bg-white rounded-lg shadow p-4 flex flex-col">
+                        <div class="relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="الكتابة الإبداعية" class="rounded-lg w-full h-48 object-cover">
+                            <span class="absolute top-2 right-2 bg-gold text-primary text-xs rounded px-2 py-0.5">الكتابة الإبداعية</span>
                         </div>
-                        <div class="category-content improved-category-content">
-                            <h3 data-translate="creative-writing">الكتابة الإبداعية</h3>
-                            <p>استكشف عالم القصص، الشعر، والتعبير الأدبي الحر.</p>
-                            <div class="category-stats">
-                                <span class="posts-count">20 مقال</span>
+                        <div class="flex-1 flex flex-col">
+                            <div class="flex items-center gap-4 text-xs text-primary/50 mb-2">
+                                <span><i class="fas fa-calendar-alt"></i> 10 مايو 2024</span>
+                                <span><i class="fas fa-clock"></i> 6 دقائق</span>
                             </div>
-                        </div>
-                        <div class="category-arrow improved-category-arrow">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                    </a>
-                    
-                    <a href="blog.html?category=content-writing" class="category-card improved-category-card">
-                       
-                        <div class="category-icon improved-category-icon">
-                            <i class="fas fa-pen-nib"></i>
-                        </div>
-                        <div class="category-content improved-category-content">
-                            <h3 data-translate="content-writing">كتابة المحتوى</h3>
-                            <p>أساسيات كتابة المقالات، التسويق بالمحتوى، وصناعة النصوص المؤثرة.</p>
-                            <div class="category-stats">
-                                <span class="posts-count">18 مقال</span>
-                            </div>
-                        </div>
-                        <div class="category-arrow improved-category-arrow">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                    </a>
-                    
-                    <a href="blog.html?category=self-development" class="category-card improved-category-card">
-                       
-                        <div class="category-icon improved-category-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="category-content improved-category-content">
-                            <h3 data-translate="self-development">تطوير الذات</h3>
-                            <p>نصائح، أدوات، واستراتيجيات لتطوير الذات وتحقيق النجاح الشخصي.</p>
-                            <div class="category-stats">
-                                <span class="posts-count">15 مقال</span>
-                            </div>
-                        </div>
-                        <div class="category-arrow improved-category-arrow">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم أحدث المقالات -->
-        <section class="latest-posts-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title" data-translate="latest-posts">أحدث المقالات</h2>
-                    <p class="section-description">تابع آخر المحتوى المنشور</p>
-                </div>
-                
-                <div class="posts-grid" id="latest-posts">
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="الكتابة الإبداعية">
-                            <div class="post-category">
-                                <span class="badge badge-secondary" data-translate="creative-writing">الكتابة الإبداعية</span>
-                            </div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="post-date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    10 مايو 2024
-                                </span>
-                                <span class="post-read-time">
-                                    <i class="fas fa-clock"></i>
-                                    6 دقائق
-                                </span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="post-creative-writing.html">كيف تطلق العنان لإبداعك في الكتابة الأدبية</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                اكتشف أسرار الكتابة الإبداعية، وتعلم كيف تكتب قصة أو نصًا أدبيًا يلامس القلوب ويثير الخيال.
-                            </p>
-                            <div class="post-footer">
-                                <div class="post-author">
-                                    <span class="author-icon"><i class="fas fa-user-edit"></i></span>
-                                    <span>ريم محمد الجهني</span>
-                                </div>
-                                <a href="post-creative-writing.html" class="btn btn-secondary btn-sm" data-translate="read-more">
-                                    اقرأ المزيد
-                                </a>
+                            <h3 class="font-semibold text-lg mb-2"><a href="post-creative-writing.html" class="hover:text-primary">كيف تطلق العنان لإبداعك في الكتابة الأدبية</a></h3>
+                            <p class="text-primary/80 mb-4">اكتشف أسرار الكتابة الإبداعية، وتعلم كيف تكتب قصة أو نصًا أدبيًا يلامس القلوب ويثير الخيال.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="flex items-center gap-1 text-sm text-primary"><i class="fas fa-user-edit"></i> ريم محمد الجهني</div>
+                                <a href="post-creative-writing.html" class="bg-gold text-primary px-3 py-1 rounded text-xs hover:bg-gold-dark">اقرأ المزيد</a>
                             </div>
                         </div>
                     </article>
-                    
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="كتابة المحتوى">
-                            <div class="post-category">
-                                <span class="badge badge-secondary" data-translate="content-writing">كتابة المحتوى</span>
-                            </div>
+                    <article class="bg-white rounded-lg shadow p-4 flex flex-col">
+                        <div class="relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="كتابة المحتوى" class="rounded-lg w-full h-48 object-cover">
+                            <span class="absolute top-2 right-2 bg-gold text-primary text-xs rounded px-2 py-0.5">كتابة المحتوى</span>
                         </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="post-date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    8 مايو 2024
-                                </span>
-                                <span class="post-read-time">
-                                    <i class="fas fa-clock"></i>
-                                    5 دقائق
-                                </span>
+                        <div class="flex-1 flex flex-col">
+                            <div class="flex items-center gap-4 text-xs text-primary/50 mb-2">
+                                <span><i class="fas fa-calendar-alt"></i> 8 مايو 2024</span>
+                                <span><i class="fas fa-clock"></i> 5 دقائق</span>
                             </div>
-                            <h3 class="post-title">
-                                <a href="post-content-writing.html">دليلك لكتابة محتوى مؤثر وجذاب على الإنترنت</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                تعرف على خطوات كتابة محتوى احترافي يجذب القارئ ويحقق أهدافك التسويقية أو التعليمية.
-                            </p>
-                            <div class="post-footer">
-                                <div class="post-author">
-                                    <span class="author-icon"><i class="fas fa-user-edit"></i></span>
-                                    <span>ريم محمد الجهني</span>
-                                </div>
-                                <a href="post-content-writing.html" class="btn btn-secondary btn-sm" data-translate="read-more">
-                                    اقرأ المزيد
-                                </a>
+                            <h3 class="font-semibold text-lg mb-2"><a href="post-content-writing.html" class="hover:text-primary">دليلك لكتابة محتوى مؤثر وجذاب على الإنترنت</a></h3>
+                            <p class="text-primary/80 mb-4">تعرف على خطوات كتابة محتوى احترافي يجذب القارئ ويحقق أهدافك التسويقية أو التعليمية.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="flex items-center gap-1 text-sm text-primary"><i class="fas fa-user-edit"></i> ريم محمد الجهني</div>
+                                <a href="post-content-writing.html" class="bg-gold text-primary px-3 py-1 rounded text-xs hover:bg-gold-dark">اقرأ المزيد</a>
                             </div>
                         </div>
                     </article>
-                    
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80" alt="تطوير الذات">
-                            <div class="post-category">
-                                <span class="badge badge-secondary" data-translate="self-development">تطوير الذات</span>
-                            </div>
+                    <article class="bg-white rounded-lg shadow p-4 flex flex-col">
+                        <div class="relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80" alt="تطوير الذات" class="rounded-lg w-full h-48 object-cover">
+                            <span class="absolute top-2 right-2 bg-gold text-primary text-xs rounded px-2 py-0.5">تطوير الذات</span>
                         </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="post-date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    5 مايو 2024
-                                </span>
-                                <span class="post-read-time">
-                                    <i class="fas fa-clock"></i>
-                                    7 دقائق
-                                </span>
+                        <div class="flex-1 flex flex-col">
+                            <div class="flex items-center gap-4 text-xs text-primary/50 mb-2">
+                                <span><i class="fas fa-calendar-alt"></i> 5 مايو 2024</span>
+                                <span><i class="fas fa-clock"></i> 7 دقائق</span>
                             </div>
-                            <h3 class="post-title">
-                                <a href="post-self-development.html">خطوات عملية لتطوير الذات وتحقيق النجاح</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                اكتشف أهم استراتيجيات تطوير الذات، وكيف تضع خطة نجاح شخصي وتحقق أهدافك بثقة.
-                            </p>
-                            <div class="post-footer">
-                                <div class="post-author">
-                                    <span class="author-icon"><i class="fas fa-user-edit"></i></span>
-                                    <span>ريم محمد الجهني</span>
-                                </div>
-                                <a href="post-self-development.html" class="btn btn-secondary btn-sm" data-translate="read-more">
-                                    اقرأ المزيد
-                                </a>
+                            <h3 class="font-semibold text-lg mb-2"><a href="post-self-development.html" class="hover:text-primary">خطوات عملية لتطوير الذات وتحقيق النجاح</a></h3>
+                            <p class="text-primary/80 mb-4">اكتشف أهم استراتيجيات تطوير الذات، وكيف تضع خطة نجاح شخصي وتحقق أهدافك بثقة.</p>
+                            <div class="flex items-center justify-between mt-auto">
+                                <div class="flex items-center gap-1 text-sm text-primary"><i class="fas fa-user-edit"></i> ريم محمد الجهني</div>
+                                <a href="post-self-development.html" class="bg-gold text-primary px-3 py-1 rounded text-xs hover:bg-gold-dark">اقرأ المزيد</a>
                             </div>
                         </div>
                     </article>
                 </div>
-                
-                <div class="section-footer">
-                    <a href="blog.html" class="btn btn-primary btn-lg">
-                        <span data-translate="view-all-posts">عرض جميع المقالات</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
+                <div class="mt-8 text-center">
+                    <a href="blog.html" class="bg-gold text-primary px-8 py-2 rounded text-lg hover:bg-gold-dark inline-flex items-center gap-2">عرض جميع المقالات <i class="fas fa-arrow-left"></i></a>
                 </div>
             </div>
         </section>
+        <!-- Newsletter Section -->
+        <section class="newsletter-section py-16 bg-white/80 relative z-10" id="newsletter">
+  <div class="container mx-auto px-4 sm:px-6 md:px-8 flex flex-col items-center">
+    <div class="newsletter-card w-full max-w-2xl rounded-2xl shadow-xl bg-gradient-to-br from-white via-gold/10 to-white p-8 flex flex-col items-center gap-4">
+      <div class="newsletter-icon text-gold text-4xl mb-2"><i class="fas fa-envelope-open-text"></i></div>
+      <h2 class="newsletter-title text-2xl font-bold text-primary mb-2" data-translate="newsletter-signup">اشترك في النشرة الإخبارية</h2>
+      <p class="newsletter-description text-primary/80 mb-4">احصل على آخر المقالات والتحديثات مباشرة في بريدك الإلكتروني</p>
+      <form class="newsletter-form w-full flex flex-col sm:flex-row gap-3" data-contact-form>
+        <input type="email" class="form-control flex-1 rounded-lg border border-gold/40 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gold/60" placeholder="بريدك الإلكتروني" data-translate="email" required>
+        <button type="submit" class="btn btn-secondary rounded-lg px-6 py-2 text-lg font-semibold flex items-center gap-2">
+          <i class="fas fa-paper-plane"></i>
+          <span data-translate="subscribe">اشترك</span>
+        </button>
+      </form>
+      <small class="form-text text-xs text-primary/60 mt-2 flex items-center gap-1">
+        <i class="fas fa-shield-alt"></i>
+        لن نرسل لك رسائل مزعجة، ويمكنك إلغاء الاشتراك في أي وقت
+      </small>
+    </div>
+  </div>
+</section>
 
-        <!-- قسم الاشتراك في النشرة -->
-        <section class="newsletter-section" id="newsletter">
-            <div class="container">
-                <div class="newsletter-card">
-                    <div class="newsletter-content">
-                        <div class="newsletter-icon">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </div>
-                        <h2 class="newsletter-title" data-translate="newsletter-signup">
-                            اشترك في النشرة الإخبارية
-                        </h2>
-                        <p class="newsletter-description">
-                            احصل على آخر المقالات والتحديثات مباشرة في بريدك الإلكتروني
-                        </p>
-                        
-                        <form class="newsletter-form" data-contact-form>
-                            <div class="form-group-inline">
-                                <input type="email" class="form-control" placeholder="بريدك الإلكتروني" data-translate="email" required>
-                                <button type="submit" class="btn btn-secondary">
-                                    <i class="fas fa-paper-plane"></i>
-                                    <span data-translate="subscribe">اشترك</span>
-                                </button>
-                            </div>
-                            <small class="form-text">
-                                <i class="fas fa-shield-alt"></i>
-                                لن نرسل لك رسائل مزعجة، ويمكنك إلغاء الاشتراك في أي وقت
-                            </small>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- قسم آراء العملاء (Testimonials Slider) -->
+<section class="relative py-20 bg-gradient-to-b from-gold/10 via-white/80 to-gold/5">
+  <div class="container mx-auto px-4 sm:px-6 md:px-8">
+    <h2 class="text-2xl md:text-3xl font-bold text-primary text-center mb-10">آراء العملاء</h2>
+    <div id="testimonials-slider" class="relative flex flex-col items-center">
+      <!-- الأسهم -->
+      <button id="testimonial-prev" title="السابق" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gold/10 text-gold rounded-full p-2 opacity-40 hover:opacity-80 transition" style="right:2rem;">
+        <i class="fas fa-chevron-right text-2xl"></i>
+      </button>
+      <button id="testimonial-next" title="التالي" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gold/10 text-gold rounded-full p-2 opacity-40 hover:opacity-80 transition" style="left:2rem;">
+        <i class="fas fa-chevron-left text-2xl"></i>
+      </button>
+      <div class="flex items-center justify-center gap-4 md:gap-8 w-full">
+        <!-- الصورة السابقة -->
+        <div class="w-32 h-32 md:w-44 md:h-44 overflow-hidden border-4 border-gold/30 shadow-lg -mr-4 md:-mr-8 opacity-60 scale-90 transition-all duration-300 rounded-[18px] relative group" id="testimonial-prev-img">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&w=256&q=80&facepad=2" alt="عميل سابق" class="w-full h-full object-cover rounded-[18px] group-hover:scale-105 transition-all duration-300">
+          <div class="absolute top-0 left-0 w-8 h-8 bg-gold rounded-tr-[18px]" style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+        </div>
+        <!-- الصورة الحالية -->
+        <div class="w-56 h-56 md:w-72 md:h-72 overflow-hidden border-4 border-gold shadow-2xl z-10 transition-all duration-300 rounded-[22px] relative group" id="testimonial-current-img">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=facearea&w=400&q=80&facepad=2" alt="عميل حالي" class="w-full h-full object-cover rounded-[22px] group-hover:scale-105 transition-all duration-300">
+          <div class="absolute top-0 left-0 w-12 h-12 bg-gold rounded-tr-[22px]" style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+        </div>
+        <!-- الصورة التالية -->
+        <div class="w-32 h-32 md:w-44 md:h-44 overflow-hidden border-4 border-gold/30 shadow-lg -ml-4 md:-ml-8 opacity-60 scale-90 transition-all duration-300 rounded-[18px] relative group" id="testimonial-next-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&w=256&q=80&facepad=2" alt="عميل لاحق" class="w-full h-full object-cover rounded-[18px] group-hover:scale-105 transition-all duration-300">
+          <div class="absolute top-0 left-0 w-8 h-8 bg-gold rounded-tr-[18px]" style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+        </div>
+      </div>
+      <!-- التعليقات -->
+      <div class="flex items-center justify-center gap-4 mt-8 w-full">
+        <!-- التعليق السابق -->
+        <div class="hidden md:block w-1/4 text-center text-primary/60 text-base italic opacity-60 transition-all duration-300" id="testimonial-prev-text">
+          "مدونة رائعة ومحتوى ملهم!"
+        </div>
+        <!-- التعليق الحالي -->
+        <div class="w-full md:w-1/2 text-center text-lg md:text-xl text-primary font-semibold transition-all duration-300" id="testimonial-current-text">
+          "أفضل مدونة عربية للكتابة الإبداعية وتطوير الذات. أنصح بها بشدة!"
+        </div>
+        <!-- التعليق التالي -->
+        <div class="hidden md:block w-1/4 text-center text-primary/60 text-base italic opacity-60 transition-all duration-300" id="testimonial-next-text">
+          "مقالات مفيدة جدًا وأسلوب عرض احترافي."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+// Testimonials slider logic (بسيط)
+const testimonials = [
+  {
+    img: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=facearea&w=400&q=80&facepad=2',
+    text: '"أفضل مدونة عربية للكتابة الإبداعية وتطوير الذات. أنصح بها بشدة!"'
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&w=256&q=80&facepad=2',
+    text: '"مدونة رائعة ومحتوى ملهم!"'
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&w=256&q=80&facepad=2',
+    text: '"مقالات مفيدة جدًا وأسلوب عرض احترافي."'
+  }
+];
+let current = 0;
+let sliderInterval = null;
+function updateTestimonial() {
+  const prev = (current - 1 + testimonials.length) % testimonials.length;
+  const next = (current + 1) % testimonials.length;
+  document.getElementById('testimonial-current-img').querySelector('img').src = testimonials[current].img;
+  document.getElementById('testimonial-current-text').textContent = testimonials[current].text;
+  document.getElementById('testimonial-prev-img').querySelector('img').src = testimonials[prev].img;
+  document.getElementById('testimonial-prev-text').textContent = testimonials[prev].text;
+  document.getElementById('testimonial-next-img').querySelector('img').src = testimonials[next].img;
+  document.getElementById('testimonial-next-text').textContent = testimonials[next].text;
+}
+function nextTestimonial() {
+  current = (current + 1) % testimonials.length;
+  updateTestimonial();
+}
+function prevTestimonial() {
+  current = (current - 1 + testimonials.length) % testimonials.length;
+  updateTestimonial();
+}
+document.getElementById('testimonial-prev').onclick = function() {
+  prevTestimonial();
+  resetSliderInterval();
+};
+document.getElementById('testimonial-next').onclick = function() {
+  nextTestimonial();
+  resetSliderInterval();
+};
+function startSliderInterval() {
+  sliderInterval = setInterval(nextTestimonial, 5000);
+}
+function resetSliderInterval() {
+  clearInterval(sliderInterval);
+  startSliderInterval();
+}
+updateTestimonial();
+startSliderInterval();
+</script>
     </main>
-
-    <!-- التذييل -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-brand">
-                        <img src="images/logo.png" alt="شعار المدونة" class="footer-logo">
-                        <h3 data-translate="ريم محمد الجهني">مدونة المعرفة</h3>
-                        <p>منصة معرفية شاملة تهدف إلى نشر المحتوى المفيد والملهم</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4 data-translate="quick-links">روابط سريعة</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html" data-translate="home">الرئيسية</a></li>
-                        <li><a href="blog.html" data-translate="blog">المدونة</a></li>
-                        <li><a href="about.html" data-translate="about">من نحن</a></li>
-                        <li><a href="contact.html" data-translate="contact">اتصل بنا</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4 data-translate="categories">الفئات</h4>
-                    <ul class="footer-links">
-                        <li><a href="blog.html?category=creative-writing" data-translate="creative-writing">الكتابة الإبداعية</a></li>
-                        <li><a href="blog.html?category=content-writing" data-translate="content-writing">كتابة المحتوى</a></li>
-                        <li><a href="blog.html?category=self-development" data-translate="self-development">تطوير الذات</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4 data-translate="follow-us">تابعنا</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-link" title="فيسبوك">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link" title="تويتر">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link" title="لينكدإن">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="social-link" title="إنستغرام">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
+    <footer class="bg-primary text-gold py-8 mt-8">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 footer-content">
+            <div>
+                <img src="images/logo.png" alt="شعار المدونة" class="w-12 h-12 mb-2">
+                <h3 class="font-bold text-lg mb-1">مدونة المعرفة</h3>
+                <p class="text-sm">منصة معرفية شاملة تهدف إلى نشر المحتوى المفيد والملهم</p>
             </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2024 مدونة المعرفة. جميع الحقوق محفوظة.</p>
-                    <div class="footer-bottom-links">
-                        <a href="#">سياسة الخصوصية</a>
-                        <a href="#">شروط الاستخدام</a>
-                    </div>
+            <div>
+                <h4 class="font-semibold mb-2">روابط سريعة</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="index.html" class="hover:underline">الرئيسية</a></li>
+                    <li><a href="blog.html" class="hover:underline">المدونة</a></li>
+                    <li><a href="about.html" class="hover:underline">من نحن</a></li>
+                    <li><a href="contact.html" class="hover:underline">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-2">الفئات</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="blog.html?category=creative-writing" class="hover:underline">الكتابة الإبداعية</a></li>
+                    <li><a href="blog.html?category=content-writing" class="hover:underline">كتابة المحتوى</a></li>
+                    <li><a href="blog.html?category=self-development" class="hover:underline">تطوير الذات</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-2">تابعنا</h4>
+                <div class="flex gap-3 mt-2">
+                    <a href="#" class="hover:text-gold"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-gold"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-gold"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="hover:text-gold"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
+        <div class="container mx-auto px-4 sm:px-6 md:px-8 mt-8 border-t border-primary/20 pt-4 flex flex-col md:flex-row items-center justify-between text-sm footer-bottom-content">
+            <p>&copy; 2024 مدونة المعرفة. جميع الحقوق محفوظة.</p>
+            <div class="flex gap-4 mt-2 md:mt-0">
+                <a href="#" class="hover:underline">سياسة الخصوصية</a>
+                <a href="#" class="hover:underline">شروط الاستخدام</a>
+            </div>
+        </div>
     </footer>
-
-    <!-- JavaScript Files -->
-    <script src="js/main.js"></script>
-
-<style>
-#minimax-floating-ball {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 12px;
-  background: #222222;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  color: #F8F8F8;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  z-index: 9999;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-#minimax-floating-ball:hover {
-  transform: translateY(-2px);
-  background: #383838;
-}
-
-.minimax-ball-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.minimax-logo-wave {
-  width: 26px;
-  height: 22px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='22' viewBox='0 0 26 22' fill='none'%3E%3Cg clip-path='url(%23clip0_3442_102412)'%3E%3Cpath d='M12.8405 14.6775C12.8405 14.9897 13.0932 15.2424 13.4055 15.2424C13.7178 15.2424 13.9705 14.9897 13.9705 14.6775V2.98254C13.9705 1.88957 13.0809 1 11.9879 1C10.895 1 10.0054 1.88957 10.0054 2.98254V11.566V17.1068C10.0054 17.5773 9.62327 17.9594 9.1528 17.9594C8.68233 17.9594 8.30021 17.5773 8.30021 17.1068V8.04469C8.30021 6.95172 7.41063 6.06215 6.31767 6.06215C5.22471 6.06215 4.33513 6.95172 4.33513 8.04469V11.8855C4.33513 12.3559 3.953 12.7381 3.48254 12.7381C3.01207 12.7381 2.62994 12.3559 2.62994 11.8855V10.4936C2.62994 10.1813 2.37725 9.92861 2.06497 9.92861C1.7527 9.92861 1.5 10.1813 1.5 10.4936V11.8855C1.5 12.9784 2.38957 13.868 3.48254 13.868C4.5755 13.868 5.46508 12.9784 5.46508 11.8855V8.04469C5.46508 7.57422 5.8472 7.19209 6.31767 7.19209C6.78814 7.19209 7.17026 7.57422 7.17026 8.04469V17.1068C7.17026 18.1998 8.05984 19.0894 9.1528 19.0894C10.2458 19.0894 11.1353 18.1998 11.1353 17.1068V2.98254C11.1353 2.51207 11.5175 2.12994 11.9879 2.12994C12.4584 2.12994 12.8405 2.51207 12.8405 2.98254V14.6775Z' fill='%23F8F8F8'/%3E%3Cpath d='M23.3278 6.06215C22.2348 6.06215 21.3452 6.95172 21.3452 8.04469V15.6143C21.3452 16.0847 20.9631 16.4669 20.4926 16.4669C20.0222 16.4669 19.6401 16.0847 19.6401 15.6143V2.98254C19.6401 1.88957 18.7505 1 17.6575 1C16.5645 1 15.675 1.88957 15.675 2.98254V19.0175C15.675 19.4879 15.2928 19.8701 14.8224 19.8701C14.3519 19.8701 13.9698 19.4879 13.9698 19.0175V17.0329C13.9698 16.7206 13.7171 16.4679 13.4048 16.4679C13.0925 16.4679 12.8398 16.7206 12.8398 17.0329V19.0175C12.8398 20.1104 13.7294 21 14.8224 21C15.9153 21 16.8049 20.1104 16.8049 19.0175V2.98254C16.8049 2.51207 17.187 2.12994 17.6575 2.12994C18.128 2.12994 18.5101 2.51207 18.5101 2.98254V15.6143C18.5101 16.7072 19.3997 17.5968 20.4926 17.5968C21.5856 17.5968 22.4752 16.7072 22.4752 15.6143V8.04469C22.4752 7.57422 22.8573 7.19209 23.3278 7.19209C23.7982 7.19209 24.1804 7.57422 24.1804 8.04469V14.6775C24.1804 14.9897 24.4331 15.2424 24.7453 15.2424C25.0576 15.2424 25.3103 14.9897 25.3103 14.6775V8.04469C25.3103 6.95172 24.4207 6.06215 23.3278 6.06215Z' fill='%23F8F8F8'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_3442_102412'%3E%3Crect width='25' height='22' fill='white' transform='translate(0.5)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.minimax-ball-text {
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.minimax-close-icon {
-  margin-left: 8px;
-  font-size: 16px;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.minimax-close-icon:hover {
-  opacity: 1;
-}
-</style>
-
-<script>
-// Initialize floating ball functionality
-function initFloatingBall() {
-  const ball = document.getElementById('minimax-floating-ball');
-  if (!ball) return;
-
-  // Initial animation
-  ball.style.opacity = '0';
-  ball.style.transform = 'translateY(20px)';
-
-  setTimeout(() => {
-    ball.style.opacity = '1';
-    ball.style.transform = 'translateY(0)';
-  }, 500);
-
-  // Handle logo click
-  const ballContent = ball.querySelector('.minimax-ball-content');
-  ballContent.addEventListener('click', function (e) {
-    e.stopPropagation();
-    window.open('https://agent.minimax.io/agent', '_blank');
-    ball.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      ball.style.transform = 'scale(1)';
-    }, 100);
-  });
-
-  // Handle close button click
-  const closeIcon = ball.querySelector('.minimax-close-icon');
-  closeIcon.addEventListener('click', function (e) {
-    e.stopPropagation();
-    ball.style.opacity = '0';
-    ball.style.transform = 'translateY(20px)';
-
-    setTimeout(() => {
-      ball.style.display = 'none';
-    }, 300);
-  });
-}
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', initFloatingBall); 
-</script>
-
 </body>
-</html>
+</html> 

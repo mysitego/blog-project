@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محرر المقالات المتقدم | لوحة التحكم</title>
+    <meta name="description" content="محرر مقالات متقدم لإدارة محتوى المدونة">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'Cairo', 'Segoe UI', 'sans-serif']
+                    },
+                    colors: {
+                        primary: '#16a34a',
+                        accent: '#d946ef',
+                        secondary: '#eab308'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/a26u7uk5kczf03g4s40i7gb6r72ockbuxqllpe09e3zrvp49/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      // تهيئة TinyMCE باستخدام التكوين
+      tinymce.init({
+        selector: '#editor',
+        api_key: DASHBOARD_CONFIG.editor.apiKey,
+        directionality: 'rtl',
+        language: 'ar',
+        plugins: DASHBOARD_CONFIG.editor.plugins.join(' '),
+        toolbar: DASHBOARD_CONFIG.editor.toolbar,
+        height: DASHBOARD_CONFIG.editor.height,
+        branding: false,
+        menubar: false,
+        content_style: DASHBOARD_CONFIG.editor.contentStyle,
+        images_upload_url: DASHBOARD_CONFIG.app.uploadUrl,
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        image_caption: DASHBOARD_CONFIG.editor.imageCaption,
+        image_title: DASHBOARD_CONFIG.editor.imageTitle,
+        image_advtab: DASHBOARD_CONFIG.editor.imageAdvtab,
+        image_class_list: DASHBOARD_CONFIG.editor.imageClassList,
+        setup: function(editor) {
+          editor.on('change', function() {
+            editor.save();
+          });
+          
+          // إضافة زر معاينة
+          editor.ui.registry.addButton('preview', {
+            text: 'معاينة',
+            onAction: function() {
+              editor.windowManager.open({
+                title: 'معاينة المقال',
+                body: {
+                  type: 'panel',
+                  items: [{
+                    type: 'htmlpanel',
+                    html: '<div style="padding: 20px; border: 1px solid #ccc; border-radius: 8px; background: white;">' + editor.getContent() + '</div>'
+                  }]
+                },
+                buttons: [{
+                  type: 'cancel',
+                  text: 'إغلاق'
+                }],
+                size: 'large'
+              });
+            }
+          });
+        }
+      });
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      body { font-family: 'Tajawal', 'Cairo', 'Segoe UI', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen" dir="rtl">
+    <div class="max-w-4xl mx-auto py-10 px-4">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h1 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+                <i class="fas fa-pen-nib"></i>
+                محرر المقالات المتقدم
+            </h1>
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">عنوان المقال</label>
+                    <input type="text" class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2 text-lg" placeholder="اكتب عنوان المقال هنا..." title="عنوان المقال">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">الصورة البارزة</label>
+                    <input type="file" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-green-700" title="الصورة البارزة">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">الفئة</label>
+                        <select class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2" title="الفئة">
+                            <option>الكتابة الإبداعية</option>
+                            <option>كتابة المحتوى</option>
+                            <option>تطوير الذات</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">الكلمات المفتاحية</label>
+                        <input type="text" class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2" placeholder="مثال: إبداع، تطوير، محتوى..." title="الكلمات المفتاحية">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">الوصف التعريفي (Meta Description)</label>
+                    <textarea class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2" rows="2" placeholder="اكتب وصفاً مختصراً للمقال..." maxlength="160" title="الوصف التعريفي"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">عنوان URL المخصص (Slug)</label>
+                    <input type="text" class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2" placeholder="مثال: creative-writing-tips" title="عنوان URL المخصص">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">محتوى المقال</label>
+                    <textarea id="editor" title="محتوى المقال"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">حالة النشر</label>
+                        <select class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2" title="حالة النشر">
+                            <option>عام</option>
+                            <option>خاص</option>
+                            <option>محمي بكلمة مرور</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">كلمة المرور (إن وجد)</label>
+                        <input type="password" class="w-full rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2" placeholder="أدخل كلمة المرور إذا كان المقال محميًا" title="كلمة المرور">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button type="button" class="bg-primary text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-save"></i> حفظ كمسودة
+                    </button>
+                    <button type="button" class="bg-secondary text-white font-bold py-3 rounded-lg hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane"></i> نشر فوري
+                    </button>
+                    <button type="button" class="bg-accent text-white font-bold py-3 rounded-lg hover:bg-pink-700 transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-clock"></i> جدولة النشر
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

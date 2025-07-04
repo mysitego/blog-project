@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المستخدمين | لوحة التحكم</title>
+    <meta name="description" content="إدارة شاملة للمستخدمين والأدوار في لوحة التحكم">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#16a34a',
+                        accent: '#d946ef',
+                        secondary: '#eab308'
+                    },
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'Cairo', 'Segoe UI', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', 'Cairo', 'Segoe UI', sans-serif; }
+        .hover-lift { transition: transform 0.2s ease-in-out; }
+        .hover-lift:hover { transform: translateY(-2px); }
+        .role-admin { background-color: #fee2e2; color: #dc2626; }
+        .role-editor { background-color: #dbeafe; color: #2563eb; }
+        .status-active { background-color: #dcfce7; color: #16a34a; }
+        .status-inactive { background-color: #fee2e2; color: #dc2626; }
+        .status-pending { background-color: #fef3c7; color: #d97706; }
+        .modal { display: none; }
+        .modal.active { display: flex; }
+        .permission-item { transition: all 0.2s ease; }
+        .permission-item:hover { background-color: #f8fafc; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen" dir="rtl">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">إدارة المستخدمين</h1>
+                    <span class="mr-4 text-sm text-gray-500">1,249 مستخدم</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="addUserBtn" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                        <i class="fas fa-user-plus"></i>
+                        مستخدم جديد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
+                <div class="flex items-center">
+                    <div class="bg-red-100 p-3 rounded-lg">
+                        <i class="fas fa-user-shield text-red-600 text-xl"></i>
+                    </div>
+                    <div class="mr-4">
+                        <p class="text-sm text-gray-600">المدراء</p>
+                        <p class="text-2xl font-bold text-gray-900">3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
+                <div class="flex items-center">
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <i class="fas fa-user-edit text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="mr-4">
+                        <p class="text-sm text-gray-600">المحررون</p>
+                        <p class="text-2xl font-bold text-gray-900">12</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
+                <div class="flex items-center">
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="fas fa-users text-green-600 text-xl"></i>
+                    </div>
+                    <div class="mr-4">
+                        <p class="text-sm text-gray-600">إجمالي المستخدمين</p>
+                        <p class="text-2xl font-bold text-gray-900">1,249</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="lg:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">بحث في المستخدمين</label>
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="ابحث بالاسم أو البريد الإلكتروني..." class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2 pr-10">
+                        <button class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">الدور</label>
+                    <select id="roleFilter" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                        <option value="">جميع الأدوار</option>
+                        <option value="admin">مدير</option>
+                        <option value="editor">محرر</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">الحالة</label>
+                    <select id="statusFilter" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                        <option value="">جميع الحالات</option>
+                        <option value="active">نشط</option>
+                        <option value="inactive">غير نشط</option>
+                        <option value="pending">معلق</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-medium text-gray-900">قائمة المستخدمين</h3>
+                    <div class="flex items-center gap-2">
+                        <button id="bulkDeleteBtn" class="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50" style="display: none;">
+                            <i class="fas fa-trash"></i>
+                            حذف المحدد
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <input type="checkbox" id="selectAll" class="rounded border-gray-300 text-primary focus:ring-primary">
+                            </th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المستخدم</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الدور</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الصلاحيات</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الحالة</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">آخر تسجيل دخول</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">تاريخ التسجيل</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- سيتم ملء البيانات بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <button id="prevPageMobile" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">السابق</button>
+                    <button id="nextPageMobile" class="mr-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">التالي</button>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">عرض <span id="startRange" class="font-medium">1</span> إلى <span id="endRange" class="font-medium">10</span> من <span id="totalUsers" class="font-medium">1,249</span> مستخدم</p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <button id="prevPage" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">السابق</span><i class="fas fa-chevron-right"></i>
+                            </button>
+                            <div id="pageNumbers" class="flex">
+                                <!-- سيتم إنشاء أرقام الصفحات بواسطة JavaScript -->
+                            </div>
+                            <button id="nextPage" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">التالي</span><i class="fas fa-chevron-left"></i>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal إضافة/تعديل مستخدم -->
+    <div id="userModal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="modalTitle" class="text-lg font-medium text-gray-900">إضافة مستخدم جديد</h3>
+                    <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <form id="userForm" class="space-y-6">
+                    <input type="hidden" id="userId" name="userId">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">الاسم الأول *</label>
+                            <input type="text" id="firstName" name="firstName" required class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">الاسم الأخير *</label>
+                            <input type="text" id="lastName" name="lastName" required class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" required class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور *</label>
+                        <input type="password" id="password" name="password" required class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                        <p class="text-sm text-gray-500 mt-1">يجب أن تحتوي على 8 أحرف على الأقل</p>
+                    </div>
+
+                    <div>
+                        <label for="role" class="block text-sm font-medium text-gray-700 mb-2">الدور *</label>
+                        <select id="role" name="role" required class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                            <option value="">اختر الدور</option>
+                            <option value="admin">مدير</option>
+                            <option value="editor">محرر</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">الصلاحيات</label>
+                        <div id="permissionsContainer" class="space-y-3">
+                            <!-- سيتم ملء الصلاحيات بواسطة JavaScript -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">الحالة</label>
+                        <select id="status" name="status" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary px-4 py-2">
+                            <option value="active">نشط</option>
+                            <option value="inactive">غير نشط</option>
+                            <option value="pending">معلق</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-3 pt-4">
+                        <button type="button" id="cancelBtn" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            إلغاء
+                        </button>
+                        <button type="submit" id="saveBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-green-700 transition-colors">
+                            حفظ المستخدم
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal تأكيد الحذف -->
+    <div id="deleteModal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">تأكيد الحذف</h3>
+                <p class="text-sm text-gray-500 mb-6">هل أنت متأكد من حذف هذا المستخدم؟ لا يمكن التراجع عن هذا الإجراء.</p>
+                <div class="flex items-center justify-center gap-3">
+                    <button id="cancelDelete" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                        إلغاء
+                    </button>
+                    <button id="confirmDelete" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                        حذف
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="fixed top-4 left-4 z-50 space-y-2"></div>
+
+    <script>
+        // بيانات المستخدمين (محاكاة قاعدة البيانات)
+        let users = [
+            {
+                id: 1,
+                firstName: 'ريم',
+                lastName: 'محمد الجهني',
+                email: 'reem@example.com',
+                role: 'admin',
+                permissions: ['create_posts', 'edit_posts', 'delete_posts', 'view_posts', 'manage_users', 'manage_settings'],
+                status: 'active',
+                lastLogin: 'منذ 5 دقائق',
+                registeredAt: '15 يناير 2024',
+                avatar: '../images/avatar-1.png'
+            },
+            {
+                id: 2,
+                firstName: 'أحمد',
+                lastName: 'علي السعدي',
+                email: 'ahmed@example.com',
+                role: 'editor',
+                permissions: ['create_posts', 'edit_posts', 'view_posts'],
+                status: 'active',
+                lastLogin: 'منذ ساعة',
+                registeredAt: '10 يناير 2024',
+                avatar: '../images/avatar-2.jpg'
+            },
+            {
+                id: 3,
+                firstName: 'فاطمة',
+                lastName: 'محمد الزهراني',
+                email: 'fatima@example.com',
+                role: 'editor',
+                permissions: ['create_posts', 'edit_posts', 'view_posts'],
+                status: 'pending',
+                lastLogin: 'منذ يومين',
+                registeredAt: '5 يناير 2024',
+                avatar: '../images/avatar-1.png'
+            }
+        ];
+
+        // تعريف الصلاحيات
+        const permissions = {
+            create_posts: { name: 'إضافة المقالات', description: 'إنشاء مقالات جديدة' },
+            edit_posts: { name: 'تعديل المقالات', description: 'تعديل المقالات الموجودة' },
+            delete_posts: { name: 'حذف المقالات', description: 'حذف المقالات' },
+            view_posts: { name: 'عرض المقالات', description: 'عرض جميع المقالات' },
+            manage_users: { name: 'إدارة المستخدمين', description: 'إدارة المستخدمين والأدوار' },
+            manage_settings: { name: 'إدارة الإعدادات', description: 'تعديل إعدادات الموقع' }
+        };
+
+        // تعريف الأدوار والصلاحيات الافتراضية
+        const rolePermissions = {
+            admin: ['create_posts', 'edit_posts', 'delete_posts', 'view_posts', 'manage_users', 'manage_settings'],
+            editor: ['create_posts', 'edit_posts', 'view_posts']
+        };
+
+        let currentPage = 1;
+        const usersPerPage = 10;
+        let filteredUsers = [...users];
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUsers();
+            setupEventListeners();
+            updatePagination();
+        });
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // أزرار إضافة وتعديل
+            document.getElementById('addUserBtn').addEventListener('click', () => openUserModal());
+            document.getElementById('closeModal').addEventListener('click', closeUserModal);
+            document.getElementById('cancelBtn').addEventListener('click', closeUserModal);
+            document.getElementById('userForm').addEventListener('submit', handleUserSubmit);
+
+            // أزرار الحذف
+            document.getElementById('confirmDelete').addEventListener('click', confirmDeleteUser);
+            document.getElementById('cancelDelete').addEventListener('click', closeDeleteModal);
+
+            // البحث والتصفية
+            document.getElementById('searchInput').addEventListener('input', filterUsers);
+            document.getElementById('roleFilter').addEventListener('change', filterUsers);
+            document.getElementById('statusFilter').addEventListener('change', filterUsers);
+
+            // تحديد الكل
+            document.getElementById('selectAll').addEventListener('change', toggleSelectAll);
+
+            // تغيير الدور
+            document.getElementById('role').addEventListener('change', updatePermissions);
+
+            // التنقل بين الصفحات
+            document.getElementById('prevPage').addEventListener('click', () => changePage(-1));
+            document.getElementById('nextPage').addEventListener('click', () => changePage(1));
+            document.getElementById('prevPageMobile').addEventListener('click', () => changePage(-1));
+            document.getElementById('nextPageMobile').addEventListener('click', () => changePage(1));
+        }
+
+        // عرض المستخدمين
+        function renderUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const pageUsers = filteredUsers.slice(startIndex, endIndex);
+
+            tbody.innerHTML = pageUsers.map(user => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <input type="checkbox" class="user-checkbox rounded border-gray-300 text-primary focus:ring-primary" value="${user.id}">
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <img class="h-10 w-10 rounded-full" src="${user.avatar}" alt="">
+                            <div class="mr-4">
+                                <div class="text-sm font-medium text-gray-900">${user.firstName} ${user.lastName}</div>
+                                <div class="text-sm text-gray-500">${user.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium role-${user.role}">
+                            ${user.role === 'admin' ? 'مدير' : 'محرر'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-500">
+                            ${user.permissions.length} صلاحية
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium status-${user.status}">
+                            ${getStatusText(user.status)}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.lastLogin}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.registeredAt}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div class="flex items-center gap-2">
+                            <button onclick="editUser(${user.id})" class="text-primary hover:text-green-700" title="تعديل">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteUser(${user.id})" class="text-red-600 hover:text-red-900" title="حذف">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            // إضافة مستمعي الأحداث للـ checkboxes
+            document.querySelectorAll('.user-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', updateBulkActions);
+            });
+        }
+
+        // فتح نموذج إضافة/تعديل مستخدم
+        function openUserModal(userId = null) {
+            const modal = document.getElementById('userModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const form = document.getElementById('userForm');
+            const passwordField = document.getElementById('password');
+
+            if (userId) {
+                // تعديل مستخدم موجود
+                const user = users.find(u => u.id === userId);
+                if (user) {
+                    modalTitle.textContent = 'تعديل المستخدم';
+                    document.getElementById('userId').value = user.id;
+                    document.getElementById('firstName').value = user.firstName;
+                    document.getElementById('lastName').value = user.lastName;
+                    document.getElementById('email').value = user.email;
+                    document.getElementById('role').value = user.role;
+                    document.getElementById('status').value = user.status;
+                    passwordField.required = false;
+                    passwordField.placeholder = 'اتركها فارغة إذا لم ترد تغييرها';
+                }
+            } else {
+                // إضافة مستخدم جديد
+                modalTitle.textContent = 'إضافة مستخدم جديد';
+                form.reset();
+                document.getElementById('userId').value = '';
+                passwordField.required = true;
+                passwordField.placeholder = 'أدخل كلمة المرور';
+            }
+
+            updatePermissions();
+            modal.classList.add('active');
+        }
+
+        // إغلاق نموذج المستخدم
+        function closeUserModal() {
+            document.getElementById('userModal').classList.remove('active');
+        }
+
+        // تحديث الصلاحيات بناءً على الدور
+        function updatePermissions() {
+            const role = document.getElementById('role').value;
+            const container = document.getElementById('permissionsContainer');
+            
+            if (!role) {
+                container.innerHTML = '<p class="text-gray-500 text-sm">اختر دوراً أولاً لعرض الصلاحيات</p>';
+                return;
+            }
+
+            const defaultPermissions = rolePermissions[role] || [];
+            
+            container.innerHTML = Object.entries(permissions).map(([key, perm]) => `
+                <div class="permission-item flex items-center p-3 border border-gray-200 rounded-lg">
+                    <input type="checkbox" id="perm_${key}" name="permissions[]" value="${key}" 
+                           ${defaultPermissions.includes(key) ? 'checked' : ''}
+                           class="rounded border-gray-300 text-primary focus:ring-primary ml-3">
+                    <div>
+                        <label for="perm_${key}" class="text-sm font-medium text-gray-700 cursor-pointer">${perm.name}</label>
+                        <p class="text-xs text-gray-500">${perm.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // معالجة تقديم النموذج
+        function handleUserSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const userId = formData.get('userId');
+            const userData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                role: formData.get('role'),
+                status: formData.get('status'),
+                permissions: Array.from(formData.getAll('permissions[]'))
+            };
+
+            if (userId) {
+                // تحديث مستخدم موجود
+                updateExistingUser(parseInt(userId), userData);
+            } else {
+                // إضافة مستخدم جديد
+                addNewUser(userData);
+            }
+        }
+
+        // إضافة مستخدم جديد
+        function addNewUser(userData) {
+            const newUser = {
+                id: Math.max(...users.map(u => u.id)) + 1,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                role: userData.role,
+                permissions: userData.permissions,
+                status: userData.status,
+                lastLogin: 'لم يسجل دخول بعد',
+                registeredAt: new Date().toLocaleDateString('ar-SA'),
+                avatar: '../images/avatar-1.png'
+            };
+
+            users.push(newUser);
+            closeUserModal();
+            renderUsers();
+            updatePagination();
+            showToast('تم إضافة المستخدم بنجاح', 'success');
+        }
+
+        // تحديث مستخدم موجود
+        function updateExistingUser(userId, userData) {
+            const userIndex = users.findIndex(u => u.id === userId);
+            if (userIndex !== -1) {
+                users[userIndex] = {
+                    ...users[userIndex],
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    role: userData.role,
+                    permissions: userData.permissions,
+                    status: userData.status
+                };
+
+                closeUserModal();
+                renderUsers();
+                showToast('تم تحديث المستخدم بنجاح', 'success');
+            }
+        }
+
+        // تعديل مستخدم
+        function editUser(userId) {
+            openUserModal(userId);
+        }
+
+        // حذف مستخدم
+        function deleteUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                document.getElementById('deleteModal').classList.add('active');
+                document.getElementById('confirmDelete').onclick = () => {
+                    users = users.filter(u => u.id !== userId);
+                    closeDeleteModal();
+                    renderUsers();
+                    updatePagination();
+                    showToast('تم حذف المستخدم بنجاح', 'success');
+                };
+            }
+        }
+
+        // إغلاق نموذج الحذف
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+        }
+
+        // تأكيد حذف المستخدم
+        function confirmDeleteUser() {
+            // تم التعامل معه في deleteUser
+        }
+
+        // تصفية المستخدمين
+        function filterUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            filteredUsers = users.filter(user => {
+                const matchesSearch = !searchTerm || 
+                    user.firstName.toLowerCase().includes(searchTerm) ||
+                    user.lastName.toLowerCase().includes(searchTerm) ||
+                    user.email.toLowerCase().includes(searchTerm);
+                
+                const matchesRole = !roleFilter || user.role === roleFilter;
+                const matchesStatus = !statusFilter || user.status === statusFilter;
+
+                return matchesSearch && matchesRole && matchesStatus;
+            });
+
+            currentPage = 1;
+            renderUsers();
+            updatePagination();
+        }
+
+        // تحديد/إلغاء تحديد الكل
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('.user-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
+            });
+            
+            updateBulkActions();
+        }
+
+        // تحديث إجراءات الحذف المجمعة
+        function updateBulkActions() {
+            const checkedBoxes = document.querySelectorAll('.user-checkbox:checked');
+            const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+            
+            if (checkedBoxes.length > 0) {
+                bulkDeleteBtn.style.display = 'block';
+                bulkDeleteBtn.innerHTML = `<i class="fas fa-trash"></i> حذف المحدد (${checkedBoxes.length})`;
+            } else {
+                bulkDeleteBtn.style.display = 'none';
+            }
+        }
+
+        // تغيير الصفحة
+        function changePage(delta) {
+            const newPage = currentPage + delta;
+            const maxPage = Math.ceil(filteredUsers.length / usersPerPage);
+            
+            if (newPage >= 1 && newPage <= maxPage) {
+                currentPage = newPage;
+                renderUsers();
+                updatePagination();
+            }
+        }
+
+        // تحديث الترقيم
+        function updatePagination() {
+            const totalUsers = filteredUsers.length;
+            const maxPage = Math.ceil(totalUsers / usersPerPage);
+            const startRange = (currentPage - 1) * usersPerPage + 1;
+            const endRange = Math.min(currentPage * usersPerPage, totalUsers);
+
+            document.getElementById('startRange').textContent = startRange;
+            document.getElementById('endRange').textContent = endRange;
+            document.getElementById('totalUsers').textContent = totalUsers;
+
+            // تحديث أزرار التنقل
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === maxPage;
+            document.getElementById('prevPageMobile').disabled = currentPage === 1;
+            document.getElementById('nextPageMobile').disabled = currentPage === maxPage;
+
+            // إنشاء أرقام الصفحات
+            const pageNumbers = document.getElementById('pageNumbers');
+            pageNumbers.innerHTML = '';
+
+            for (let i = 1; i <= maxPage; i++) {
+                if (i === 1 || i === maxPage || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = `relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                        i === currentPage 
+                            ? 'bg-primary border-primary text-white' 
+                            : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                    }`;
+                    pageBtn.textContent = i;
+                    pageBtn.onclick = () => {
+                        currentPage = i;
+                        renderUsers();
+                        updatePagination();
+                    };
+                    pageNumbers.appendChild(pageBtn);
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700';
+                    ellipsis.textContent = '...';
+                    pageNumbers.appendChild(ellipsis);
+                }
+            }
+        }
+
+        // الحصول على نص الحالة
+        function getStatusText(status) {
+            const statusTexts = {
+                active: 'نشط',
+                inactive: 'غير نشط',
+                pending: 'معلق'
+            };
+            return statusTexts[status] || status;
+        }
+
+        // عرض إشعارات
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                warning: 'bg-yellow-500',
+                info: 'bg-blue-500'
+            };
+
+            toast.className = `${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full`;
+            toast.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            container.appendChild(toast);
+
+            // تحريك الإشعار
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 100);
+
+            // إزالة الإشعار
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => {
+                    container.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 
