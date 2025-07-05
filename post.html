@@ -26,66 +26,51 @@
 </head>
 <body>
     <!-- شريط التنقل الرئيسي -->
-    <header class="navbar">
-        <nav class="navbar-nav">
-            <div class="container">
-                <div class="navbar-container">
-                    <!-- الشعار -->
-                    <div class="navbar-brand">
-                        <a href="index.html" class="logo-link">
-                            <img src="images/logo.png" alt="شعار المدونة" class="logo-img">
-                            <span class="logo-text" data-translate="ريم محمد الجهني">مدونة المعرفة</span>
-                        </a>
-                    </div>
-                    
-                    <!-- قائمة التنقل -->
-                    <div class="navbar-menu" data-mobile-menu>
-                        <ul class="nav-links">
-                            <li><a href="index.html" class="nav-link" data-translate="home">الرئيسية</a></li>
-                            <li><a href="blog.html" class="nav-link active" data-translate="blog">المدونة</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-translate="categories">الفئات</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="blog.html?category=creative-writing" data-translate="creative-writing">الكتابة الإبداعية</a></li>
-                                    <li><a href="blog.html?category=tech" data-translate="technology">تكنولوجيا</a></li>
-                                    <li><a href="blog.html?category=health" data-translate="health">صحة</a></li>
-                                    <li><a href="blog.html?category=business" data-translate="business">أعمال</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="about.html" class="nav-link" data-translate="about">من نحن</a></li>
-                            <li><a href="contact.html" class="nav-link" data-translate="contact">اتصل بنا</a></li>
-                        </ul>
-                    </div>
-                    
-                    <!-- أدوات التحكم -->
-                    <div class="navbar-tools">
-                        <!-- زر CTA -->
-                        <a href="admin/login.html" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-user-shield"></i>
-                            <span data-translate="admin">لوحة التحكم</span>
-                        </a>
-                        
-                        <!-- تبديل اللغة -->
-                        <button class="btn btn-outline btn-sm" data-lang-toggle title="تغيير اللغة">
-                            <i class="fas fa-language"></i>
-                            <span>EN</span>
-                        </button>
-                        
-                        <!-- تبديل الثيم -->
-                        <button class="btn btn-outline btn-sm" data-theme-toggle title="الوضع الليلي">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                        
-                        <!-- قائمة الموبايل -->
-                        <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu" title="فتح القائمة الجانبية">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
+    <header class="relative z-10 border-b border-gold bg-transparent">
+        <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
+            <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
+                <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
+                <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد الجهني</span>
+            </a>
+            <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
+                <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow" style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
+                <li><a href="blog.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">المدونة</a></li>
+                <li class="relative group">
+                    <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
+                    <ul class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
+                        <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة الإبداعية</a></li>
+                        <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة المحتوى</a></li>
+                        <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير الذات</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
+                <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li>
+            </ul>
+            <div class="hidden md:flex items-center gap-2 navbar-tools">
+                <a href="admin/login.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
             </div>
+            <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية" onclick="toggleMobileMenu()">
+                <span class="w-6 h-0.5 bg-gold"></span>
+                <span class="w-6 h-0.5 bg-gold"></span>
+                <span class="w-6 h-0.5 bg-gold"></span>
+            </button>
         </nav>
+        <!-- قائمة جانبية للجوال -->
+        <div id="mobile-drawer" class="fixed top-0 right-0 w-64 h-full bg-primary/95 z-50 shadow-lg hidden transition-all duration-300">
+            <div class="flex flex-col gap-6 p-6">
+                <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
+                <a href="blog.html" class="text-white text-lg">المدونة</a>
+                <a href="about.html" class="text-white text-lg">من نحن</a>
+                <a href="contact.html" class="text-white text-lg">اتصل بنا</a>
+                <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
+                <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
+                <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
+            </div>
+        </div>
     </header>
 
     <!-- المحتوى الرئيسي -->
@@ -730,47 +715,133 @@ const postsData = [
     title: 'كيف تطلق العنان لإبداعك في الكتابة الأدبية',
     category: 'الكتابة الإبداعية',
     date: '10 مايو 2024',
-    readTime: '6 دقائق',
-    views: '1,250',
+    readTime: '7 دقائق',
+    views: '2,150',
     author: 'ريم محمد الجهني',
     authorTitle: 'كاتبة ومدونة',
     authorImg: 'images/avatar-1.png',
-    mainImg: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80',
-    mainImgCaption: 'الكتابة الإبداعية هي فن التعبير عن الذات وصناعة العوالم بالكلمات',
+    mainImg: 'images/blog-1.png',
+    mainImgCaption: 'الكتابة الأدبية هي فن تحويل المشاعر إلى كلمات تلامس القلوب.',
     content: `
       <div class="post-intro">
-        <p class="lead">الكتابة الإبداعية ليست مجرد كلمات تُسطر على الورق، بل هي رحلة لاكتشاف الذات، وبوابة لعالم من الخيال والمشاعر. في هذا المقال، سنستعرض أسرار الكتابة الإبداعية وكيفية إطلاق العنان لإبداعك الأدبي.</p>
+        <p class="lead font-bold text-lg text-primary/90">
+          الكتابة الأدبية ليست مجرد حروف تتراقص على الورق، بل هي نبض الروح حين تبوح، وجسرٌ بين الخيال والواقع. في هذا المقال، سنخوض معًا رحلة لاكتشاف أسرار الإبداع الأدبي، ونكشف كيف يمكن لكل منا أن يطلق العنان لقلمه ليكتب نصوصًا تلامس القلوب وتثير الدهشة.
+        </p>
       </div>
-      <h2>ما هي الكتابة الإبداعية؟</h2>
-      <p>الكتابة الإبداعية هي نوع من الكتابة يهدف إلى التعبير عن الأفكار والمشاعر بشكل فني وجذاب، وتشمل القصة القصيرة، الرواية، الشعر، والمقال الأدبي.</p>
-      <blockquote>"الإبداع لا حدود له، فقط أطلق خيالك ودع قلمك يرسم عوالم جديدة." — ريم محمد الجهني</blockquote>
-      <h2>خطوات لإطلاق العنان لإبداعك</h2>
-      <ol>
-        <li><strong>اقرأ كثيرًا:</strong> القراءة تغذي الخيال وتمنحك أفكارًا جديدة.</li>
-        <li><strong>اكتب يوميًا:</strong> حتى لو كانت نصوصًا قصيرة أو خواطر.</li>
-        <li><strong>لا تخف من التجربة:</strong> جرب أساليب جديدة واكتب عن مواضيع غير مألوفة.</li>
-        <li><strong>شارك كتاباتك:</strong> انشر نصوصك وتقبل النقد البناء.</li>
-        <li><strong>استلهم من الحياة:</strong> كل موقف أو شعور يمكن أن يكون بذرة لقصة رائعة.</li>
-      </ol>
-      <h2>فيديو ملهم عن الكتابة الإبداعية</h2>
-      <div class="video-embed" style="margin: 2rem 0; text-align: center;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/2qW8A3lU0gk" title="Creative Writing Inspiration" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <h2>نصائح ذهبية للكتابة الأدبية</h2>
+      <h2>ما معنى الكتابة الإبداعية؟</h2>
+      <p>
+        الكتابة الإبداعية هي فن التعبير عن الذات والأفكار والمشاعر بأسلوب فريد وجذاب. هي مساحة حرة لا تعترف بالحدود، تتيح للكاتب أن يرسم عوالمه الخاصة بالكلمات، سواء في قصة قصيرة، أو رواية، أو حتى مقالة أدبية.
+      </p>
+      <blockquote>
+        "الإبداع الأدبي هو أن تكتب ما لا يُقال، وتمنح القارئ فرصة أن يرى العالم بعينيك." — ريم محمد الجهني
+      </blockquote>
+      <h2>لماذا نكتب؟</h2>
       <ul>
-        <li>استخدم التشبيهات والاستعارات لإضفاء عمق على نصك.</li>
-        <li>اجعل شخصياتك واقعية وقريبة من القارئ.</li>
-        <li>راجع نصك أكثر من مرة واطلب رأي الآخرين.</li>
-        <li>لا تيأس من الرفض، فكل كاتب عظيم بدأ من الصفر.</li>
+        <li>لنعبر عن مشاعرنا وأحلامنا.</li>
+        <li>لنترك أثرًا في ذاكرة الآخرين.</li>
+        <li>لنحاور العالم ونغيّر وجهات النظر.</li>
+        <li>لنعالج جراحنا ونحتفل بانتصاراتنا.</li>
       </ul>
-      <h2>نماذج من كتاباتي</h2>
-      <p>"في زوايا الليل الهادئ، أبحث عن فكرة تهرب من ضجيج النهار، ألتقطها وأحولها إلى قصة تلامس القلوب."</p>
-      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="إلهام الكتابة" style="max-width: 100%; border-radius: 1rem; margin: 1.5rem 0;">
-      <h2>خاتمة</h2>
-      <p>الكتابة الإبداعية هي مساحة حرة للتعبير عن الذات وصناعة الجمال بالكلمات. لا تتردد في أن تبدأ رحلتك اليوم، فكل كلمة تكتبها تقربك أكثر من تحقيق حلمك الأدبي.</p>
-      <div style="margin-top:2.5rem; text-align:center;">
-        <a href="blog.html" class="btn btn-primary btn-lg">العودة لجميع المقالات</a>
+      <h2>خطوات عملية لإطلاق الإبداع في الكتابة</h2>
+      <ol>
+        <li><strong>اقرأ كثيرًا:</strong> القراءة هي وقود الخيال، وكل كتاب جديد يفتح لك نافذة على عالم مختلف.</li>
+        <li><strong>اكتب يوميًا:</strong> لا تنتظر الإلهام، بل اصنعه بالتمرين المستمر حتى لو بسطر واحد كل يوم.</li>
+        <li><strong>جرب أساليب متنوعة:</strong> اكتب قصة، خاطرة، رسالة، أو حتى نصًا ساخرًا. لا تخف من التجربة.</li>
+        <li><strong>شارك كتاباتك:</strong> انشر نصوصك في منصات مثل <a href="https://www.hindawi.org/books/" target="_blank">هنداوي</a> أو <a href="https://www.alukah.net/" target="_blank">الألوكة</a> وتقبل النقد البناء.</li>
+        <li><strong>استلهم من الحياة:</strong> كل موقف، كل شعور، كل حلم قد يكون بذرة لنص عظيم.</li>
+      </ol>
+      <div class="bg-gold/10 border-r-4 border-gold rounded-xl p-4 my-6">
+        <strong class="text-gold">نصيحة ذهبية:</strong> لا تكتب لترضي الجميع، بل اكتب لتكون صادقًا مع نفسك أولاً.
       </div>
+      <h2>تمرينات لتحفيز الإبداع</h2>
+      <ul>
+        <li>اكتب قصة قصيرة من 100 كلمة فقط عن لحظة غيرت حياتك.</li>
+        <li>صف مشهدًا من طفولتك دون استخدام كلمة "كنت".</li>
+        <li>اكتب رسالة إلى نفسك بعد عشر سنوات.</li>
+      </ul>
+      <h2>جدول مقارنة بين أنواع الكتابة الأدبية</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>النوع</th>
+            <th>السمات</th>
+            <th>أمثلة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>القصة القصيرة</td>
+            <td>مكثفة، تركز على حدث أو فكرة واحدة</td>
+            <td>"الطريق" لنجيب محفوظ</td>
+          </tr>
+          <tr>
+            <td>الرواية</td>
+            <td>أحداث وشخصيات متعددة، بناء عوالم</td>
+            <td>"ثلاثية غرناطة" لرضوى عاشور</td>
+          </tr>
+          <tr>
+            <td>الخاطرة</td>
+            <td>تعبير عن لحظة أو إحساس عابر</td>
+            <td>نصوص جبران خليل جبران</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>صورة تلهمك للكتابة</h2>
+      <figure>
+        <img src="images/blog-3.webp" alt="إلهام الكتابة" class="mb-2" />
+        <figcaption class="text-xs text-center text-gold">كل صورة تحمل قصة تنتظر أن تُروى</figcaption>
+      </figure>
+      <h2>فيديو تحفيزي عن الكتابة الأدبية</h2>
+      <div class="aspect-w-16 aspect-h-9 mb-4">
+        <iframe src="https://www.youtube.com/embed/8pUAnrVW0Lw" title="Creative Writing Inspiration" allowfullscreen class="w-full h-64 rounded-xl"></iframe>
+      </div>
+      <h2>روابط مفيدة للكتّاب</h2>
+      <ul>
+        <li><a href="https://www.arabwriters.ae/" target="_blank">رابطة الكتّاب العرب</a></li>
+        <li><a href="https://www.goodreads.com/quotes/tag/creative-writing" target="_blank">اقتباسات عن الكتابة الإبداعية</a></li>
+        <li><a href="https://www.wattpad.com/" target="_blank">منصة Wattpad للكتابة والنشر</a></li>
+      </ul>
+      <h2>أدوات رقمية تساعدك على الكتابة</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>الأداة</th>
+            <th>الوصف</th>
+            <th>الرابط</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Grammarly</td>
+            <td>تصحيح لغوي ونحوي فوري</td>
+            <td><a href="https://www.grammarly.com/" target="_blank">زيارة</a></td>
+          </tr>
+          <tr>
+            <td>Hemingway Editor</td>
+            <td>تحليل الأسلوب وتبسيط الجمل</td>
+            <td><a href="https://hemingwayapp.com/" target="_blank">زيارة</a></td>
+          </tr>
+          <tr>
+            <td>Notion</td>
+            <td>تنظيم الأفكار والمخطوطات</td>
+            <td><a href="https://www.notion.so/" target="_blank">زيارة</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>اقتباسات ملهمة</h2>
+      <blockquote>
+        "الكتابة هي أن تضيء شمعة في عتمة العالم." — أحلام مستغانمي
+      </blockquote>
+      <blockquote>
+        "كل نص تكتبه هو نافذتك الخاصة على الحياة." — مجهول
+      </blockquote>
+      <div class="bg-primary/5 border-r-4 border-primary rounded-xl p-4 my-6">
+        <strong class="text-primary">تنبيه:</strong> لا تقارن نفسك بالآخرين، فلكل كاتب طريقته وصوته الخاص.
+      </div>
+      <h2>خاتمة</h2>
+      <p>
+        الكتابة الإبداعية هي مساحة حرة للتعبير عن الذات وصناعة الجمال بالكلمات. لا تتردد في أن تبدأ رحلتك اليوم، فكل كلمة تكتبها تقربك أكثر من تحقيق حلمك الأدبي. شاركنا في التعليقات: ما هو أول نص إبداعي كتبته في حياتك؟
+      </p>
     `
   },
   {

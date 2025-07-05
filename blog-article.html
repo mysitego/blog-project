@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مقالة | مدونة المعرفة</title>
+  <meta name="description" content="عرض مقالة احترافية من مدونة المعرفة">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#0a2a1c',
+              dark: '#05140d',
+              light: '#14532d',
+            },
+            gold: {
+              DEFAULT: '#bfa14a',
+              dark: '#8c781c',
+              light: '#ffe7a3',
+            },
+            graybg: '#f6f6f6',
+          },
+          fontFamily: {
+            arabic: ["IBM Plex Sans Arabic", "IBM Plex Sans", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" href="images/logo.png" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-white text-primary font-arabic min-h-screen flex flex-col overflow-x-hidden">
+  <!-- شريط التنقل الرئيسي -->
+  <header class="relative z-10 border-b border-gold bg-primary">
+    <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
+      <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
+        <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
+        <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد الجهني</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
+        <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow" style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
+        <li><a href="blog.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">المدونة</a></li>
+        <li class="relative group">
+          <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
+          <ul class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
+            <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة الإبداعية</a></li>
+            <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة المحتوى</a></li>
+            <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير الذات</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
+        <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li>
+      </ul>
+      <div class="hidden md:flex items-center gap-2 navbar-tools">
+        <a href="admin/login.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
+        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
+      </div>
+      <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية" onclick="toggleMobileMenu()">
+        <span class="w-6 h-0.5 bg-gold"></span>
+        <span class="w-6 h-0.5 bg-gold"></span>
+        <span class="w-6 h-0.5 bg-gold"></span>
+      </button>
+    </nav>
+  </header>
+  <main class="container mx-auto px-4 sm:px-6 md:px-8 flex flex-col lg:flex-row gap-8 mt-8">
+    <!-- القسم الرئيسي -->
+    <section class="flex-1">
+      <!-- رأس المقالة -->
+      <header id="article-header" class="mb-8"></header>
+      <!-- صورة رئيسية -->
+      <figure id="article-featured-image" class="rounded-xl overflow-hidden shadow mb-8"></figure>
+      <!-- محتوى المقالة -->
+      <article id="article-content" class="prose prose-lg max-w-none font-arabic text-primary mb-12 prose-h2:text-xl prose-h2:font-bold prose-h3:text-lg prose-h3:font-bold prose-blockquote:bg-gold/10 prose-blockquote:border-r-4 prose-blockquote:border-gold prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-xl prose-blockquote:text-gold prose-table:w-full prose-table:rounded-xl prose-table:shadow prose-table:bg-white prose-th:bg-gold/10 prose-th:text-gold prose-td:text-primary prose-img:rounded-xl prose-img:shadow prose-a:text-gold prose-a:underline hover:prose-a:text-gold-dark"></article>
+      <!-- قسم التعليقات -->
+      <section id="comments-section" class="bg-graybg rounded-xl p-6 mb-10 mt-12"></section>
+    </section>
+    <!-- الشريط الجانبي -->
+    <aside class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-6">
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-bold text-gold mb-2">عن المدونة</h3>
+        <p class="text-primary/80 mb-2">مدونة المعرفة هي منصة تعليمية تهدف إلى نشر المحتوى المفيد والملهم في مختلف المجالات.</p>
+        <a href="about.html" class="text-gold hover:underline text-sm">اعرف المزيد</a>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-bold text-gold mb-2">الفئات</h3>
+        <ul class="flex flex-col gap-2">
+          <li><a href="blog.html?category=creative-writing" class="flex items-center gap-2 text-primary hover:text-gold"><i class="fas fa-feather-alt"></i> الكتابة الإبداعية</a></li>
+          <li><a href="blog.html?category=content-writing" class="flex items-center gap-2 text-primary hover:text-gold"><i class="fas fa-pen-nib"></i> كتابة المحتوى</a></li>
+          <li><a href="blog.html?category=self-development" class="flex items-center gap-2 text-primary hover:text-gold"><i class="fas fa-user-graduate"></i> تطوير الذات</a></li>
+        </ul>
+      </div>
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-bold text-gold mb-2">الوسوم</h3>
+        <div class="flex flex-wrap gap-2">
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">تطوير الويب</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">JavaScript</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">الصحة النفسية</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">ريادة الأعمال</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">التكنولوجيا</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">التعلم</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">الإنتاجية</a>
+          <a href="#" class="bg-gold/10 text-gold px-2 py-1 rounded text-xs hover:bg-gold/20">الذكاء الاصطناعي</a>
+        </div>
+      </div>
+    </aside>
+  </main>
+  <!-- الفوتر -->
+  <footer class="bg-primary text-gold py-8 mt-8">
+    <div class="container mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 footer-content">
+      <div>
+        <img src="images/logo.png" alt="شعار المدونة" class="w-12 h-12 mb-2">
+        <h3 class="font-bold text-lg mb-1">مدونة المعرفة</h3>
+        <p class="text-sm">منصة معرفية شاملة تهدف إلى نشر المحتوى المفيد والملهم</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">روابط سريعة</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="index.html" class="hover:underline">الرئيسية</a></li>
+          <li><a href="blog.html" class="hover:underline">المدونة</a></li>
+          <li><a href="about.html" class="hover:underline">من نحن</a></li>
+          <li><a href="contact.html" class="hover:underline">اتصل بنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">الفئات</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="blog.html?category=creative-writing" class="hover:underline">الكتابة الإبداعية</a></li>
+          <li><a href="blog.html?category=content-writing" class="hover:underline">كتابة المحتوى</a></li>
+          <li><a href="blog.html?category=self-development" class="hover:underline">تطوير الذات</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">تابعنا</h4>
+        <div class="flex gap-3 mt-2">
+          <a href="#" class="hover:text-gold"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-gold"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-gold"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="hover:text-gold"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 md:px-8 mt-8 border-t border-primary/20 pt-4 flex flex-col md:flex-row items-center justify-between text-sm footer-bottom-content">
+      <p>&copy; 2024 مدونة المعرفة. جميع الحقوق محفوظة.</p>
+      <div class="flex gap-4 mt-2 md:mt-0">
+        <a href="#" class="hover:underline">سياسة الخصوصية</a>
+        <a href="#" class="hover:underline">شروط الاستخدام</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script src="js/posts.js"></script>
+  <script>
+    // هنا يمكنك تضمين نفس منطق جلب المقالة من postsData حسب id من الرابط
+    // وتعبئة العناصر: article-header, article-featured-image, article-content, comments-section
+    // بنفس الأسلوب الديناميكي الموجود في post.html
+  </script>
+</body>
+</html> 
