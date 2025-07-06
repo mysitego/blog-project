@@ -94,6 +94,54 @@ function toggleMobileMenu() {
 </script>
 </head>
 <body class="bg-white text-primary font-arabic min-h-screen flex flex-col overflow-x-hidden">
+    <!-- شريط التنقل الرئيسي -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-primary border-b border-gold">
+        <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
+            <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
+                <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
+                <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد الجهني</span>
+            </a>
+            <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
+                <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow" style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
+                <li><a href="blog.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">المدونة</a></li>
+                <li class="relative group">
+                    <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
+                    <ul class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
+                        <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة الإبداعية</a></li>
+                        <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة المحتوى</a></li>
+                        <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير الذات</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
+                <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li>
+            </ul>
+            <div class="hidden md:flex items-center gap-2 navbar-tools">
+                <a href="admin/login.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
+            </div>
+            <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية" onclick="toggleMobileMenu()">
+                <span class="w-6 h-0.5 bg-gold"></span>
+                <span class="w-6 h-0.5 bg-gold"></span>
+                <span class="w-6 h-0.5 bg-gold"></span>
+            </button>
+        </nav>
+        <!-- قائمة جانبية للجوال -->
+        <div id="mobile-drawer" class="fixed top-0 left-0 w-full h-full bg-primary/95 z-[99999] shadow-lg hidden transition-all duration-300">
+            <div class="flex flex-col gap-6 p-6">
+                <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
+                <a href="blog.html" class="text-white text-lg">المدونة</a>
+                <a href="about.html" class="text-white text-lg">من نحن</a>
+                <a href="contact.html" class="text-white text-lg">اتصل بنا</a>
+                <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
+                <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
+                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
+                <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
+            </div>
+        </div>
+    </header>
+    <div class="pt-24"></div>
     <main class="flex-1">
         <!-- Hero Section -->
         <section class="relative flex flex-col justify-center overflow-hidden max-w-full min-h-0 md:min-h-[420px] ">
@@ -128,55 +176,8 @@ function toggleMobileMenu() {
                     <path d="M0 350 Q400 150 800 350 T1200 350" stroke="#0a2a1c" stroke-width="1.5" opacity="0.22" fill="none"/>
                     <path d="M0 450 Q200 250 400 450 T800 450 T1200 450" stroke="#0a2a1c" stroke-width="1" opacity="0.18" fill="none"/>
                 </svg>
-                <div class="absolute inset-0 bg-primary/95 mix-blend-multiply"></div>
+                <div class="absolute inset-0 bg-primary/95 mix-blend-multiply z-0"></div>
             </div>
-            <!-- Navbar (unchanged) -->
-            <header class="relative z-10 border-b border-gold bg-transparent">
-                <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
-                    <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
-                        <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
-                        <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد الجهني</span>
-                    </a>
-                    <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
-                        <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow" style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
-                        <li><a href="blog.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">المدونة</a></li>
-                        <li class="relative group">
-                            <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
-                            <ul class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
-                                <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة الإبداعية</a></li>
-                                <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة المحتوى</a></li>
-                                <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير الذات</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
-                        <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li>
-                    </ul>
-                    <div class="hidden md:flex items-center gap-2 navbar-tools">
-                        <a href="admin/login.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
-                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
-                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
-                    </div>
-                    <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية" onclick="toggleMobileMenu()">
-                        <span class="w-6 h-0.5 bg-gold"></span>
-                        <span class="w-6 h-0.5 bg-gold"></span>
-                        <span class="w-6 h-0.5 bg-gold"></span>
-                    </button>
-                </nav>
-                <!-- قائمة جانبية للجوال -->
-                <div id="mobile-drawer" class="fixed top-0 right-0 w-64 h-full bg-primary/95 z-50 shadow-lg hidden transition-all duration-300">
-                    <div class="flex flex-col gap-6 p-6">
-                        <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
-                        <a href="blog.html" class="text-white text-lg">المدونة</a>
-                        <a href="about.html" class="text-white text-lg">من نحن</a>
-                        <a href="contact.html" class="text-white text-lg">اتصل بنا</a>
-                        <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
-                        <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
-                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
-                        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
-                        <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
-                    </div>
-                </div>
-            </header>
             <!-- Hero Content -->
             <div class="relative z-10 container mx-auto flex flex-col-reverse md:flex-row items-center gap-8 py-6 md:py-32   px-4 sm:px-6 md:px-8 max-w-full overflow-x-hidden">
                 <!-- Text -->

@@ -41,7 +41,7 @@
 </head>
 <body class="bg-white text-primary font-arabic min-h-screen flex flex-col overflow-x-hidden">
     <!-- شريط التنقل الرئيسي -->
-    <header class="relative z-10 border-b border-gold bg-primary">
+    <header class="fixed top-0 left-0 w-full z-50 bg-primary border-b border-gold">
         <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
             <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
                 <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
@@ -62,7 +62,7 @@
                 <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li>
             </ul>
             <div class="hidden md:flex items-center gap-2 navbar-tools">
-                <a href="admin/login.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                <a href="Modrenboard/dashboard.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</a>
                 <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
                 <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
             </div>
@@ -73,20 +73,21 @@
             </button>
         </nav>
         <!-- قائمة جانبية للجوال -->
-        <div id="mobile-drawer" class="fixed top-0 right-0 w-64 h-full bg-primary/95 z-50 shadow-lg hidden transition-all duration-300">
+        <div id="mobile-drawer" class="fixed top-0 left-0 w-full h-full bg-primary/95 z-[99999] shadow-lg hidden transition-all duration-300">
             <div class="flex flex-col gap-6 p-6">
                 <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
                 <a href="blog.html" class="text-white text-lg">المدونة</a>
                 <a href="about.html" class="text-white text-lg">من نحن</a>
                 <a href="contact.html" class="text-white text-lg">اتصل بنا</a>
                 <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
-                <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
+                <a href="Modrenboard/dashboard.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</a>
                 <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
                 <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
                 <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
             </div>
         </div>
     </header>
+    <div class="pt-24"></div>
 
     <!-- خريطة التنقل -->
     <div class="container mx-auto px-4 sm:px-6 md:px-8 mt-6">
