@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-});
+}); 
 
 // دالة لعرض المقالة في blog-article.html
 function renderBlogArticlePage() {

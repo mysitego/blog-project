@@ -54,7 +54,8 @@
                         }
                     },
                     fontFamily: {
-                        'arabic': ['Tajawal', 'Cairo', 'Segoe UI', 'sans-serif']
+                        'arabic': ['Tajawal', 'Cairo', 'Segoe UI', 'sans-serif'],
+                        'english': ['Inter', 'Roboto', 'sans-serif']
                     }
                 }
             }
@@ -65,11 +66,110 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         body { 
             font-family: 'Tajawal', 'Cairo', 'Segoe UI', sans-serif; 
+        }
+        
+        .sidebar-transition { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        
+        .sidebar-collapsed { 
+            transform: translateX(100%); 
+        }
+        
+        .sidebar-expanded { 
+            transform: translateX(0); 
+        }
+        
+        .main-shifted { 
+            margin-right: 16rem; 
+        }
+        
+        .main-full { 
+            margin-right: 0; 
+        }
+        
+        /* تحسين التخطيط للشاشات الكبيرة */
+        @media (min-width: 1280px) {
+            .sidebar-overlay { 
+                display: none !important; 
+            }
+            .sidebar-collapsed { 
+                transform: translateX(0); 
+            }
+            .sidebar-expanded { 
+                transform: translateX(0); 
+            }
+            .main-shifted { 
+                margin-right: 16rem; 
+            }
+            .main-full { 
+                margin-right: 16rem; 
+            }
+        }
+        
+        /* تحسين التخطيط للشاشات الصغيرة */
+        @media (max-width: 1279px) {
+            .main-shifted { 
+                margin-right: 0; 
+            }
+            .main-full { 
+                margin-right: 0; 
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                z-index: 50;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .burger-btn { 
+                display: none !important; 
+            }
+        }
+        
+        @media (max-width: 1279px) {
+            .burger-btn { 
+                display: block !important; 
+            }
+        }
+        
+        /* تحسين التجاوب للجوال */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .search-container {
+                width: 100%;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* تحسين التجاوب للتابلت */
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         .hover-lift {
@@ -84,35 +184,217 @@
         .status-draft { background-color: #fef3c7; color: #92400e; }
         .status-pending { background-color: #dbeafe; color: #1e40af; }
         .status-private { background-color: #f3e8ff; color: #7c3aed; }
+        
+        .gradient-primary {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        }
+        
+        .gradient-secondary {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+        }
+        
+        .gradient-accent {
+            background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+        }
+        
+        .loading-spinner {
+            border: 2px solid #f3f4f6;
+            border-top: 2px solid #16a34a;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen" dir="rtl">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-6">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-gray-900">إدارة المقالات</h1>
-                    <span class="mr-4 text-sm text-gray-500">485 مقال</span>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-[9999]">
+        <div class="text-center">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-600 font-medium">جاري تحميل لوحة التحكم...</p>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="openSidebar" class="burger-btn fixed top-4 right-4 bg-primary-600 text-white rounded-full p-3 shadow-lg text-xl z-50 transition-all duration-300 hover:bg-primary-700 hover:scale-110" title="فتح القائمة">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div id="sidebarOverlay" class="sidebar-overlay fixed inset-0 hidden bg-black bg-opacity-50 z-40"></div>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar-transition bg-white border-l border-gray-200 w-64 flex flex-col justify-between shadow-xl sidebar-expanded">
+            <!-- Sidebar Header -->
+            <div>
+                <div class="flex items-center gap-3 p-6 border-b border-gray-200">
+                    <div class="relative">
+                        <img src="../images/logo.png" alt="شعار المدونة" class="w-12 h-12 rounded-lg shadow-md">
+                        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900">مدونة المعرفة</h3>
+                        <span class="text-xs text-primary-600 font-medium">لوحة التحكم الاحترافية</span>
+                    </div>
+                    <button class="mr-auto text-gray-400 hover:text-gray-600 text-xl focus:outline-none burger-btn transition-colors" id="closeSidebar" title="إغلاق القائمة">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <a href="article-editor.html" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2">
+
+                <!-- Navigation Menu -->
+                <nav class="flex-1 overflow-y-auto py-4">
+                    <ul class="flex flex-col gap-1 px-4" id="sidebarNav">
+                        <!-- سيتم ملء هذا القسم بواسطة JavaScript -->
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div class="relative">
+                        <img src="../images/avatar-1.png" alt="صورة المستخدم" class="w-10 h-10 rounded-full border-2 border-white shadow-md">
+                        <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium text-gray-900 text-sm truncate">ريم محمد الجهني</p>
+                        <p class="text-xs text-gray-500 truncate">كاتبة محتوى</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="mainContent" class="flex-1 transition-all duration-300 main-shifted py-6 px-4 max-w-[1440px] mx-auto flex flex-col gap-6">
+    <!-- Header -->
+            <header class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 p-6">
+                <div class="flex items-center gap-4">
+                    <div class="gradient-primary p-3 rounded-xl">
+                        <i class="fas fa-edit text-white text-xl"></i>
+                    </div>
+                    <div>
+                    <h1 class="text-2xl font-bold text-gray-900">إدارة المقالات</h1>
+                        <p class="text-gray-600">إدارة شاملة للمقالات والمحتوى</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-3 flex-wrap">
+                    <!-- Search -->
+                    <div class="relative">
+                        <input type="text" placeholder="بحث في المقالات..." class="rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-2 pr-10 text-sm w-48 lg:w-64 transition-all duration-200">
+                        <button class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600 transition-colors" title="بحث">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button class="relative text-xl text-gray-600 hover:text-primary-600 transition-colors p-2 rounded-xl hover:bg-gray-50" id="notificationBtn" title="الإشعارات">
+                            <i class="fas fa-bell"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">3</span>
+                        </button>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="relative">
+                        <button class="flex items-center gap-3 text-gray-700 hover:text-primary-600 transition-colors p-2 rounded-xl hover:bg-gray-50" id="userBtn">
+                            <img src="../images/avatar-1.png" alt="صورة المستخدم" class="w-8 h-8 rounded-full border-2 border-white shadow-sm">
+                            <span class="font-medium text-sm">ريم محمد</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- New Article Button -->
+                    <a href="article-editor.html" class="bg-primary-600 text-white px-4 py-2 rounded-xl hover:bg-primary-700 transition-colors flex items-center gap-2">
                     <i class="fas fa-plus"></i>
                     مقال جديد
                 </a>
-            </div>
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Statistics Cards -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 stats-grid">
+                <!-- Published Articles -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover-lift">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="gradient-primary p-3 rounded-xl">
+                            <i class="fas fa-check-circle text-white text-xl"></i>
+                        </div>
+                        <span class="text-green-600 text-xs font-medium bg-green-100 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-up mr-1"></i>+8%
+                        </span>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-medium mb-1">منشور</h3>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">342</div>
+                    <p class="text-xs text-gray-500">مقال منشور</p>
+                </div>
+
+                <!-- Draft Articles -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover-lift">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="gradient-secondary p-3 rounded-xl">
+                            <i class="fas fa-edit text-white text-xl"></i>
+                        </div>
+                        <span class="text-yellow-600 text-xs font-medium bg-yellow-100 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-up mr-1"></i>+12%
+                        </span>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-medium mb-1">مسودة</h3>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">89</div>
+                    <p class="text-xs text-gray-500">مقال في المسودة</p>
+                </div>
+
+                <!-- Pending Articles -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover-lift">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="gradient-accent p-3 rounded-xl">
+                            <i class="fas fa-clock text-white text-xl"></i>
+                        </div>
+                        <span class="text-blue-600 text-xs font-medium bg-blue-100 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-down mr-1"></i>-3%
+                        </span>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-medium mb-1">معلق</h3>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">23</div>
+                    <p class="text-xs text-gray-500">في انتظار المراجعة</p>
+                </div>
+
+                <!-- Total Views -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover-lift">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-blue-500 p-3 rounded-xl">
+                            <i class="fas fa-eye text-white text-xl"></i>
+                        </div>
+                        <span class="text-green-600 text-xs font-medium bg-green-100 px-2 py-1 rounded-full">
+                            <i class="fas fa-arrow-up mr-1"></i>+15%
+                        </span>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-medium mb-1">المشاهدات</h3>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">45.2K</div>
+                    <p class="text-xs text-gray-500">إجمالي المشاهدات</p>
+                </div>
+            </section>
+
         <!-- Filters and Search -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-6">البحث والتصفية</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 filters-grid">
                 <!-- Search -->
                 <div class="lg:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">بحث في المقالات</label>
                     <div class="relative">
-                        <input type="text" placeholder="ابحث بالعنوان أو المحتوى..." class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-2 pr-10">
-                        <button class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600">
+                            <input type="text" placeholder="ابحث بالعنوان أو المحتوى..." class="w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-3 pr-10">
+                            <button class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600 transition-colors" title="بحث">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -121,7 +403,7 @@
                 <!-- Category Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">الفئة</label>
-                    <select class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-2">
+                        <select class="w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-3">
                         <option value="">جميع الفئات</option>
                         <option value="creative-writing">الكتابة الإبداعية</option>
                         <option value="content-writing">كتابة المحتوى</option>
@@ -132,7 +414,7 @@
                 <!-- Status Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">الحالة</label>
-                    <select class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-2">
+                        <select class="w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-3">
                         <option value="">جميع الحالات</option>
                         <option value="published">منشور</option>
                         <option value="draft">مسودة</option>
@@ -143,11 +425,11 @@
             </div>
             
             <!-- Advanced Filters -->
-            <div class="mt-4 pt-4 border-t border-gray-200">
+                <div class="mt-6 pt-6 border-t border-gray-200">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">تاريخ النشر</label>
-                        <select class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-2">
+                            <select class="w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-3">
                             <option value="">جميع التواريخ</option>
                             <option value="today">اليوم</option>
                             <option value="week">هذا الأسبوع</option>
@@ -158,7 +440,7 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">ترتيب حسب</label>
-                        <select class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-2">
+                            <select class="w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 px-4 py-3">
                             <option value="newest">الأحدث</option>
                             <option value="oldest">الأقدم</option>
                             <option value="title">العنوان</option>
@@ -168,216 +450,155 @@
                     </div>
                     
                     <div class="flex items-end">
-                        <button class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
-                            <i class="fas fa-filter mr-2"></i>
+                            <button class="w-full bg-primary-600 text-white px-4 py-3 rounded-xl hover:bg-primary-700 transition-colors flex items-center justify-center gap-2">
+                                <i class="fas fa-filter"></i>
                             تطبيق الفلاتر
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Statistics Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
-                <div class="flex items-center">
-                    <div class="bg-green-100 p-3 rounded-lg">
-                        <i class="fas fa-check-circle text-green-600 text-xl"></i>
-                    </div>
-                    <div class="mr-4">
-                        <p class="text-sm text-gray-600">منشور</p>
-                        <p class="text-2xl font-bold text-gray-900">342</p>
                     </div>
                 </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
-                <div class="flex items-center">
-                    <div class="bg-yellow-100 p-3 rounded-lg">
-                        <i class="fas fa-edit text-yellow-600 text-xl"></i>
-                    </div>
-                    <div class="mr-4">
-                        <p class="text-sm text-gray-600">مسودة</p>
-                        <p class="text-2xl font-bold text-gray-900">89</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
-                <div class="flex items-center">
-                    <div class="bg-blue-100 p-3 rounded-lg">
-                        <i class="fas fa-clock text-blue-600 text-xl"></i>
-                    </div>
-                    <div class="mr-4">
-                        <p class="text-sm text-gray-600">معلق</p>
-                        <p class="text-2xl font-bold text-gray-900">23</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
-                <div class="flex items-center">
-                    <div class="bg-purple-100 p-3 rounded-lg">
-                        <i class="fas fa-lock text-purple-600 text-xl"></i>
-                    </div>
-                    <div class="mr-4">
-                        <p class="text-sm text-gray-600">خاص</p>
-                        <p class="text-2xl font-bold text-gray-900">31</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </section>
 
         <!-- Articles Table -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200">
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b border-gray-200">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-medium text-gray-900">قائمة المقالات</h3>
-                    <div class="flex items-center gap-2">
-                        <button class="text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100">
-                            <i class="fas fa-th-large"></i>
+                        <h3 class="text-lg font-bold text-gray-900">قائمة المقالات</h3>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm text-gray-500">485 مقال</span>
+                            <button class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                                <i class="fas fa-download mr-1"></i>
+                                تصدير
                         </button>
-                        <button class="text-primary-600 hover:text-primary-700 p-2 rounded-lg hover:bg-primary-50">
-                            <i class="fas fa-list"></i>
-                        </button>
-                    </div>
+                        </div>
                 </div>
             </div>
             
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                    <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                <input type="checkbox" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
-                            </th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المقال</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الفئة</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الحالة</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المشاهدات</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">التعليقات</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">تاريخ النشر</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الإجراءات</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">المقال</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">الفئة</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">الحالة</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">المشاهدات</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">التعليقات</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">التاريخ</th>
+                                <th class="px-6 py-4 text-right text-sm font-medium text-gray-900">الإجراءات</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <input type="checkbox" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <img class="h-10 w-10 rounded-lg object-cover" src="../images/blog-1.png" alt="">
-                                    <div class="mr-4">
-                                        <div class="text-sm font-medium text-gray-900">أسرار الكتابة الإبداعية</div>
-                                        <div class="text-sm text-gray-500">ريم محمد الجهني</div>
-                                    </div>
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- Article Row 1 -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="../images/blog-1.png" alt="صورة المقال" class="w-12 h-12 rounded-lg object-cover">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">أسرار الكتابة الإبداعية</h4>
+                                            <p class="text-xs text-gray-500">كيفية تطوير مهارات الكتابة الإبداعية</p>
+                                        </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                     الكتابة الإبداعية
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium status-published">
                                     منشور
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,234</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">منذ 3 أيام</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-4 text-sm text-gray-900">1,234</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">45</td>
+                                <td class="px-6 py-4 text-sm text-gray-500">منذ يومين</td>
+                                <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
-                                    <button class="text-primary-600 hover:text-primary-900" title="تعديل">
+                                        <button class="text-blue-600 hover:text-blue-700 transition-colors" title="تعديل">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-blue-600 hover:text-blue-900" title="معاينة">
+                                        <button class="text-green-600 hover:text-green-700 transition-colors" title="عرض">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="text-red-600 hover:text-red-900" title="حذف">
+                                        <button class="text-red-600 hover:text-red-700 transition-colors" title="حذف">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                         
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <input type="checkbox" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <img class="h-10 w-10 rounded-lg object-cover" src="../images/blog-2.png" alt="">
-                                    <div class="mr-4">
-                                        <div class="text-sm font-medium text-gray-900">تطوير الذات في العصر الرقمي</div>
-                                        <div class="text-sm text-gray-500">ريم محمد الجهني</div>
-                                    </div>
+                            <!-- Article Row 2 -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="../images/blog-2.png" alt="صورة المقال" class="w-12 h-12 rounded-lg object-cover">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">تطوير الذات في العصر الرقمي</h4>
+                                            <p class="text-xs text-gray-500">استراتيجيات تطوير الذات في عالم التكنولوجيا</p>
+                                        </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     تطوير الذات
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium status-draft">
                                     مسودة
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">منذ يوم</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-4 text-sm text-gray-900">0</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">0</td>
+                                <td class="px-6 py-4 text-sm text-gray-500">منذ أسبوع</td>
+                                <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
-                                    <button class="text-primary-600 hover:text-primary-900" title="تعديل">
+                                        <button class="text-blue-600 hover:text-blue-700 transition-colors" title="تعديل">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-blue-600 hover:text-blue-900" title="معاينة">
+                                        <button class="text-green-600 hover:text-green-700 transition-colors" title="عرض">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="text-red-600 hover:text-red-900" title="حذف">
+                                        <button class="text-red-600 hover:text-red-700 transition-colors" title="حذف">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                         
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <input type="checkbox" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <img class="h-10 w-10 rounded-lg object-cover" src="../images/blog-3.webp" alt="">
-                                    <div class="mr-4">
-                                        <div class="text-sm font-medium text-gray-900">كيفية كتابة محتوى جذاب</div>
-                                        <div class="text-sm text-gray-500">ريم محمد الجهني</div>
-                                    </div>
+                            <!-- Article Row 3 -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="../images/blog-3.webp" alt="صورة المقال" class="w-12 h-12 rounded-lg object-cover">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">كيفية كتابة محتوى جذاب</h4>
+                                            <p class="text-xs text-gray-500">نصائح لكتابة محتوى يجذب القراء</p>
+                                        </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                     كتابة المحتوى
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium status-pending">
                                     معلق
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">567</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">منذ أسبوع</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <td class="px-6 py-4 text-sm text-gray-900">567</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">23</td>
+                                <td class="px-6 py-4 text-sm text-gray-500">منذ 3 أيام</td>
+                                <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
-                                    <button class="text-primary-600 hover:text-primary-900" title="تعديل">
+                                        <button class="text-blue-600 hover:text-blue-700 transition-colors" title="تعديل">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-blue-600 hover:text-blue-900" title="معاينة">
+                                        <button class="text-green-600 hover:text-green-700 transition-colors" title="عرض">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="text-red-600 hover:text-red-900" title="حذف">
+                                        <button class="text-red-600 hover:text-red-700 transition-colors" title="حذف">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -388,73 +609,80 @@
             </div>
             
             <!-- Pagination -->
-            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                <div class="flex-1 flex justify-between sm:hidden">
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <div class="px-6 py-4 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-gray-500">
+                            عرض 1 إلى 10 من 485 نتيجة
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">
                         السابق
-                    </a>
-                    <a href="#" class="mr-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            </button>
+                            <button class="px-3 py-2 text-sm bg-primary-600 text-white rounded-lg">1</button>
+                            <button class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">2</button>
+                            <button class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">3</button>
+                            <button class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">
                         التالي
-                    </a>
-                </div>
-                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-sm text-gray-700">
-                            عرض
-                            <span class="font-medium">1</span>
-                            إلى
-                            <span class="font-medium">10</span>
-                            من
-                            <span class="font-medium">485</span>
-                            نتيجة
-                        </p>
+                            </button>
                     </div>
-                    <div>
-                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">السابق</span>
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                            <a href="#" class="bg-primary-50 border-primary-500 text-primary-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                1
-                            </a>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                2
-                            </a>
-                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                3
-                            </a>
-                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">التالي</span>
-                                <i class="fas fa-chevron-left"></i>
-                            </a>
-                        </nav>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
 
+    <!-- JavaScript Files -->
+    <script src="config.js"></script>
+    <script src="dashboard-utils.js"></script>
+    <script src="dashboard-navigation.js"></script>
+    
+    <!-- Page Specific JavaScript -->
     <script>
-        // Bulk actions functionality
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                console.log(`${checkedBoxes.length} مقالات محددة`);
+        // Hide loading overlay
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }, 1000);
+        });
+
+        // Initialize articles management
+        document.addEventListener('DOMContentLoaded', function() {
+            setupArticlesTable();
+            setupFilters();
+        });
+
+        function setupArticlesTable() {
+            // إضافة تأثيرات تفاعلية للجدول
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // إزالة التحديد من جميع الصفوف
+                    tableRows.forEach(r => r.classList.remove('bg-primary-50'));
+                    // تحديد الصف المحدد
+                    this.classList.add('bg-primary-50');
+                });
             });
-        });
+        }
 
-        // Search functionality
-        const searchInput = document.querySelector('input[placeholder="ابحث بالعنوان أو المحتوى..."]');
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            console.log(`البحث عن: ${searchTerm}`);
-        });
+        function setupFilters() {
+            // إعداد الفلاتر
+            const filterInputs = document.querySelectorAll('input, select');
+            filterInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // تطبيق الفلاتر
+                    console.log('تطبيق الفلاتر:', this.value);
+                });
+            });
+        }
 
-        // Filter functionality
-        document.querySelectorAll('select').forEach(select => {
-            select.addEventListener('change', function() {
-                console.log(`تم تغيير الفلتر: ${this.value}`);
+        // Add hover effects to cards
+        document.querySelectorAll('.hover-lift').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
             });
         });
     </script>

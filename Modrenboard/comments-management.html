@@ -105,7 +105,7 @@
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main id="mainContent" class="flex-1 transition-all duration-300 main-shifted py-6 px-4 max-w-[1440px] mx-auto flex flex-col gap-6">
         <!-- Statistics Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover-lift">
@@ -474,7 +474,39 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <aside id="sidebar" class="sidebar-transition bg-white border-l border-gray-200 w-64 flex flex-col justify-between shadow-xl sidebar-expanded">
+        <!-- Sidebar Content -->
+        <div class="p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">إدارة التعليقات</h3>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <i class="fas fa-comments text-primary-600 mr-3 text-lg"></i>
+                        إدارة التعليقات
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <i class="fas fa-chart-bar text-primary-600 mr-3 text-lg"></i>
+                        تقارير التعليقات
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
+                        <i class="fas fa-cog text-primary-600 mr-3 text-lg"></i>
+                        إعدادات التعليقات
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="p-6 border-t border-gray-200">
+            <p class="text-sm text-gray-700">
+                تطبيق لوحة التحكم لإدارة التعليقات.
+            </p>
+        </div>
+    </aside>
 
     <!-- Reply Modal -->
     <div id="replyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">

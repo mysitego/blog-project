@@ -86,7 +86,7 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen" dir="rtl">
-    <div class="max-w-4xl mx-auto py-10 px-4">
+    <main id="mainContent" class="flex-1 transition-all duration-300 main-shifted py-6 px-4 max-w-[1440px] mx-auto flex flex-col gap-6">
         <div class="bg-white rounded-2xl shadow-lg p-8">
             <h1 class="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
                 <i class="fas fa-pen-nib"></i>
@@ -154,6 +154,9 @@
                 </div>
             </form>
         </div>
-    </div>
+    </main>
+    <aside id="sidebar" class="sidebar-transition bg-white border-l border-gray-200 w-64 flex flex-col justify-between shadow-xl sidebar-expanded">
+        <!-- Sidebar content goes here -->
+    </aside>
 </body>
 </html> 

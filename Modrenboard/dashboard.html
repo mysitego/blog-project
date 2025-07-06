@@ -96,6 +96,7 @@
             margin-right: 0; 
         }
         
+        /* تحسين التخطيط للشاشات الكبيرة */
         @media (min-width: 1280px) {
             .sidebar-overlay { 
                 display: none !important; 
@@ -106,11 +107,28 @@
             .sidebar-expanded { 
                 transform: translateX(0); 
             }
+            .main-shifted { 
+                margin-right: 16rem; 
+            }
+            .main-full { 
+                margin-right: 16rem; 
+            }
         }
         
+        /* تحسين التخطيط للشاشات الصغيرة */
         @media (max-width: 1279px) {
             .main-shifted { 
                 margin-right: 0; 
+            }
+            .main-full { 
+                margin-right: 0; 
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                z-index: 50;
             }
         }
         
@@ -123,6 +141,31 @@
         @media (max-width: 1279px) {
             .burger-btn { 
                 display: block !important; 
+            }
+        }
+        
+        /* تحسين التجاوب للجوال */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .search-container {
+                width: 100%;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* تحسين التجاوب للتابلت */
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
@@ -180,7 +223,7 @@
 
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside id="sidebar" class="sidebar-transition bg-white border-l border-gray-200 w-64 flex flex-col justify-between shadow-xl fixed top-0 right-0 h-screen z-50 sidebar-expanded">
+        <aside id="sidebar" class="sidebar-transition bg-white border-l border-gray-200 w-64 flex flex-col justify-between shadow-xl sidebar-expanded">
             <!-- Sidebar Header -->
             <div>
                 <div class="flex items-center gap-3 p-6 border-b border-gray-200">
@@ -199,72 +242,8 @@
 
                 <!-- Navigation Menu -->
                 <nav class="flex-1 overflow-y-auto py-4">
-                    <ul class="flex flex-col gap-1 px-4">
-                        <!-- Dashboard -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium bg-primary-50 text-primary-700 border-r-4 border-primary-500">
-                                <i class="fas fa-tachometer-alt text-lg"></i>
-                                <span>لوحة التحكم</span>
-                            </a>
-                        </li>
-
-                        <!-- Articles Management -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-edit text-lg"></i>
-                                <span>المقالات</span>
-                                <span class="mr-auto bg-primary-100 text-primary-700 text-xs px-2 py-1 rounded-full">25</span>
-                            </a>
-                        </li>
-
-                        <!-- Categories -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-tags text-lg"></i>
-                                <span>الفئات</span>
-                            </a>
-                        </li>
-
-                        <!-- Comments -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-comments text-lg"></i>
-                                <span>التعليقات</span>
-                                <span class="mr-auto bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">12</span>
-                            </a>
-                        </li>
-
-                        <!-- Users -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-users text-lg"></i>
-                                <span>المستخدمون</span>
-                            </a>
-                        </li>
-
-                        <!-- Analytics -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-chart-line text-lg"></i>
-                                <span>الإحصائيات</span>
-                            </a>
-                        </li>
-
-                        <!-- Media -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-images text-lg"></i>
-                                <span>الوسائط</span>
-                            </a>
-                        </li>
-
-                        <!-- Settings -->
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700 transition-all duration-200">
-                                <i class="fas fa-cog text-lg"></i>
-                                <span>الإعدادات</span>
-                            </a>
-                        </li>
+                    <ul class="flex flex-col gap-1 px-4" id="sidebarNav">
+                        <!-- سيتم ملء هذا القسم بواسطة JavaScript -->
                     </ul>
                 </nav>
             </div>
@@ -467,7 +446,12 @@
         </main>
     </div>
 
-    <!-- JavaScript -->
+    <!-- JavaScript Files -->
+    <script src="config.js"></script>
+    <script src="dashboard-utils.js"></script>
+    <script src="dashboard-navigation.js"></script>
+    
+    <!-- Page Specific JavaScript -->
     <script>
         // Hide loading overlay
         window.addEventListener('load', function() {
@@ -476,24 +460,73 @@
             }, 1000);
         });
 
-        // Sidebar functionality
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const openSidebarBtn = document.getElementById('openSidebar');
-        const closeSidebarBtn = document.getElementById('closeSidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        // Initialize dashboard charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // إعداد الرسوم البيانية
+            if (typeof Chart !== 'undefined') {
+                setupDashboardCharts();
+            }
+            
+            // إعداد الإحصائيات التفاعلية
+            setupInteractiveStats();
+        });
 
-        function toggleSidebar() {
-            sidebar.classList.toggle('sidebar-collapsed');
-            sidebar.classList.toggle('sidebar-expanded');
-            mainContent.classList.toggle('main-shifted');
-            mainContent.classList.toggle('main-full');
-            sidebarOverlay.classList.toggle('hidden');
+        function setupDashboardCharts() {
+            // رسم بياني للمشاهدات الشهرية
+            const viewsCtx = document.getElementById('viewsChart');
+            if (viewsCtx) {
+                new Chart(viewsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                        datasets: [{
+                            label: 'المشاهدات',
+                            data: [12000, 19000, 15000, 25000, 22000, 30000],
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
         }
 
-        openSidebarBtn.addEventListener('click', toggleSidebar);
-        closeSidebarBtn.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
+        function setupInteractiveStats() {
+            // إضافة تأثيرات تفاعلية للإحصائيات
+            const statCards = document.querySelectorAll('.hover-lift');
+            statCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // إظهار تفاصيل الإحصائيات
+                    const title = this.querySelector('h3').textContent;
+                    if (window.DashboardNav) {
+                        window.DashboardNav.showToast(`عرض تفاصيل ${title}`, 'info');
+                    }
+                });
+            });
+        }
 
         // Add hover effects to cards
         document.querySelectorAll('.hover-lift').forEach(card => {
