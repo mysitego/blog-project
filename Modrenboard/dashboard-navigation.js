@@ -151,20 +151,31 @@ class DashboardNavigation {
         const mainContent = document.getElementById('mainContent');
 
         if (openBtn) {
-            openBtn.addEventListener('click', () => this.openMobileMenu());
+            openBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.openMobileMenu();
+            });
         }
 
         if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.closeMobileMenu());
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.closeMobileMenu();
+            });
         }
 
         if (overlay) {
-            overlay.addEventListener('click', () => this.closeMobileMenu());
+            overlay.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.closeMobileMenu();
+            });
         }
 
         // إغلاق القائمة عند النقر خارجها
         document.addEventListener('click', (e) => {
             if (window.innerWidth < 1280 && 
+                sidebar && 
+                openBtn &&
                 !sidebar.contains(e.target) && 
                 !openBtn.contains(e.target) && 
                 sidebar.classList.contains('sidebar-expanded')) {
@@ -177,6 +188,8 @@ class DashboardNavigation {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
         const mainContent = document.getElementById('mainContent');
+        
+        if (!sidebar || !overlay || !mainContent) return;
 
         sidebar.classList.remove('sidebar-collapsed');
         sidebar.classList.add('sidebar-expanded');
@@ -189,6 +202,8 @@ class DashboardNavigation {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
         const mainContent = document.getElementById('mainContent');
+        
+        if (!sidebar || !overlay || !mainContent) return;
 
         sidebar.classList.add('sidebar-collapsed');
         sidebar.classList.remove('sidebar-expanded');
