@@ -1,8 +1,0 @@
-@media (max-width: 640px) {
-  /* تخصيصات إضافية للجوال */
-  .hero-title { font-size: 1.5rem !important; }
-  .about-title { font-size: 1.25rem !important; }
-  .section-title { font-size: 1.25rem !important; }
-  .footer-logo { width: 2.5rem !important; height: 2.5rem !important; }
-  .container { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
-} 

@@ -1,8 +1,0 @@
-@media (min-width: 641px) and (max-width: 1024px) {
-  /* تخصيصات إضافية للتابلت */
-  .hero-title { font-size: 2rem !important; }
-  .about-title { font-size: 1.5rem !important; }
-  .section-title { font-size: 1.5rem !important; }
-  .footer-logo { width: 3rem !important; height: 3rem !important; }
-  .container { padding-left: 1rem !important; padding-right: 1rem !important; }
-} 

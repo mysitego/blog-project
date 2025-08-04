@@ -2,5 +2,6 @@
     "liveServer.settings.port": 5501,
     "refactai.addressURL": "http://127.0.0.1:8008/",
     "refactai.apiKey": "x2jgqUDSzkxLkpcc4oFKAykI",
-    "refactai.completionMaxTokens": 15000
+    "refactai.completionMaxTokens": 15000,
+    "html.autoClosingTags": false
 }
