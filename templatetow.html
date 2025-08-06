@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قالب صفحة هبوط لليوم الوطني</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Local Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Saudi';
+            src: url('Saudi/Saudi-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Saudi';
+            src: url('Saudi/Saudi-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Saudi';
+            src: url('Saudi/Saudi-SemiBold.ttf') format('truetype');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Saudi';
+            src: url('Saudi/Saudi-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'IBM Plex Sans Arabic';
+            src: url('IBMPlexSansArabi/IBMPlexSansArabic-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'IBM Plex Sans Arabic';
+            src: url('IBMPlexSansArabi/IBMPlexSansArabic-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'IBM Plex Sans Arabic';
+            src: url('IBMPlexSansArabi/IBMPlexSansArabic-SemiBold.ttf') format('truetype');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'IBM Plex Sans Arabic';
+            src: url('IBMPlexSansArabi/IBMPlexSansArabic-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+    </style>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Base Styles & Font Application */
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        /* Saudi Font for Main Headings */
+        h1,
+        h2,
+        .saudi-font {
+            font-family: 'Saudi', 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        /* Custom Colors based on the strategy */
+        :root {
+            --saudi-green: #006c35;
+            --dark-blue: #0a2342;
+            --gold: #d4af37;
+            --saudi-white: #ffffff;
+            --light-green: #e8f5e8;
+        }
+
+        /* Saudi National Day Theme */
+        .saudi-pattern {
+            background: linear-gradient(45deg, var(--saudi-green) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--saudi-green) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--saudi-green) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--saudi-green) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            opacity: 0.1;
+        }
+
+        /* Saudi Flag Colors Gradient */
+        .saudi-gradient {
+            background: linear-gradient(135deg, var(--saudi-green) 0%, var(--dark-blue) 100%);
+        }
+
+        /* Gold Accent Elements */
+        .gold-accent {
+            position: relative;
+        }
+
+        .gold-accent::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--gold), transparent, var(--gold));
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        /* Hero Section Background */
+        .hero-bg {
+            background-image: linear-gradient(rgba(5, 70, 64, 0.235), rgba(10, 59, 20, 0.116)), url('bg95.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FAQ Accordion Styling */
+        .faq-item[open] .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-item summary {
+            cursor: pointer;
+        }
+
+        /* Exit Intent Popup */
+        #exit-intent-popup {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- =========== Hero Section =========== -->
+    <section class="hero-bg min-h-screen flex flex-col items-center justify-center text-white p-4">
+        <div class="text-center max-w-4xl mx-auto">
+            <img src="logo.png" alt="شعار اليوم الوطني السعودي - هي لنا دار" class="mx-auto mb-6 w-48 h-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in-up">عروض <span
+                    style="color: var(--gold);">استثنائية</span> بمناسبة فخر الوطن</h1>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto fade-in-up" style="transition-delay: 150ms;">احتفل معنا
+                باليوم الوطني 95 واحصل على خصومات حصرية على أفضل منتجاتنا. العرض لفترة محدودة!</p>
+
+            <!-- Countdown Timer -->
+            <div id="countdown" class="grid grid-cols-4 gap-4 max-w-md mx-auto mb-8 text-center fade-in-up"
+                style="transition-delay: 300ms;">
+                <div>
+                    <div id="days" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span
+                        class="text-sm">أيام</span>
+                </div>
+                <div>
+                    <div id="hours" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span
+                        class="text-sm">ساعات</span>
+                </div>
+                <div>
+                    <div id="minutes" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span
+                        class="text-sm">دقائق</span>
+                </div>
+                <div>
+                    <div id="seconds" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span
+                        class="text-sm">ثواني</span>
+                </div>
+            </div>
+
+            <a href="#offer"
+                class="bg-white text-green-700 font-bold text-xl px-12 py-4 rounded-full shadow-lg hover:bg-gray-200 hover:scale-105 transform transition-all duration-300 ease-in-out fade-in-up"
+                style="transition-delay: 450ms;">
+                اكتشف العرض الآن!
+            </a>
+        </div>
+    </section>
+
+    <!-- =========== Value Proposition Section =========== -->
+    <section class="py-16 sm:py-24 bg-white relative">
+        <div class="saudi-pattern absolute inset-0"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--dark-blue);">لماذا تختارنا؟</h2>
+            <p class="max-w-2xl mx-auto text-gray-600 mb-12">نقدم لك قيمة حقيقية تتجاوز توقعاتك.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="fade-in-up">
+                    <div class="p-6 bg-green-50 rounded-full inline-block mb-4"><i class="fas fa-star text-3xl"
+                            style="color: var(--gold);"></i></div>
+                    <h3 class="text-xl font-bold mb-2">جودة لا تضاهى</h3>
+                    <p class="text-gray-500">منتجات مصنوعة بأعلى معايير الدقة والإتقان لضمان رضاك الكامل.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="fade-in-up" style="transition-delay: 150ms;">
+                    <div class="p-6 bg-green-50 rounded-full inline-block mb-4"><i class="fas fa-truck-fast text-3xl"
+                            style="color: var(--saudi-green);"></i></div>
+                    <h3 class="text-xl font-bold mb-2">توصيل سريع ومجاني</h3>
+                    <p class="text-gray-500">استلم طلبك في وقت قياسي وبدون أي رسوم إضافية على التوصيل.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="fade-in-up" style="transition-delay: 300ms;">
+                    <div class="p-6 bg-green-50 rounded-full inline-block mb-4"><i class="fas fa-shield-halved text-3xl"
+                            style="color: var(--dark-blue);"></i></div>
+                    <h3 class="text-xl font-bold mb-2">ضمان الثقة</h3>
+                    <p class="text-gray-500">نقدم ضماناً ذهبياً على جميع منتجاتنا وسياسة إرجاع مرنة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== Special Offer Section =========== -->
+    <section id="offer" class="py-16 sm:py-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center -mx-4">
+                <div class="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
+                    <img src="image.png" alt="صندوق هدايا لمنتجات اليوم الوطني" class="rounded-lg shadow-2xl w-full">
+                </div>
+                <div class="w-full lg:w-1/2 px-4">
+                    <span class="font-bold text-lg" style="color: var(--saudi-green);">عرض اليوم الوطني الحصري</span>
+                    <h2 class="text-3xl md:text-4xl font-bold my-3" style="color: var(--dark-blue);">خصم 50% على المنتج
+                        المختار!</h2>
+                    <p class="text-gray-600 mb-6">لا تفوت فرصة الحصول على منتجنا الأكثر مبيعاً بنصف السعر. هذا العرض
+                        مصمم خصيصاً لعملائنا المميزين احتفالاً بهذه المناسبة الغالية.</p>
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl font-bold" style="color: var(--saudi-green);">99 ريال</span>
+                        <span class="text-2xl text-gray-400 line-through mx-4">199 ريال</span>
+                    </div>
+                    <a href="#"
+                        class="w-full text-center bg-green-600 text-white font-bold text-lg px-12 py-4 rounded-lg shadow-lg hover:bg-green-700 hover:scale-105 transform transition-all duration-300 ease-in-out inline-block">
+                        <i class="fas fa-shopping-cart mr-2"></i> أضف إلى السلة الآن
+                    </a>
+                    <p class="text-sm text-gray-500 mt-3">ينتهي العرض قريباً، الكمية محدودة!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== Testimonials Section =========== -->
+    <section class="py-16 sm:py-24 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12" style="color: var(--dark-blue);">شهادات نعتز بها</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-lg fade-in-up">
+                    <div class="text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 mb-6">"تجربة شراء رائعة ومنتج فاق كل التوقعات. شكراً لكم على المصداقية
+                        والجودة العالية."</p>
+                    <div class="flex items-center justify-center">
+                        <img src="images/avatar-1.png" alt="صورة العميل" class="w-12 h-12 rounded-full mr-4">
+                        <h4 class="font-bold">عبدالله القحطاني</h4>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-lg fade-in-up" style="transition-delay: 150ms;">
+                    <div class="text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 mb-6">"التوصيل كان سريع جداً والمنتج مغلف بعناية. أنصح الجميع بالتعامل مع
+                        هذا المتجر الموثوق."</p>
+                    <div class="flex items-center justify-center">
+                        <img src="images/avatar-2.jpg" alt="صورة العميل" class="w-12 h-12 rounded-full mr-4">
+                        <h4 class="font-bold">سارة الغامدي</h4>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-lg fade-in-up" style="transition-delay: 300ms;">
+                    <div class="text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 mb-6">"أفضل عرض حصلت عليه لليوم الوطني. سعيد جداً بهذه الصفقة وسأعود للشراء
+                        مرة أخرى بالتأكيد."</p>
+                    <div class="flex items-center justify-center">
+                        <img src="images/marla.png" alt="صورة العميل" class="w-12 h-12 rounded-full mr-4">
+                        <h4 class="font-bold">محمد الشمري</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== FAQ Section =========== -->
+    <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" style="color: var(--dark-blue);">أسئلة شائعة
+            </h2>
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="faq-item bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <summary class="flex justify-between items-center font-bold text-lg cursor-pointer">
+                        متى يصل طلبي؟
+                        <i class="fas fa-chevron-down faq-arrow transition-transform duration-300"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600">عادةً ما يستغرق التوصيل من 2 إلى 4 أيام عمل داخل المدن الرئيسية.</p>
+                </details>
+                <!-- FAQ Item 2 -->
+                <details class="faq-item bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <summary class="flex justify-between items-center font-bold text-lg cursor-pointer">
+                        هل يمكنني إرجاع المنتج؟
+                        <i class="fas fa-chevron-down faq-arrow transition-transform duration-300"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600">نعم، يمكنك إرجاع المنتج خلال 7 أيام من تاريخ الاستلام بشرط أن يكون في
+                        حالته الأصلية.</p>
+                </details>
+                <!-- FAQ Item 3 -->
+                <details class="faq-item bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <summary class="flex justify-between items-center font-bold text-lg cursor-pointer">
+                        هل الدفع عند الاستلام متاح؟
+                        <i class="fas fa-chevron-down faq-arrow transition-transform duration-300"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600">نعم، نوفر خدمة الدفع عند الاستلام في معظم مدن المملكة برسوم إضافية
+                        بسيطة.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== Final CTA Section =========== -->
+    <section class="py-16 sm:py-24 saudi-gradient text-white relative overflow-hidden">
+        <div class="saudi-pattern absolute inset-0 opacity-20"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">لا تدع الفرصة تفوتك!</h2>
+            <p class="max-w-xl mx-auto mb-8">الوقت يمضي والكمية على وشك النفاد. هذا هو أفضل وقت للشراء.</p>
+            <a href="#offer"
+                class="gold-accent bg-yellow-400 text-gray-900 font-bold text-xl px-12 py-4 rounded-full shadow-lg hover:bg-yellow-500 hover:scale-105 transform transition-all duration-300 ease-in-out inline-block">
+                أريد هذا العرض الآن!
+            </a>
+        </div>
+    </section>
+
+    <!-- =========== Footer =========== -->
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4 text-2xl">
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-snapchat"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p>&copy; 2025 [اسم علامتك التجارية]. جميع الحقوق محفوظة.</p>
+            <p class="text-sm"><a href="#" class="hover:text-white">سياسة الخصوصية</a> | <a href="#"
+                    class="hover:text-white">شروط الاستخدام</a></p>
+        </div>
+    </footer>
+
+
+    <!-- =========== Exit Intent Popup =========== -->
+    <div id="exit-intent-popup"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 -translate-y-full pointer-events-none">
+        <div class="bg-white rounded-lg shadow-2xl max-w-md w-full text-center p-8 relative transform">
+            <button id="close-popup"
+                class="absolute top-2 left-2 text-gray-400 hover:text-gray-800 text-2xl">&times;</button>
+            <i class="fas fa-gift text-5xl mb-4" style="color: var(--saudi-green);"></i>
+            <h3 class="text-2xl font-bold mb-2">لحظة من فضلك!</h3>
+            <p class="text-gray-600 mb-6">قبل أن تذهب، خذ خصماً إضافياً بنسبة 10% على طلبك الأول عند الاشتراك في قائمتنا
+                البريدية.</p>
+            <form>
+                <input type="email" placeholder="أدخل بريدك الإلكتروني"
+                    class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                <button type="submit"
+                    class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors">
+                    أرسل لي الخصم!
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Countdown Timer ---
+            const countdownDate = new Date("Sep 23, 2025 00:00:00").getTime();
+            const countdownFunction = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("countdown").innerHTML = "<div class='col-span-4 text-xl'>انتهى العرض!</div>";
+                    return;
+                }
+
+                document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }, 1000);
+
+            // --- Scroll Animations ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+            // --- Exit Intent Popup ---
+            const popup = document.getElementById('exit-intent-popup');
+            const closeBtn = document.getElementById('close-popup');
+            let popupShown = false;
+
+            const showPopup = () => {
+                if (popupShown) return;
+                popup.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+                popupShown = true;
+            };
+
+            document.addEventListener('mouseout', (e) => {
+                if (e.clientY <= 0) {
+                    showPopup();
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                popup.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+            });
+
+        });
+    </script>
+</body>
+
+</html>

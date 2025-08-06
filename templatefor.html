@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قالب اليوم الوطني السعودي 95</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'arabic': ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#006C35',
+                        'accent': '#D4AF37',
+                        'secondary': '#F8F8F8'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M30 30l15-15v30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .custom-shadow { box-shadow: 0 10px 30px rgba(0, 108, 53, 0.2); }
+        .text-outline { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body class="font-arabic">
+
+    <!-- Customization Panel -->
+    <div id="customPanel" class="fixed top-0 left-0 w-80 h-full bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-4 bg-gray-800 text-white">
+            <h3 class="text-lg font-bold">لوحة التحكم</h3>
+            <button onclick="togglePanel()" class="absolute top-4 right-4 text-white hover:text-gray-300">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="p-4 space-y-6">
+            <!-- Colors Section -->
+            <div>
+                <h4 class="font-bold mb-3 text-gray-700">الألوان</h4>
+                <div class="space-y-2">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">اللون الأساسي</label>
+                        <input type="color" id="primaryColor" value="#006C35" onchange="updateColors()" class="w-full h-10 rounded border">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">اللون الثانوي</label>
+                        <input type="color" id="accentColor" value="#D4AF37" onchange="updateColors()" class="w-full h-10 rounded border">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <div>
+                <h4 class="font-bold mb-3 text-gray-700">القسم الرئيسي</h4>
+                <div class="space-y-2">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">العنوان الرئيسي</label>
+                        <input type="text" id="heroTitle" value="احتفل معنا باليوم الوطني 95" onchange="updateTexts()" class="w-full p-2 border rounded text-base">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">العنوان الفرعي</label>
+                        <input type="text" id="heroSubtitle" value="عروض استثنائية تبدأ من 30% على كل شيء!" onchange="updateTexts()" class="w-full p-2 border rounded text-base">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">نص الزر</label>
+                        <input type="text" id="heroButton" value="تسوق عروض اليوم الوطني الآن" onchange="updateTexts()" class="w-full p-2 border rounded text-base">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div>
+                <h4 class="font-bold mb-3 text-gray-700">قسم المنتجات</h4>
+                <div class="space-y-2">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">عنوان القسم</label>
+                        <input type="text" id="productsTitle" value="أبرز عروضنا الوطنية" onchange="updateTexts()" class="w-full p-2 border rounded text-base">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div>
+                <h4 class="font-bold mb-3 text-gray-700">الفوتر</h4>
+                <div class="space-y-2">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">اسم المتجر</label>
+                        <input type="text" id="storeName" value="متجر اليوم الوطني" onchange="updateTexts()" class="w-full p-2 border rounded text-base">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button onclick="togglePanel()" class="fixed top-4 left-4 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-colors z-40">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <section id="heroSection" class="min-h-screen flex items-center justify-center hero-pattern transition-all duration-300" style="background-color: #006C35;">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h1 id="heroTitleText" class="text-5xl md:text-7xl font-bold mb-6 text-outline">احتفل معنا باليوم الوطني 95</h1>
+            <h2 id="heroSubtitleText" class="text-2xl md:text-3xl mb-8 font-medium">عروض استثنائية تبدأ من 30% على كل شيء!</h2>
+            
+            <button id="heroCTA" class="bg-yellow-400 text-black px-12 py-4 text-xl font-bold rounded-full hover:bg-yellow-300 transform hover:scale-105 transition-all duration-300 custom-shadow mb-8">
+                تسوق عروض اليوم الوطني الآن
+            </button>
+
+            <!-- Countdown Timer -->
+            <div class="bg-black bg-opacity-30 p-6 rounded-2xl max-w-lg mx-auto">
+                <h3 class="text-xl mb-4 font-semibold">ينتهي العرض خلال:</h3>
+                <div class="grid grid-cols-4 gap-4 text-center">
+                    <div class="bg-white text-black p-3 rounded-lg">
+                        <div id="days" class="text-2xl font-bold">15</div>
+                        <div class="text-sm">يوم</div>
+                    </div>
+                    <div class="bg-white text-black p-3 rounded-lg">
+                        <div id="hours" class="text-2xl font-bold">08</div>
+                        <div class="text-sm">ساعة</div>
+                    </div>
+                    <div class="bg-white text-black p-3 rounded-lg">
+                        <div id="minutes" class="text-2xl font-bold">23</div>
+                        <div class="text-sm">دقيقة</div>
+                    </div>
+                    <div class="bg-white text-black p-3 rounded-lg">
+                        <div id="seconds" class="text-2xl font-bold">45</div>
+                        <div class="text-sm">ثانية</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Building Section -->
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <i class="fas fa-truck text-4xl mb-4" style="color: #006C35;"></i>
+                    <h3 class="text-lg font-semibold mb-2">توصيل سريع ومجاني</h3>
+                    <p class="text-gray-600">توصيل مجاني لجميع أنحاء المملكة</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-shield-alt text-4xl mb-4" style="color: #006C35;"></i>
+                    <h3 class="text-lg font-semibold mb-2">دفع آمن 100%</h3>
+                    <p class="text-gray-600">أمان تام لجميع المعاملات</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-undo text-4xl mb-4" style="color: #006C35;"></i>
+                    <h3 class="text-lg font-semibold mb-2">استرجاع سهل خلال 14 يوم</h3>
+                    <p class="text-gray-600">ضمان الاسترجاع بدون قيود</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 id="productsTitleText" class="text-4xl font-bold text-center mb-12" style="color: #006C35;">أبرز عروضنا الوطنية</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-64 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                        <i class="fas fa-image text-gray-400 text-4xl"></i>
+                        <span class="mr-2 text-gray-500">صورة المنتج</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">منتج مميز 1</h3>
+                        <div class="mb-4">
+                            <span class="text-lg text-gray-500 line-through">500 ريال</span>
+                            <span class="text-2xl font-bold mr-2" style="color: #006C35;">350 ريال</span>
+                        </div>
+                        <button class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                            أضف للسلة
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-64 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                        <i class="fas fa-image text-gray-400 text-4xl"></i>
+                        <span class="mr-2 text-gray-500">صورة المنتج</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">منتج مميز 2</h3>
+                        <div class="mb-4">
+                            <span class="text-lg text-gray-500 line-through">800 ريال</span>
+                            <span class="text-2xl font-bold mr-2" style="color: #006C35;">560 ريال</span>
+                        </div>
+                        <button class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                            أضف للسلة
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-64 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                        <i class="fas fa-image text-gray-400 text-4xl"></i>
+                        <span class="mr-2 text-gray-500">صورة المنتج</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">منتج مميز 3</h3>
+                        <div class="mb-4">
+                            <span class="text-lg text-gray-500 line-through">1200 ريال</span>
+                            <span class="text-2xl font-bold mr-2" style="color: #006C35;">840 ريال</span>
+                        </div>
+                        <button class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                            أضف للسلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12" style="color: #006C35;">ماذا يقول عملاؤنا؟</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="mb-4">
+                        <div class="flex text-yellow-400 mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600">"خدمة ممتازة ومنتجات عالية الجودة. أنصح بالتعامل معهم."</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div class="mr-3">
+                            <h4 class="font-semibold">أحمد محمد</h4>
+                            <p class="text-sm text-gray-500">عميل مميز</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="mb-4">
+                        <div class="flex text-yellow-400 mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600">"سرعة في التوصيل وأسعار منافسة جداً. شكراً لكم."</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div class="mr-3">
+                            <h4 class="font-semibold">فاطمة العلي</h4>
+                            <p class="text-sm text-gray-500">عميلة دائمة</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="mb-4">
+                        <div class="flex text-yellow-400 mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600">"تجربة تسوق رائعة ودعم عملاء متميز."</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div class="mr-3">
+                            <h4 class="font-semibold">سعد الغامدي</h4>
+                            <p class="text-sm text-gray-500">عميل راضي</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-16 text-white" style="background-color: #006C35;">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-6">لا تفوت فرصة الاحتفال معنا</h2>
+            <p class="text-xl mb-8">العرض ينتهي قريباً!</p>
+            <button class="bg-yellow-400 text-black px-12 py-4 text-xl font-bold rounded-full hover:bg-yellow-300 transform hover:scale-105 transition-all duration-300 custom-shadow">
+                احصل على خصمك الآن
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <h3 id="storeNameText" class="text-2xl font-bold">متجر اليوم الوطني</h3>
+            </div>
+            <div class="mb-4">
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-facebook text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="text-gray-400">© <span id="footerStoreName">متجر اليوم الوطني</span> 2025. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Customization functions
+        function togglePanel() {
+            const panel = document.getElementById('customPanel');
+            panel.classList.toggle('-translate-x-full');
+        }
+
+        function updateColors() {
+            const primaryColor = document.getElementById('primaryColor').value;
+            const accentColor = document.getElementById('accentColor').value;
+            
+            // Update hero section background
+            document.getElementById('heroSection').style.backgroundColor = primaryColor;
+            
+            // Update final CTA section background
+            document.querySelector('section[style*="background-color: #006C35"]').style.backgroundColor = primaryColor;
+            
+            // Update text colors
+            const elementsToUpdate = document.querySelectorAll('[style*="color: #006C35"]');
+            elementsToUpdate.forEach(el => {
+                el.style.color = primaryColor;
+            });
+            
+            // Update icons colors
+            const icons = document.querySelectorAll('.fas.fa-truck, .fas.fa-shield-alt, .fas.fa-undo');
+            icons.forEach(icon => {
+                icon.style.color = primaryColor;
+            });
+        }
+
+        function updateTexts() {
+            // Hero section
+            document.getElementById('heroTitleText').textContent = document.getElementById('heroTitle').value;
+            document.getElementById('heroSubtitleText').textContent = document.getElementById('heroSubtitle').value;
+            document.getElementById('heroCTA').textContent = document.getElementById('heroButton').value;
+            
+            // Products section
+            document.getElementById('productsTitleText').textContent = document.getElementById('productsTitle').value;
+            
+            // Footer
+            const storeName = document.getElementById('storeName').value;
+            document.getElementById('storeNameText').textContent = storeName;
+            document.getElementById('footerStoreName').textContent = storeName;
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date(now.getTime() + (15 * 24 * 60 * 60 * 1000)); // 15 days from now
+            
+            const diff = target - now;
+            
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Smooth scrolling for buttons
+        document.querySelectorAll('button').forEach(button => {
+            if (button.textContent.includes('تسوق') || button.textContent.includes('احصل')) {
+                button.addEventListener('click', () => {
+                    document.querySelector('#productsTitleText').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+
+        // Dark mode support
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+</body>
+</html>

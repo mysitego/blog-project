@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تخصيص صفحة الهبوط - اليوم الوطني السعودي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saudi: {
+                            green: '#006C35',
+                            gold: '#FFD700',
+                            darkblue: '#1e3a8a',
+                            brown: '#8B4513',
+                            beige: '#F5F5DC'
+                        }
+                    },
+                    fontFamily: {
+                        'arabic': ['IBM Plex Sans Arabic', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        .color-picker {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .preset-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .preset-color:hover {
+            transform: scale(1.1);
+            border-color: #333;
+        }
+        .section-editor {
+            border: 2px dashed #ccc;
+            min-height: 100px;
+            transition: all 0.3s;
+        }
+        .section-editor:hover {
+            border-color: #006C35;
+            background-color: rgba(0, 108, 53, 0.05);
+        }
+        .section-editor.active {
+            border-color: #FFD700;
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+        .customizer-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .customizer-panel.open {
+            transform: translateX(0);
+        }
+        .preview-frame {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+        .preview-frame.with-panel {
+            margin-left: 400px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .image-upload {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .image-upload:hover {
+            border-color: #006C35;
+            background-color: rgba(0, 108, 53, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Toggle Button -->
+    <button id="toggleCustomizer" class="fixed top-4 left-4 z-50 bg-saudi-green text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-colors">
+        <i class="fas fa-cog text-xl"></i>
+    </button>
+
+    <!-- Customizer Panel -->
+    <div id="customizerPanel" class="customizer-panel">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-saudi-green">تخصيص الصفحة</h2>
+                <button id="closeCustomizer" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex border-b mb-6">
+                <button class="tab-btn active px-4 py-2 font-medium border-b-2 border-saudi-green text-saudi-green" data-tab="colors">الألوان</button>
+                <button class="tab-btn px-4 py-2 font-medium text-gray-500 hover:text-saudi-green" data-tab="text">النصوص</button>
+                <button class="tab-btn px-4 py-2 font-medium text-gray-500 hover:text-saudi-green" data-tab="images">الصور</button>
+                <button class="tab-btn px-4 py-2 font-medium text-gray-500 hover:text-saudi-green" data-tab="layout">التخطيط</button>
+            </div>
+
+            <!-- Colors Tab -->
+            <div id="colors" class="tab-content active">
+                <h3 class="text-lg font-bold mb-4">الألوان السريعة - الهوية الوطنية</h3>
+                <div class="grid grid-cols-4 gap-3 mb-6">
+                    <!-- National Identity Colors from the image -->
+                    <div class="preset-color" style="background-color: #00A693" data-color="#00A693" title="C:80 M:15 Y:40 K:0"></div>
+                    <div class="preset-color" style="background-color: #B8336A" data-color="#B8336A" title="C:30 M:100 Y:50 K:20"></div>
+                    <div class="preset-color" style="background-color: #E67E22" data-color="#E67E22" title="C:15 M:75 Y:75 K:0"></div>
+                    <div class="preset-color" style="background-color: #27AE60" data-color="#27AE60" title="C:100 M:20 Y:100 K:10"></div>
+                    
+                    <div class="preset-color" style="background-color: #8BC34A" data-color="#8BC34A" title="C:55 M:15 Y:100 K:0"></div>
+                    <div class="preset-color" style="background-color: #7B68EE" data-color="#7B68EE" title="C:60 M:60 Y:0 K:0"></div>
+                    <div class="preset-color" style="background-color: #D4A574" data-color="#D4A574" title="C:40 M:50 Y:90 K:20"></div>
+                    <div class="preset-color" style="background-color: #1B4F72" data-color="#1B4F72" title="C:100 M:60 Y:60 K:55"></div>
+                </div>
+
+                <h3 class="text-lg font-bold mb-4">تخصيص الألوان</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">اللون الأساسي</label>
+                        <div class="flex items-center gap-3">
+                            <input type="color" id="primaryColor" class="color-picker" value="#006C35">
+                            <span class="text-sm text-gray-600">اللون الأخضر السعودي</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">اللون الثانوي</label>
+                        <div class="flex items-center gap-3">
+                            <input type="color" id="secondaryColor" class="color-picker" value="#FFD700">
+                            <span class="text-sm text-gray-600">اللون الذهبي</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">لون الخلفية</label>
+                        <div class="flex items-center gap-3">
+                            <input type="color" id="backgroundColor" class="color-picker" value="#ffffff">
+                            <span class="text-sm text-gray-600">خلفية الأقسام</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">لون النص</label>
+                        <div class="flex items-center gap-3">
+                            <input type="color" id="textColor" class="color-picker" value="#333333">
+                            <span class="text-sm text-gray-600">لون النص الأساسي</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button id="resetColors" class="w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                        إعادة تعيين الألوان
+                    </button>
+                </div>
+            </div>
+
+            <!-- Text Tab -->
+            <div id="text" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">تحرير النصوص</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">العنوان الرئيسي</label>
+                        <input type="text" id="mainTitle" class="w-full p-3 border rounded-lg" value="اليوم الوطني السعودي">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">الرقم</label>
+                        <input type="text" id="nationalNumber" class="w-full p-3 border rounded-lg" value="٩٥">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">العنوان الفرعي</label>
+                        <textarea id="subtitle" class="w-full p-3 border rounded-lg h-20">عرض حصري محدود - فخر الوطن في كل منتج</textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">نص الزر الرئيسي</label>
+                        <input type="text" id="ctaButton" class="w-full p-3 border rounded-lg" value="احصل على العرض الآن">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">عنوان قسم المميزات</label>
+                        <input type="text" id="featuresTitle" class="w-full p-3 border rounded-lg" value="لماذا نحن الخيار الأمثل؟">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Images Tab -->
+            <div id="images" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">تخصيص الصور</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">صورة الخلفية الرئيسية</label>
+                        <div class="image-upload" onclick="document.getElementById('heroImage').click()">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-600">اضغط لرفع صورة جديدة</p>
+                            <input type="file" id="heroImage" class="hidden" accept="image/*">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">شعار الشركة</label>
+                        <div class="image-upload" onclick="document.getElementById('logoImage').click()">
+                            <i class="fas fa-image text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-600">رفع شعار الشركة</p>
+                            <input type="file" id="logoImage" class="hidden" accept="image/*">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">صور المنتجات</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="image-upload" onclick="document.getElementById('product1').click()">
+                                <i class="fas fa-plus text-xl text-gray-400"></i>
+                                <input type="file" id="product1" class="hidden" accept="image/*">
+                            </div>
+                            <div class="image-upload" onclick="document.getElementById('product2').click()">
+                                <i class="fas fa-plus text-xl text-gray-400"></i>
+                                <input type="file" id="product2" class="hidden" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layout Tab -->
+            <div id="layout" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">تخطيط الصفحة</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">ترتيب الأقسام</label>
+                        <div id="sectionOrder" class="space-y-2">
+                            <div class="section-item p-3 bg-gray-100 rounded-lg cursor-move" data-section="hero">
+                                <i class="fas fa-grip-vertical ml-2"></i>
+                                القسم الرئيسي
+                            </div>
+                            <div class="section-item p-3 bg-gray-100 rounded-lg cursor-move" data-section="features">
+                                <i class="fas fa-grip-vertical ml-2"></i>
+                                قسم المميزات
+                            </div>
+                            <div class="section-item p-3 bg-gray-100 rounded-lg cursor-move" data-section="offers">
+                                <i class="fas fa-grip-vertical ml-2"></i>
+                                قسم العروض
+                            </div>
+                            <div class="section-item p-3 bg-gray-100 rounded-lg cursor-move" data-section="testimonials">
+                                <i class="fas fa-grip-vertical ml-2"></i>
+                                قسم الشهادات
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">إظهار/إخفاء الأقسام</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="showCountdown" checked class="ml-2">
+                                <span>عداد الوقت</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="showTestimonials" checked class="ml-2">
+                                <span>شهادات العملاء</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="showFAQ" checked class="ml-2">
+                                <span>الأسئلة الشائعة</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 space-y-3">
+                <button id="previewChanges" class="w-full bg-saudi-green text-white py-3 rounded-lg hover:bg-green-700 transition-colors">
+                    <i class="fas fa-eye ml-2"></i>
+                    معاينة التغييرات
+                </button>
+                <button id="saveChanges" class="w-full bg-saudi-gold text-saudi-green py-3 rounded-lg hover:bg-yellow-400 transition-colors">
+                    <i class="fas fa-save ml-2"></i>
+                    حفظ التغييرات
+                </button>
+                <button id="exportCode" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-code ml-2"></i>
+                    تصدير الكود
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Frame -->
+    <div id="previewFrame" class="preview-frame">
+        <iframe id="templateFrame" src="Templateone.html" class="w-full h-screen border-none"></iframe>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold">كود الصفحة المخصصة</h3>
+                <button id="closeExportModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <textarea id="exportedCode" class="w-full h-96 p-4 border rounded-lg font-mono text-sm" readonly></textarea>
+            <div class="mt-4 flex gap-3">
+                <button id="copyCode" class="bg-saudi-green text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    <i class="fas fa-copy ml-2"></i>
+                    نسخ الكود
+                </button>
+                <button id="downloadCode" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-download ml-2"></i>
+                    تحميل الملف
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentSettings = {
+            colors: {
+                primary: '#006C35',
+                secondary: '#FFD700',
+                background: '#ffffff',
+                text: '#333333'
+            },
+            texts: {
+                mainTitle: 'اليوم الوطني السعودي',
+                nationalNumber: '٩٥',
+                subtitle: 'عرض حصري محدود - فخر الوطن في كل منتج',
+                ctaButton: 'احصل على العرض الآن',
+                featuresTitle: 'لماذا نحن الخيار الأمثل؟'
+            },
+            images: {},
+            layout: {
+                showCountdown: true,
+                showTestimonials: true,
+                showFAQ: true
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCustomizer();
+            loadSettings();
+        });
+
+        function initializeCustomizer() {
+            // Toggle customizer panel
+            document.getElementById('toggleCustomizer').addEventListener('click', function() {
+                const panel = document.getElementById('customizerPanel');
+                const frame = document.getElementById('previewFrame');
+                
+                panel.classList.toggle('open');
+                frame.classList.toggle('with-panel');
+            });
+
+            // Close customizer
+            document.getElementById('closeCustomizer').addEventListener('click', function() {
+                const panel = document.getElementById('customizerPanel');
+                const frame = document.getElementById('previewFrame');
+                
+                panel.classList.remove('open');
+                frame.classList.remove('with-panel');
+            });
+
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    // Update tab buttons
+                    document.querySelectorAll('.tab-btn').forEach(b => {
+                        b.classList.remove('active', 'border-saudi-green', 'text-saudi-green');
+                        b.classList.add('text-gray-500');
+                    });
+                    this.classList.add('active', 'border-saudi-green', 'text-saudi-green');
+                    this.classList.remove('text-gray-500');
+                    
+                    // Update tab content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Color pickers
+            setupColorPickers();
+            
+            // Text inputs
+            setupTextInputs();
+            
+            // Image uploads
+            setupImageUploads();
+            
+            // Layout controls
+            setupLayoutControls();
+            
+            // Action buttons
+            setupActionButtons();
+            
+            // Preset colors
+            setupPresetColors();
+        }
+
+        function setupColorPickers() {
+            const colorInputs = ['primaryColor', 'secondaryColor', 'backgroundColor', 'textColor'];
+            
+            colorInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                input.addEventListener('change', function() {
+                    const colorType = inputId.replace('Color', '');
+                    currentSettings.colors[colorType] = this.value;
+                    applyColorChanges();
+                });
+            });
+        }
+
+        function setupPresetColors() {
+            document.querySelectorAll('.preset-color').forEach(colorDiv => {
+                colorDiv.addEventListener('click', function() {
+                    const color = this.dataset.color;
+                    document.getElementById('primaryColor').value = color;
+                    currentSettings.colors.primary = color;
+                    applyColorChanges();
+                });
+            });
+        }
+
+        function setupTextInputs() {
+            const textInputs = ['mainTitle', 'nationalNumber', 'subtitle', 'ctaButton', 'featuresTitle'];
+            
+            textInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                input.addEventListener('input', function() {
+                    currentSettings.texts[inputId] = this.value;
+                    applyTextChanges();
+                });
+            });
+        }
+
+        function setupImageUploads() {
+            const imageInputs = ['heroImage', 'logoImage', 'product1', 'product2'];
+            
+            imageInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                input.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            currentSettings.images[inputId] = e.target.result;
+                            applyImageChanges();
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        }
+
+        function setupLayoutControls() {
+            const checkboxes = ['showCountdown', 'showTestimonials', 'showFAQ'];
+            
+            checkboxes.forEach(checkboxId => {
+                const checkbox = document.getElementById(checkboxId);
+                checkbox.addEventListener('change', function() {
+                    currentSettings.layout[checkboxId] = this.checked;
+                    applyLayoutChanges();
+                });
+            });
+        }
+
+        function setupActionButtons() {
+            document.getElementById('previewChanges').addEventListener('click', previewChanges);
+            document.getElementById('saveChanges').addEventListener('click', saveChanges);
+            document.getElementById('exportCode').addEventListener('click', exportCode);
+            document.getElementById('resetColors').addEventListener('click', resetColors);
+            
+            // Export modal
+            document.getElementById('closeExportModal').addEventListener('click', function() {
+                document.getElementById('exportModal').classList.add('hidden');
+            });
+            
+            document.getElementById('copyCode').addEventListener('click', copyCode);
+            document.getElementById('downloadCode').addEventListener('click', downloadCode);
+        }
+
+        function applyColorChanges() {
+            const iframe = document.getElementById('templateFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            if (iframeDoc) {
+                // Apply primary color
+                const primaryElements = iframeDoc.querySelectorAll('.bg-saudi-green, .text-saudi-green');
+                primaryElements.forEach(el => {
+                    if (el.classList.contains('bg-saudi-green')) {
+                        el.style.backgroundColor = currentSettings.colors.primary;
+                    }
+                    if (el.classList.contains('text-saudi-green')) {
+                        el.style.color = currentSettings.colors.primary;
+                    }
+                });
+                
+                // Apply secondary color
+                const secondaryElements = iframeDoc.querySelectorAll('.bg-saudi-gold, .text-saudi-gold');
+                secondaryElements.forEach(el => {
+                    if (el.classList.contains('bg-saudi-gold')) {
+                        el.style.backgroundColor = currentSettings.colors.secondary;
+                    }
+                    if (el.classList.contains('text-saudi-gold')) {
+                        el.style.color = currentSettings.colors.secondary;
+                    }
+                });
+                
+                // Update hero background
+                const heroSection = iframeDoc.querySelector('.hero-bg');
+                if (heroSection) {
+                    heroSection.style.background = `linear-gradient(135deg, ${currentSettings.colors.primary} 0%, ${adjustBrightness(currentSettings.colors.primary, -20)} 100%)`;
+                }
+            }
+        }
+
+        function applyTextChanges() {
+            const iframe = document.getElementById('templateFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            if (iframeDoc) {
+                // Update main title
+                const mainTitleEl = iframeDoc.querySelector('h1 span:first-child');
+                if (mainTitleEl) {
+                    mainTitleEl.textContent = currentSettings.texts.mainTitle;
+                }
+                
+                // Update national number
+                const numberEl = iframeDoc.querySelector('h1 span:last-child');
+                if (numberEl) {
+                    numberEl.textContent = currentSettings.texts.nationalNumber;
+                }
+                
+                // Update subtitle
+                const subtitleEl = iframeDoc.querySelector('h2');
+                if (subtitleEl) {
+                    subtitleEl.textContent = currentSettings.texts.subtitle;
+                }
+                
+                // Update CTA button
+                const ctaBtn = iframeDoc.querySelector('button');
+                if (ctaBtn) {
+                    ctaBtn.innerHTML = `<i class="fas fa-star mr-2"></i>${currentSettings.texts.ctaButton}`;
+                }
+                
+                // Update features title
+                const featuresTitle = iframeDoc.querySelector('section:nth-child(2) h2');
+                if (featuresTitle) {
+                    featuresTitle.textContent = currentSettings.texts.featuresTitle;
+                }
+            }
+        }
+
+        function applyImageChanges() {
+            const iframe = document.getElementById('templateFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            if (iframeDoc) {
+                // Apply hero background image
+                if (currentSettings.images.heroImage) {
+                    const heroSection = iframeDoc.querySelector('.hero-bg');
+                    if (heroSection) {
+                        heroSection.style.backgroundImage = `url(${currentSettings.images.heroImage})`;
+                        heroSection.style.backgroundSize = 'cover';
+                        heroSection.style.backgroundPosition = 'center';
+                    }
+                }
+                
+                // Apply logo
+                if (currentSettings.images.logoImage) {
+                    // Add logo to header if it doesn't exist
+                    let logo = iframeDoc.querySelector('.logo');
+                    if (!logo) {
+                        logo = iframeDoc.createElement('img');
+                        logo.className = 'logo absolute top-4 right-4 h-16 w-auto';
+                        const heroSection = iframeDoc.querySelector('.hero-bg');
+                        if (heroSection) {
+                            heroSection.appendChild(logo);
+                        }
+                    }
+                    logo.src = currentSettings.images.logoImage;
+                }
+            }
+        }
+
+        function applyLayoutChanges() {
+            const iframe = document.getElementById('templateFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            if (iframeDoc) {
+                // Show/hide countdown
+                const countdown = iframeDoc.querySelector('.countdown');
+                if (countdown) {
+                    countdown.style.display = currentSettings.layout.showCountdown ? 'flex' : 'none';
+                }
+                
+                // Show/hide testimonials
+                const testimonials = iframeDoc.querySelector('section:has(.testimonial-card)');
+                if (testimonials) {
+                    testimonials.style.display = currentSettings.layout.showTestimonials ? 'block' : 'none';
+                }
+                
+                // Show/hide FAQ
+                const faq = iframeDoc.querySelector('section:has(.faq-item)');
+                if (faq) {
+                    faq.style.display = currentSettings.layout.showFAQ ? 'block' : 'none';
+                }
+            }
+        }
+
+        function previewChanges() {
+            applyColorChanges();
+            applyTextChanges();
+            applyImageChanges();
+            applyLayoutChanges();
+            
+            // Show success message
+            showNotification('تم تطبيق التغييرات بنجاح!', 'success');
+        }
+
+        function saveChanges() {
+            localStorage.setItem('landingPageSettings', JSON.stringify(currentSettings));
+            showNotification('تم حفظ الإعدادات بنجاح!', 'success');
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem('landingPageSettings');
+            if (saved) {
+                currentSettings = JSON.parse(saved);
+                
+                // Update UI with saved settings
+                document.getElementById('primaryColor').value = currentSettings.colors.primary;
+                document.getElementById('secondaryColor').value = currentSettings.colors.secondary;
+                document.getElementById('backgroundColor').value = currentSettings.colors.background;
+                document.getElementById('textColor').value = currentSettings.colors.text;
+                
+                document.getElementById('mainTitle').value = currentSettings.texts.mainTitle;
+                document.getElementById('nationalNumber').value = currentSettings.texts.nationalNumber;
+                document.getElementById('subtitle').value = currentSettings.texts.subtitle;
+                document.getElementById('ctaButton').value = currentSettings.texts.ctaButton;
+                document.getElementById('featuresTitle').value = currentSettings.texts.featuresTitle;
+                
+                document.getElementById('showCountdown').checked = currentSettings.layout.showCountdown;
+                document.getElementById('showTestimonials').checked = currentSettings.layout.showTestimonials;
+                document.getElementById('showFAQ').checked = currentSettings.layout.showFAQ;
+                
+                // Apply loaded settings
+                setTimeout(() => {
+                    previewChanges();
+                }, 1000);
+            }
+        }
+
+        function resetColors() {
+            currentSettings.colors = {
+                primary: '#006C35',
+                secondary: '#FFD700',
+                background: '#ffffff',
+                text: '#333333'
+            };
+            
+            document.getElementById('primaryColor').value = '#006C35';
+            document.getElementById('secondaryColor').value = '#FFD700';
+            document.getElementById('backgroundColor').value = '#ffffff';
+            document.getElementById('textColor').value = '#333333';
+            
+            applyColorChanges();
+            showNotification('تم إعادة تعيين الألوان!', 'info');
+        }
+
+        function exportCode() {
+            const iframe = document.getElementById('templateFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            if (iframeDoc) {
+                const htmlContent = iframeDoc.documentElement.outerHTML;
+                document.getElementById('exportedCode').value = htmlContent;
+                document.getElementById('exportModal').classList.remove('hidden');
+                document.getElementById('exportModal').classList.add('flex');
+            }
+        }
+
+        function copyCode() {
+            const codeTextarea = document.getElementById('exportedCode');
+            codeTextarea.select();
+            document.execCommand('copy');
+            showNotification('تم نسخ الكود!', 'success');
+        }
+
+        function downloadCode() {
+            const code = document.getElementById('exportedCode').value;
+            const blob = new Blob([code], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'customized-landing-page.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification('تم تحميل الملف!', 'success');
+        }
+
+        function adjustBrightness(color, percent) {
+            const num = parseInt(color.replace("#", ""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) + amt;
+            const G = (num >> 8 & 0x00FF) + amt;
+            const B = (num & 0x0000FF) + amt;
+            return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg text-white ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قالب صفحة هبوط بتخصيص كامل</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- IBM Plex Sans Arabic Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Swiper.js for 3D Carousel -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <style>
+        /* Base Styles & Font Application */
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background-color: var(--page-bg-color);
+        }
+
+        /* All Custom Colors are now CSS Variables */
+        :root {
+            --primary-color: #006c35;
+            --secondary-color: #0a2342;
+            --accent-color: #d4af37;
+            --headline-color: #0a2342;
+            --text-color: #4a5568;
+            --hero-text-color: #ffffff;
+            --page-bg-color: #f9fafb;
+            --light-section-bg: #ffffff;
+            --button-primary-bg: #006c35;
+            --button-primary-text: #ffffff;
+            --icon-color: #006c35;
+        }
+
+        /* Hero Section Background */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://www.visitsaudi.com/content/dam/no-tag/sa/events/national-day/saudi-national-day-header-d.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* Animations */
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Customizer Panel */
+        #customizer { position: fixed; top: 0; left: -380px; width: 380px; height: 100%; background-color: white; box-shadow: 0 0 20px rgba(0,0,0,0.2); z-index: 1000; transition: left 0.4s ease-in-out; overflow-y: auto; }
+        #customizer.open { left: 0; }
+        #customizer-toggle { position: fixed; top: 20px; left: 20px; background-color: var(--secondary-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        #customizer .customizer-section summary { font-weight: bold; padding: 10px; background-color: #f3f4f6; border-radius: 5px; cursor: pointer; }
+        #customizer .customizer-section[open] summary { background-color: #e5e7eb; }
+        #customizer .customizer-content { padding: 15px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 5px 5px; }
+
+        /* 3D Testimonials Carousel (Swiper) */
+        .testimonials-slider {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .testimonials-slider .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 320px;
+            height: 400px;
+            background-color: var(--page-bg-color);
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        .testimonials-slider .swiper-slide-shadow-left,
+        .testimonials-slider .swiper-slide-shadow-right {
+            background-image: none;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- =========== Customizer Panel =========== -->
+    <div id="customizer-toggle"><i class="fas fa-cog fa-spin"></i></div>
+    <div id="customizer">
+        <div class="p-4">
+            <h3 class="text-xl font-bold mb-4 text-center border-b pb-3">لوحة تخصيص القالب</h3>
+            <div class="space-y-4">
+                <!-- General Settings -->
+                <details class="customizer-section">
+                    <summary>الألوان العامة</summary>
+                    <div class="customizer-content space-y-3">
+                        <div class="flex items-center justify-between"><label>اللون الأساسي:</label><input type="color" data-css-var="--primary-color" id="primary-color-input"></div>
+                        <div class="flex items-center justify-between"><label>اللون الثانوي:</label><input type="color" data-css-var="--secondary-color" id="secondary-color-input"></div>
+                        <div class="flex items-center justify-between"><label>لون التمييز:</label><input type="color" data-css-var="--accent-color" id="accent-color-input"></div>
+                        <div class="flex items-center justify-between"><label>لون العناوين:</label><input type="color" data-css-var="--headline-color" id="headline-color-input"></div>
+                        <div class="flex items-center justify-between"><label>لون النصوص:</label><input type="color" data-css-var="--text-color" id="text-color-input"></div>
+                        <div class="flex items-center justify-between"><label>لون الأيقونات:</label><input type="color" data-css-var="--icon-color" id="icon-color-input"></div>
+                    </div>
+                </details>
+                <!-- Hero Section Settings -->
+                <details class="customizer-section">
+                    <summary>قسم الهيرو</summary>
+                    <div class="customizer-content space-y-3">
+                        <label class="block text-sm">شعار العلامة التجارية:</label><input type="text" data-target-img="brand-logo" class="w-full p-2 border rounded" placeholder="رابط صورة الشعار">
+                        <label class="block text-sm">صورة الخلفية:</label><input type="text" data-target-bg="hero-section" class="w-full p-2 border rounded" placeholder="رابط صورة الخلفية">
+                        <label class="block text-sm">العنوان الرئيسي:</label><input type="text" data-target-text="main-headline" class="w-full p-2 border rounded">
+                        <label class="block text-sm">النص الوصفي:</label><textarea data-target-text="main-description" class="w-full p-2 border rounded" rows="3"></textarea>
+                        <label class="block text-sm">نص الزر:</label><input type="text" data-target-text="hero-cta-btn" class="w-full p-2 border rounded">
+                    </div>
+                </details>
+                <!-- Offer Section Settings -->
+                <details class="customizer-section">
+                    <summary>قسم العرض الخاص</summary>
+                    <div class="customizer-content space-y-3">
+                        <label class="block text-sm">صورة المنتج:</label><input type="text" data-target-img="product-image" class="w-full p-2 border rounded" placeholder="رابط صورة المنتج">
+                        <label class="block text-sm">عنوان العرض:</label><input type="text" data-target-text="offer-headline" class="w-full p-2 border rounded">
+                        <label class="block text-sm">وصف العرض:</label><textarea data-target-text="offer-description" class="w-full p-2 border rounded" rows="3"></textarea>
+                        <label class="block text-sm">السعر بعد الخصم:</label><input type="text" data-target-text="offer-price-new" class="w-full p-2 border rounded">
+                        <label class="block text-sm">السعر قبل الخصم:</label><input type="text" data-target-text="offer-price-old" class="w-full p-2 border rounded">
+                    </div>
+                </details>
+                <!-- Testimonials Section Settings -->
+                <details class="customizer-section" open>
+                     <summary>قسم الشهادات</summary>
+                     <div class="customizer-content space-y-6">
+                        <label class="block text-sm font-bold">عنوان القسم:</label><input type="text" data-target-text="testimonials-headline" class="w-full p-2 border rounded">
+                        <!-- Client 1 -->
+                        <div class="border-t pt-4"><h5 class="font-semibold mb-2">العميل 1</h5>
+                            <label class="block text-sm">صورة:</label><input type="text" data-target-img="testimonial-1-img" class="w-full p-2 border rounded">
+                            <label class="block text-sm mt-2">الشهادة:</label><textarea data-target-text="testimonial-1-text" class="w-full p-2 border rounded" rows="2"></textarea>
+                            <label class="block text-sm mt-2">الاسم:</label><input type="text" data-target-text="testimonial-1-name" class="w-full p-2 border rounded">
+                        </div>
+                        <!-- Client 2 -->
+                        <div class="border-t pt-4"><h5 class="font-semibold mb-2">العميل 2</h5>
+                            <label class="block text-sm">صورة:</label><input type="text" data-target-img="testimonial-2-img" class="w-full p-2 border rounded">
+                            <label class="block text-sm mt-2">الشهادة:</label><textarea data-target-text="testimonial-2-text" class="w-full p-2 border rounded" rows="2"></textarea>
+                            <label class="block text-sm mt-2">الاسم:</label><input type="text" data-target-text="testimonial-2-name" class="w-full p-2 border rounded">
+                        </div>
+                        <!-- Client 3 -->
+                        <div class="border-t pt-4"><h5 class="font-semibold mb-2">العميل 3</h5>
+                            <label class="block text-sm">صورة:</label><input type="text" data-target-img="testimonial-3-img" class="w-full p-2 border rounded">
+                            <label class="block text-sm mt-2">الشهادة:</label><textarea data-target-text="testimonial-3-text" class="w-full p-2 border rounded" rows="2"></textarea>
+                            <label class="block text-sm mt-2">الاسم:</label><input type="text" data-target-text="testimonial-3-name" class="w-full p-2 border rounded">
+                        </div>
+                        <!-- Client 4 -->
+                        <div class="border-t pt-4"><h5 class="font-semibold mb-2">العميل 4</h5>
+                            <label class="block text-sm">صورة:</label><input type="text" data-target-img="testimonial-4-img" class="w-full p-2 border rounded">
+                            <label class="block text-sm mt-2">الشهادة:</label><textarea data-target-text="testimonial-4-text" class="w-full p-2 border rounded" rows="2"></textarea>
+                            <label class="block text-sm mt-2">الاسم:</label><input type="text" data-target-text="testimonial-4-name" class="w-full p-2 border rounded">
+                        </div>
+                        <!-- Client 5 -->
+                        <div class="border-t pt-4"><h5 class="font-semibold mb-2">العميل 5</h5>
+                            <label class="block text-sm">صورة:</label><input type="text" data-target-img="testimonial-5-img" class="w-full p-2 border rounded">
+                            <label class="block text-sm mt-2">الشهادة:</label><textarea data-target-text="testimonial-5-text" class="w-full p-2 border rounded" rows="2"></textarea>
+                            <label class="block text-sm mt-2">الاسم:</label><input type="text" data-target-text="testimonial-5-name" class="w-full p-2 border rounded">
+                        </div>
+                     </div>
+                </details>
+            </div>
+            <!-- Action Buttons -->
+            <div class="mt-6 pt-4 border-t">
+                <button id="save-settings" class="w-full bg-green-600 text-white font-bold py-2 rounded-lg hover:bg-green-700 transition-colors">حفظ التغييرات</button>
+                <button id="reset-settings" class="w-full mt-2 bg-red-600 text-white font-bold py-2 rounded-lg hover:bg-red-700 transition-colors">إعادة تعيين</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========== Hero Section (No Changes) =========== -->
+    <section id="hero-section" class="hero-bg min-h-screen flex flex-col items-center justify-center p-4" style="color: var(--hero-text-color);">
+        <div class="text-center max-w-4xl mx-auto">
+            <img id="brand-logo" src="https://www.sca.gov.sa/media/1515/snd_logo_ar_1.png" alt="شعار" class="mx-auto mb-6 w-48 h-auto">
+            <h1 id="main-headline" class="text-4xl md:text-6xl font-bold mb-4 fade-in-up">عروض <span style="color: var(--accent-color);">استثنائية</span> بمناسبة فخر الوطن</h1>
+            <p id="main-description" class="text-lg md:text-xl mb-8 max-w-2xl mx-auto fade-in-up">احتفل معنا باليوم الوطني 95 واحصل على خصومات حصرية على أفضل منتجاتنا. العرض لفترة محدودة!</p>
+            <div id="countdown" class="grid grid-cols-4 gap-4 max-w-md mx-auto mb-8 text-center fade-in-up">
+                <div><div id="days" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span class="text-sm">أيام</span></div>
+                <div><div id="hours" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span class="text-sm">ساعات</span></div>
+                <div><div id="minutes" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span class="text-sm">دقائق</span></div>
+                <div><div id="seconds" class="text-4xl font-bold bg-white/20 p-4 rounded-lg">00</div><span class="text-sm">ثواني</span></div>
+            </div>
+            <a href="#offer" id="hero-cta-btn" class="bg-white font-bold text-xl px-12 py-4 rounded-full shadow-lg hover:bg-gray-200 hover:scale-105 transform transition-all duration-300 ease-in-out fade-in-up" style="color: var(--primary-color);">اكتشف العرض الآن!</a>
+        </div>
+    </section>
+
+    <!-- =========== Value Proposition Section (No Changes) =========== -->
+    <section class="py-16 sm:py-24" style="background-color: var(--light-section-bg);">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--headline-color);">لماذا تختارنا؟</h2>
+            <p class="max-w-2xl mx-auto mb-12" style="color: var(--text-color);">نقدم لك قيمة حقيقية تتجاوز توقعاتك.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="fade-in-up">
+                    <div class="p-6 inline-block mb-4" style="background-color: color-mix(in srgb, var(--primary-color) 15%, transparent); border-radius: 9999px;"><i class="fas fa-star text-3xl" style="color: var(--accent-color);"></i></div>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--headline-color);">جودة لا تضاهى</h3>
+                    <p style="color: var(--text-color);">منتجات مصنوعة بأعلى معايير الدقة والإتقان لضمان رضاك الكامل.</p>
+                </div>
+                <div class="fade-in-up" style="transition-delay: 150ms;">
+                    <div class="p-6 inline-block mb-4" style="background-color: color-mix(in srgb, var(--primary-color) 15%, transparent); border-radius: 9999px;"><i class="fas fa-truck-fast text-3xl" style="color: var(--icon-color);"></i></div>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--headline-color);">توصيل سريع ومجاني</h3>
+                    <p style="color: var(--text-color);">استلم طلبك في وقت قياسي وبدون أي رسوم إضافية على التوصيل.</p>
+                </div>
+                <div class="fade-in-up" style="transition-delay: 300ms;">
+                    <div class="p-6 inline-block mb-4" style="background-color: color-mix(in srgb, var(--primary-color) 15%, transparent); border-radius: 9999px;"><i class="fas fa-shield-halved text-3xl" style="color: var(--icon-color);"></i></div>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--headline-color);">ضمان الثقة</h3>
+                    <p style="color: var(--text-color);">نقدم ضماناً ذهبياً على جميع منتجاتنا وسياسة إرجاع مرنة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== Special Offer Section (No Changes) =========== -->
+    <section id="offer" class="py-16 sm:py-24" style="background-color: var(--page-bg-color);">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center -mx-4">
+                <div class="w-full lg:w-1/2 px-4 mb-8 lg:mb-0"><img id="product-image" src="https://cdn.salla.sa/XrBdw/SnXk5U0n5C0c2yq3i9V5uT6Z3sA4gBvj8K8t2tOf.jpg" alt="صورة المنتج" class="rounded-lg shadow-2xl w-full"></div>
+                <div class="w-full lg:w-1/2 px-4">
+                    <span class="font-bold text-lg" style="color: var(--primary-color);">عرض اليوم الوطني الحصري</span>
+                    <h2 id="offer-headline" class="text-3xl md:text-4xl font-bold my-3" style="color: var(--headline-color);">خصم 50% على المنتج المختار!</h2>
+                    <p id="offer-description" class="mb-6" style="color: var(--text-color);">لا تفوت فرصة الحصول على منتجنا الأكثر مبيعاً بنصف السعر. هذا العرض مصمم خصيصاً لعملائنا المميزين.</p>
+                    <div class="flex items-center mb-6">
+                        <span id="offer-price-new" class="text-4xl font-bold" style="color: var(--primary-color);">99 ريال</span>
+                        <span id="offer-price-old" class="text-2xl line-through mx-4" style="color: var(--text-color);">199 ريال</span>
+                    </div>
+                    <a href="#" class="w-full text-center font-bold text-lg px-12 py-4 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300 ease-in-out inline-block" style="background-color: var(--button-primary-bg); color: var(--button-primary-text);"><i class="fas fa-shopping-cart mr-2"></i> أضف إلى السلة الآن</a>
+                    <p class="text-sm mt-3" style="color: var(--text-color);">ينتهي العرض قريباً، الكمية محدودة!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== Testimonials Section (UPDATED) =========== -->
+    <section class="py-16 sm:py-24 overflow-hidden" style="background-color: var(--light-section-bg);">
+        <div class="container mx-auto px-4 text-center">
+            <h2 id="testimonials-headline" class="text-3xl md:text-4xl font-bold mb-12" style="color: var(--headline-color);">شهادات نعتز بها</h2>
+            <!-- Swiper -->
+            <div class="swiper-container testimonials-slider">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <img id="testimonial-1-img" src="https://placehold.co/80x80/cccccc/333333?text=ع" alt="صورة العميل" class="w-20 h-20 rounded-full mb-4 border-4 border-white shadow-md">
+                        <div class="mb-4" style="color: var(--accent-color);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p id="testimonial-1-text" class="mb-6 italic" style="color: var(--text-color);">"تجربة شراء رائعة ومنتج فاق كل التوقعات. شكراً لكم على المصداقية والجودة العالية."</p>
+                        <h4 id="testimonial-1-name" class="font-bold" style="color: var(--headline-color);">عبدالله القحطاني</h4>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <img id="testimonial-2-img" src="https://placehold.co/80x80/cccccc/333333?text=س" alt="صورة العميل" class="w-20 h-20 rounded-full mb-4 border-4 border-white shadow-md">
+                        <div class="mb-4" style="color: var(--accent-color);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p id="testimonial-2-text" class="mb-6 italic" style="color: var(--text-color);">"التوصيل كان سريع جداً والمنتج مغلف بعناية. أنصح الجميع بالتعامل مع هذا المتجر الموثوق."</p>
+                        <h4 id="testimonial-2-name" class="font-bold" style="color: var(--headline-color);">سارة الغامدي</h4>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <img id="testimonial-3-img" src="https://placehold.co/80x80/cccccc/333333?text=م" alt="صورة العميل" class="w-20 h-20 rounded-full mb-4 border-4 border-white shadow-md">
+                        <div class="mb-4" style="color: var(--accent-color);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p id="testimonial-3-text" class="mb-6 italic" style="color: var(--text-color);">"أفضل عرض حصلت عليه لليوم الوطني. سعيد جداً بهذه الصفقة وسأعود للشراء مرة أخرى بالتأكيد."</p>
+                        <h4 id="testimonial-3-name" class="font-bold" style="color: var(--headline-color);">محمد الشمري</h4>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <img id="testimonial-4-img" src="https://placehold.co/80x80/cccccc/333333?text=ف" alt="صورة العميل" class="w-20 h-20 rounded-full mb-4 border-4 border-white shadow-md">
+                        <div class="mb-4" style="color: var(--accent-color);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p id="testimonial-4-text" class="mb-6 italic" style="color: var(--text-color);">"خدمة العملاء كانت ممتازة ومتعاونة جداً. المنتج وصلني كما في الوصف تماماً."</p>
+                        <h4 id="testimonial-4-name" class="font-bold" style="color: var(--headline-color);">فاطمة الزهراني</h4>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide">
+                        <img id="testimonial-5-img" src="https://placehold.co/80x80/cccccc/333333?text=خ" alt="صورة العميل" class="w-20 h-20 rounded-full mb-4 border-4 border-white shadow-md">
+                        <div class="mb-4" style="color: var(--accent-color);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p id="testimonial-5-text" class="mb-6 italic" style="color: var(--text-color);">"الجودة والتصميم فاقا توقعاتي. منتج يستحق كل ريال. سأكون عميل دائم."</p>
+                        <h4 id="testimonial-5-name" class="font-bold" style="color: var(--headline-color);">خالد المطيري</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Other sections remain unchanged -->
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Initialize 3D Testimonials Carousel ---
+        var swiper = new Swiper('.testimonials-slider', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 80,
+                depth: 200,
+                modifier: 1,
+                slideShadows: false,
+            },
+        });
+
+
+        // --- Customizer Logic (Mostly unchanged) ---
+        const customizer = document.getElementById('customizer');
+        const toggleBtn = document.getElementById('customizer-toggle');
+        const saveBtn = document.getElementById('save-settings');
+        const resetBtn = document.getElementById('reset-settings');
+        const root = document.documentElement;
+
+        const config = [];
+        
+        // Populate config from data attributes
+        customizer.querySelectorAll('input[data-css-var]').forEach(input => {
+            config.push({ inputEl: input, type: 'color', cssVar: input.dataset.cssVar });
+        });
+        customizer.querySelectorAll('input[type="text"], textarea').forEach(input => {
+            if (input.dataset.targetText) {
+                config.push({ inputEl: input, type: 'text', targetId: input.dataset.targetText });
+            } else if (input.dataset.targetImg) {
+                config.push({ inputEl: input, type: 'image', targetId: input.dataset.targetImg });
+            } else if (input.dataset.targetBg) {
+                config.push({ inputEl: input, type: 'bg-image', targetId: input.dataset.targetBg });
+            }
+        });
+
+        const applySetting = (setting) => {
+            let inputEl = setting.inputEl;
+            if (!inputEl) return;
+
+            switch(setting.type) {
+                case 'color':
+                    root.style.setProperty(setting.cssVar, inputEl.value);
+                    break;
+                case 'text':
+                    const textTarget = document.getElementById(setting.targetId);
+                    if (textTarget) textTarget.innerHTML = inputEl.value;
+                    break;
+                case 'image':
+                    const imgTarget = document.getElementById(setting.targetId);
+                    if (imgTarget && inputEl.value) imgTarget.src = inputEl.value;
+                    break;
+                case 'bg-image':
+                     const bgTarget = document.getElementById(setting.targetId);
+                     if (bgTarget && inputEl.value) bgTarget.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${inputEl.value}')`;
+                     break;
+            }
+        };
+
+        const settingsKey = 'landingPageSettings_v4';
+
+        const saveSettings = () => {
+            const settings = {};
+            config.forEach(setting => {
+                const key = setting.cssVar || setting.targetId;
+                settings[key] = setting.inputEl.value;
+            });
+            localStorage.setItem(settingsKey, JSON.stringify(settings));
+            alert('تم حفظ الإعدادات بنجاح!');
+            customizer.classList.remove('open');
+        };
+
+        const loadSettings = () => {
+            const savedSettings = JSON.parse(localStorage.getItem(settingsKey));
+            if (!savedSettings) return;
+
+            config.forEach(setting => {
+                const key = setting.cssVar || setting.targetId;
+                if (setting.inputEl && savedSettings[key]) {
+                    setting.inputEl.value = savedSettings[key];
+                    applySetting(setting);
+                }
+            });
+        };
+        
+        const resetSettings = () => {
+            if (confirm('هل أنت متأكد أنك تريد إعادة تعيين جميع الإعدادات؟')) {
+                localStorage.removeItem(settingsKey);
+                window.location.reload();
+            }
+        };
+
+        toggleBtn.addEventListener('click', () => customizer.classList.toggle('open'));
+        saveBtn.addEventListener('click', saveSettings);
+        resetBtn.addEventListener('click', resetSettings);
+        
+        config.forEach(setting => {
+            if(setting.inputEl) {
+                setting.inputEl.addEventListener('input', () => applySetting(setting));
+            }
+        });
+        
+        loadSettings();
+
+        // --- Countdown Timer ---
+        const countdownDate = new Date("Sep 23, 2025 00:00:00").getTime();
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            if (distance < 0) { clearInterval(countdownFunction); document.getElementById("countdown").innerHTML = "<div class='col-span-4 text-xl'>انتهى العرض!</div>"; return; }
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
+
+        // --- Scroll Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    });
+    </script>
+</body>
+</html>

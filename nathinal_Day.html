@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اكتشف كنز اليوم الوطني السعودي!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons for X and Copy -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom CSS for animations and Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        .animate-scale-up {
+            animation: scaleUp 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .message-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .message-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-700 to-green-900 text-white p-4 sm:p-8 flex flex-col items-center justify-center">
+
+    <!-- Header Section -->
+    <header class="text-center mb-12 max-w-4xl">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg leading-tight">
+            اكتشف كنز اليوم الوطني السعودي!
+        </h1>
+        <p class="text-lg sm:text-xl text-green-200 mb-6">
+            انقر على الكنوز المخفية لتكشف عن عروض حصرية ومفاجآت لا تفوت بمناسبة اليوم الوطني.
+        </p>
+    </header>
+
+    <!-- Treasure Grid Section -->
+    <section id="treasure-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 max-w-6xl w-full justify-items-center">
+        <!-- Treasure items will be injected here by JavaScript -->
+    </section>
+
+    <!-- Offer Modal -->
+    <div id="offer-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 animate-fade-in">
+        <div class="bg-white text-gray-800 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-lg w-full relative transform scale-95 animate-scale-up">
+            <!-- Close Button -->
+            <button id="modal-close-button" class="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors duration-200" aria-label="إغلاق">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+
+            <h2 id="modal-title" class="text-2xl sm:text-3xl font-bold text-green-800 mb-4 text-center"></h2>
+            <p id="modal-description" class="text-base sm:text-lg text-gray-700 mb-6 text-center"></p>
+
+            <!-- Countdown Timer in Modal -->
+            <div id="modal-countdown" class="bg-yellow-100 border border-yellow-300 text-yellow-800 p-3 rounded-xl mb-6 text-center font-bold text-xl sm:text-2xl flex items-center justify-center gap-2 shadow-inner">
+                <span class="text-base sm:text-lg">ينتهي العرض خلال:</span>
+                <span id="modal-countdown-time"></span>
+            </div>
+
+            <!-- Discount Code -->
+            <div id="modal-code-section" class="mb-6 flex flex-col sm:flex-row items-center justify-center gap-3 hidden">
+                <span class="text-gray-600 text-base sm:text-lg">رمز الخصم:</span>
+                <div class="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 font-mono text-lg sm:text-xl text-green-700 font-semibold flex items-center justify-between w-full sm:w-auto shadow-sm">
+                    <span id="modal-code"></span>
+                    <button id="copy-code-button" class="ml-3 p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 shadow-md" aria-label="نسخ الرمز">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v2"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Call to Action Button -->
+            <a id="modal-cta-button" href="#" class="block w-full py-3 px-6 text-center text-white font-bold rounded-xl shadow-lg transform transition-all duration-300">
+            </a>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="message-box" class="message-box"></div>
+
+    <script>
+        // Define the offers data
+        const offersData = [
+            {
+                id: 'offer1',
+                treasureIcon: 'https://placehold.co/100x100/16A34A/FFFFFF?text=نخلة', // Placeholder for a date palm icon
+                title: 'خصم 30% على الإلكترونيات',
+                description: 'استمتع بخصم خاص على جميع الأجهزة الإلكترونية بمناسبة اليوم الوطني السعودي! لا تفوت الفرصة!',
+                code: 'SAUDI30ELEC',
+                ctaText: 'تسوق الإلكترونيات الآن',
+                ctaLink: '#',
+                durationSeconds: 3600 * 2 // 2 hours
+            },
+            {
+                id: 'offer2',
+                treasureIcon: 'https://placehold.co/100x100/16A34A/FFFFFF?text=صقر', // Placeholder for a falcon icon
+                title: 'شحن مجاني على جميع الطلبات',
+                description: 'احصل على شحن مجاني لجميع طلباتك بدون حد أدنى للإنفاق! العرض ساري لفترة محدودة.',
+                code: null,
+                ctaText: 'ابدأ التسوق',
+                ctaLink: '#',
+                durationSeconds: 3600 * 3 // 3 hours
+            },
+            {
+                id: 'offer3',
+                treasureIcon: 'https://placehold.co/100x100/16A34A/FFFFFF?text=دلة', // Placeholder for a dallah icon
+                title: 'اشترِ واحد واحصل على الثاني مجاناً',
+                description: 'عرض خاص على منتجات مختارة، اشترِ قطعة واحصل على الثانية مجاناً! استغل الفرصة الآن.',
+                code: 'BOGO_NATL',
+                ctaText: 'اكتشف العرض',
+                ctaLink: '#',
+                durationSeconds: 3600 * 4 // 4 hours
+            },
+            {
+                id: 'offer4',
+                treasureIcon: 'https://placehold.co/100x100/16A34A/FFFFFF?text=قلعة', // Placeholder for a castle icon
+                title: 'خصم 20% على الأزياء التراثية',
+                description: 'تألق بأجمل الأزياء التراثية السعودية بخصم 20%! احتفل باليوم الوطني بأناقة.',
+                code: 'SAUDI20FASHION',
+                ctaText: 'تسوق الأزياء الآن',
+                ctaLink: '#',
+                durationSeconds: 3600 * 2.5 // 2.5 hours
+            }
+        ];
+
+        const timeRemaining = {}; // Object to store remaining time for each offer
+        const intervalRefs = {}; // Object to store interval IDs for each offer
+
+        // Utility function to format time for countdown
+        const formatTime = (seconds) => {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        };
+
+        // Function to show a custom message box
+        const showMessageBox = (message) => {
+            const msgBox = document.getElementById('message-box');
+            msgBox.textContent = message;
+            msgBox.classList.add('show');
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        };
+
+        // Function to copy code to clipboard
+        const copyCodeToClipboard = (code) => {
+            if (code) {
+                const el = document.createElement('textarea');
+                el.value = code;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                showMessageBox('تم نسخ الرمز بنجاح!');
+            }
+        };
+
+        // Function to update a single offer's countdown display
+        const updateOfferCountdownDisplay = (offerId) => {
+            const countdownElement = document.getElementById(`countdown-${offerId}`);
+            const treasureDiv = document.getElementById(`treasure-${offerId}`);
+            if (countdownElement && treasureDiv) {
+                if (timeRemaining[offerId] !== undefined && timeRemaining[offerId] > 0) {
+                    countdownElement.textContent = formatTime(timeRemaining[offerId]);
+                } else {
+                    countdownElement.textContent = 'انتهى العرض';
+                    countdownElement.classList.remove('text-yellow-300');
+                    countdownElement.classList.add('text-red-400');
+                    treasureDiv.classList.add('opacity-50', 'cursor-not-allowed', 'grayscale');
+                    if (intervalRefs[offerId]) {
+                        clearInterval(intervalRefs[offerId]);
+                    }
+                }
+            }
+        };
+
+        // Function to open the offer modal
+        const openOfferModal = (offer) => {
+            const modal = document.getElementById('offer-modal');
+            document.getElementById('modal-title').textContent = offer.title;
+            document.getElementById('modal-description').textContent = offer.description;
+
+            const modalCountdownTime = document.getElementById('modal-countdown-time');
+            const modalCountdownDiv = document.getElementById('modal-countdown');
+            const modalCtaButton = document.getElementById('modal-cta-button');
+            const modalCodeSection = document.getElementById('modal-code-section');
+            const modalCode = document.getElementById('modal-code');
+            const copyButton = document.getElementById('copy-code-button');
+
+            if (timeRemaining[offer.id] !== undefined && timeRemaining[offer.id] > 0) {
+                modalCountdownTime.textContent = formatTime(timeRemaining[offer.id]);
+                modalCountdownDiv.classList.remove('bg-red-100', 'border-red-300', 'text-red-800');
+                modalCountdownDiv.classList.add('bg-yellow-100', 'border-yellow-300', 'text-yellow-800');
+                modalCtaButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                modalCtaButton.classList.add('bg-yellow-500', 'hover:bg-yellow-600', 'active:scale-98');
+                modalCtaButton.href = offer.ctaLink;
+                modalCtaButton.onclick = null; // Remove previous click handler if any
+            } else {
+                modalCountdownTime.textContent = 'انتهى وقت هذا العرض!';
+                modalCountdownDiv.classList.remove('bg-yellow-100', 'border-yellow-300', 'text-yellow-800');
+                modalCountdownDiv.classList.add('bg-red-100', 'border-red-300', 'text-red-800');
+                modalCtaButton.classList.remove('bg-yellow-500', 'hover:bg-yellow-600', 'active:scale-98');
+                modalCtaButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+                modalCtaButton.href = '#'; // Disable link
+                modalCtaButton.onclick = (e) => e.preventDefault(); // Prevent navigation
+            }
+            modalCtaButton.textContent = offer.ctaText;
+
+            if (offer.code) {
+                modalCode.textContent = offer.code;
+                modalCodeSection.classList.remove('hidden');
+                copyButton.onclick = () => copyCodeToClipboard(offer.code);
+            } else {
+                modalCodeSection.classList.add('hidden');
+            }
+
+            modal.classList.remove('hidden');
+        };
+
+        // Function to close the offer modal
+        const closeOfferModal = () => {
+            document.getElementById('offer-modal').classList.add('hidden');
+        };
+
+        // Initialize the page when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const treasureGrid = document.getElementById('treasure-grid');
+            const modalCloseButton = document.getElementById('modal-close-button');
+            const offerModal = document.getElementById('offer-modal');
+
+            // Populate the treasure grid
+            offersData.forEach(offer => {
+                const treasureDiv = document.createElement('div');
+                treasureDiv.id = `treasure-${offer.id}`;
+                treasureDiv.className = `
+                    relative bg-green-600 bg-opacity-70 rounded-3xl p-4 sm:p-6 flex flex-col items-center justify-center
+                    cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl
+                    border-4 border-green-500 hover:border-yellow-400
+                `;
+                treasureDiv.innerHTML = `
+                    <img
+                        src="${offer.treasureIcon}"
+                        alt="Icon for ${offer.title}"
+                        class="w-24 h-24 sm:w-32 sm:h-32 mb-4 object-contain rounded-full shadow-lg border-2 border-green-400"
+                        onerror="this.onerror=null;this.src='https://placehold.co/100x100/16A34A/FFFFFF?text=كنز';"
+                    />
+                    <h3 class="text-lg sm:text-xl font-bold text-center mt-2">
+                        ${offer.title.split(' ')[0]} ${offer.title.split(' ')[1]}
+                    </h3>
+                    <p id="countdown-${offer.id}" class="text-sm sm:text-base text-yellow-300 font-semibold mt-2"></p>
+                    ${offer.durationSeconds > 0 ? `<div class="absolute top-2 right-2 bg-yellow-400 text-green-900 text-xs font-bold px-2 py-1 rounded-full shadow-md">جديد!</div>` : ''}
+                `;
+
+                treasureDiv.addEventListener('click', () => {
+                    if (timeRemaining[offer.id] > 0) {
+                        openOfferModal(offer);
+                    }
+                });
+                treasureGrid.appendChild(treasureDiv);
+
+                // Initialize countdown for each offer
+                const storedStartTime = localStorage.getItem(`offer_${offer.id}_startTime`);
+                let initialTime = offer.durationSeconds;
+                if (storedStartTime) {
+                    const elapsed = Math.floor((Date.now() - parseInt(storedStartTime, 10)) / 1000);
+                    initialTime = Math.max(0, offer.durationSeconds - elapsed);
+                } else {
+                    localStorage.setItem(`offer_${offer.id}_startTime`, Date.now().toString());
+                }
+                timeRemaining[offer.id] = initialTime;
+
+                // Set up interval for each offer
+                intervalRefs[offer.id] = setInterval(() => {
+                    if (timeRemaining[offer.id] > 0) {
+                        timeRemaining[offer.id]--;
+                    }
+                    updateOfferCountdownDisplay(offer.id);
+                }, 1000);
+
+                // Initial display update
+                updateOfferCountdownDisplay(offer.id);
+            });
+
+            // Event listeners for modal
+            modalCloseButton.addEventListener('click', closeOfferModal);
+            offerModal.addEventListener('click', (e) => {
+                if (e.target === offerModal) { // Close if clicked outside the content
+                    closeOfferModal();
+                }
+            });
+        });
+
+        // Cleanup intervals when the window is unloaded
+        window.addEventListener('beforeunload', () => {
+            Object.values(intervalRefs).forEach(clearInterval);
+        });
+    </script>
+</body>
+</html>

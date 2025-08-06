@@ -1,715 +1,1201 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" style="overflow-x:hidden;">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مدونة المعرفة - اكتشف عالماً من المعرفة والإلهام</title>
-    <meta name="description" content="مدونة عربية شاملة تغطي التكنولوجيا، الصحة، والأعمال. اكتشف محتوى ملهم ومفيد.">
-    <!-- Tailwind CSS CDN with custom colors -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                DEFAULT: '#0a2a1c', // أخضر داكن جداً (أقرب للأسود)
-                dark: '#05140d',
-                light: '#14532d',
-              },
-              gold: {
-                DEFAULT: '#bfa14a', // ذهبي أغمق وأكثر واقعية
-                dark: '#8c781c',
-                light: '#ffe7a3',
-                gradient: 'linear-gradient(90deg, #bfa14a 0%, #ffe7a3 100%)',
-              },
-              graybg: '#f6f6f6',
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مدونة المعرفة - اكتشف عالماً من المعرفة والإلهام</title>
+  <meta name="description" content="مدونة عربية شاملة تغطي التكنولوجيا، الصحة، والأعمال. اكتشف محتوى ملهم ومفيد.">
+  <!-- Tailwind CSS CDN with custom colors -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#0a2a1c', // أخضر داكن جداً (أقرب للأسود)
+              dark: '#05140d',
+              light: '#14532d',
             },
-            fontFamily: {
-              arabic: ["IBM Plex Sans Arabic", "IBM Plex Sans", "sans-serif"]
-            }
+            gold: {
+              DEFAULT: '#bfa14a', // ذهبي أغمق وأكثر واقعية
+              dark: '#8c781c',
+              light: '#ffe7a3',
+              gradient: 'linear-gradient(90deg, #bfa14a 0%, #ffe7a3 100%)',
+            },
+            graybg: '#f6f6f6',
+          },
+          fontFamily: {
+            arabic: ["IBM Plex Sans Arabic", "IBM Plex Sans", "sans-serif"]
           }
         }
       }
-    </script>
-    <link rel="icon" href="images/logo.png" type="image/jpeg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-      body { font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif; }
-      /* تحسينات Responsive واحترافية إضافية */
-      @media (max-width: 768px) {
-        .hero-title { font-size: 2rem !important; }
-        .about-title, .section-title { font-size: 1.25rem !important; }
-        .footer-logo { width: 2.5rem !important; height: 2.5rem !important; }
-        .container { padding-left: 1rem !important; padding-right: 1rem !important; }
-        .navbar-nav, .navbar-container { flex-direction: column !important; align-items: stretch !important; }
-        .navbar-brand { justify-content: center !important; width: 100%; }
-        .navbar-menu { justify-content: center !important; }
-        .nav-links { flex-direction: column !important; gap: 1rem !important; align-items: center !important; }
-        .navbar-tools { justify-content: center !important; margin-top: 1rem; }
-        .hero-content-wrapper, .hero-content { flex-direction: column !important; text-align: center !important; }
-        .hero-image-container, .hero-image { margin-bottom: 1.5rem !important; }
-        .hero-image { width: 90vw !important; max-width: 320px !important; margin: 0 auto !important; }
-        .hero-text { margin-bottom: 1.5rem !important; }
-        .hero-actions { flex-direction: column !important; gap: 0.75rem !important; }
-        .hero-actions a { width: 100% !important; justify-content: center !important; }
-        .about-content-wrapper, .creative-about-layout { flex-direction: column !important; align-items: center !important; }
-        .about-image-center { width: 90vw !important; max-width: 320px !important; margin-bottom: 1.5rem !important; }
-        .about-main-content { flex-direction: column !important; gap: 1rem !important; }
-        .about-card { width: 100% !important; margin: 0 !important; }
-        .categories-grid, .posts-grid { grid-template-columns: 1fr !important; }
-        .footer-content { flex-direction: column !important; gap: 2rem !important; align-items: center !important; }
-        .footer-section { width: 100% !important; text-align: center !important; }
-        .footer-bottom-content { flex-direction: column !important; gap: 1rem !important; align-items: center !important; }
+    }
+  </script>
+  <link rel="icon" href="images/logo.png" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+    }
+
+    /* تحسينات خاصة بقسم آراء العملاء */
+    .testimonial-image-container {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .testimonial-image-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(191, 161, 74, 0.3);
+    }
+
+    .testimonial-preview-btn {
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      animation: pulse-gold 2s infinite;
+    }
+
+    .testimonial-preview-btn:hover {
+      transform: scale(1.2);
+      box-shadow: 0 8px 25px rgba(191, 161, 74, 0.6);
+    }
+
+    @keyframes pulse-gold {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(191, 161, 74, 0.7);
       }
-      @media (min-width: 641px) and (max-width: 1024px) {
-        .categories-grid, .posts-grid { grid-template-columns: 1fr 1fr !important; }
-        .about-image-center { width: 320px !important; height: 340px !important; }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(191, 161, 74, 0);
       }
-    </style>
-    <!-- تحسينات Responsive إضافية لجميع الشاشات -->
-    <style>
-      @media (max-width: 640px) {
-        .container, .about-image-center, .hero-image { padding-left: 1rem !important; padding-right: 1rem !important; }
-        .about-image-center, .hero-image { max-width: 95vw !important; }
-        .about-card, .category-card, .post-card { width: 100% !important; margin: 0 auto !important; }
-        .categories-grid, .posts-grid { grid-template-columns: 1fr !important; }
-        .footer-section { width: 100% !important; text-align: center !important; }
+    }
+
+    /* تحسين عرض الصور على الأجهزة الصغيرة */
+    @media (max-width: 768px) {
+      .testimonial-current-img {
+        width: 280px !important;
+        height: 400px !important;
       }
-      @media (min-width: 641px) and (max-width: 1024px) {
-        .categories-grid, .posts-grid { grid-template-columns: 1fr 1fr !important; }
-        .about-image-center, .hero-image { max-width: 340px !important; }
+
+      .testimonial-side-img {
+        width: 180px !important;
+        height: 280px !important;
       }
-      @media (min-width: 1025px) {
-        .categories-grid, .posts-grid { grid-template-columns: 1fr 1fr 1fr !important; }
+    }
+
+    /* تحسينات Responsive واحترافية إضافية */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2rem !important;
       }
-    </style>
-    <script>
-// قائمة جانبية للجوال (Drawer) - هيكل فقط
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobile-drawer');
-  if(menu) menu.classList.toggle('hidden');
-}
-</script>
+
+      .about-title,
+      .section-title {
+        font-size: 1.25rem !important;
+      }
+
+      .footer-logo {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+      }
+
+      .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+
+      .navbar-nav,
+      .navbar-container {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+
+      .navbar-brand {
+        justify-content: center !important;
+        width: 100%;
+      }
+
+      .navbar-menu {
+        justify-content: center !important;
+      }
+
+      .nav-links {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+      }
+
+      .navbar-tools {
+        justify-content: center !important;
+        margin-top: 1rem;
+      }
+
+      .hero-content-wrapper,
+      .hero-content {
+        flex-direction: column !important;
+        text-align: center !important;
+      }
+
+      .hero-image-container,
+      .hero-image {
+        margin-bottom: 1.5rem !important;
+      }
+
+      .hero-image {
+        width: 90vw !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+      }
+
+      .hero-text {
+        margin-bottom: 1.5rem !important;
+      }
+
+      .hero-actions {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+      }
+
+      .hero-actions a {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      .about-content-wrapper,
+      .creative-about-layout {
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .about-image-center {
+        width: 90vw !important;
+        max-width: 320px !important;
+        margin-bottom: 1.5rem !important;
+      }
+
+      .about-main-content {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+
+      .about-card {
+        width: 100% !important;
+        margin: 0 !important;
+      }
+
+      .categories-grid,
+      .posts-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .footer-content {
+        flex-direction: column !important;
+        gap: 2rem !important;
+        align-items: center !important;
+      }
+
+      .footer-section {
+        width: 100% !important;
+        text-align: center !important;
+      }
+
+      .footer-bottom-content {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+      }
+    }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+
+      .categories-grid,
+      .posts-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      .about-image-center {
+        width: 320px !important;
+        height: 340px !important;
+      }
+    }
+  </style>
+  <!-- تحسينات Responsive إضافية لجميع الشاشات -->
+  <style>
+    @media (max-width: 640px) {
+
+      .container,
+      .about-image-center,
+      .hero-image {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+
+      .about-image-center,
+      .hero-image {
+        max-width: 95vw !important;
+      }
+
+      .about-card,
+      .category-card,
+      .post-card {
+        width: 100% !important;
+        margin: 0 auto !important;
+      }
+
+      .categories-grid,
+      .posts-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .footer-section {
+        width: 100% !important;
+        text-align: center !important;
+      }
+    }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+
+      .categories-grid,
+      .posts-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      .about-image-center,
+      .hero-image {
+        max-width: 340px !important;
+      }
+    }
+
+    @media (min-width: 1025px) {
+
+      .categories-grid,
+      .posts-grid {
+        grid-template-columns: 1fr 1fr 1fr !important;
+      }
+    }
+  </style>
+  <script>
+    // قائمة جانبية للجوال (Drawer) - هيكل فقط
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-drawer');
+      if (menu) menu.classList.toggle('hidden');
+    }
+  </script>
 </head>
+
 <body class="bg-white text-primary font-arabic min-h-screen flex flex-col overflow-x-hidden">
-    <!-- شريط التنقل الرئيسي -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-primary border-b border-gold">
-        <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
-            <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
-                <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
-                <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد الجهني</span>
-            </a>
-            <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
-                <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow" style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
-                <li><a href="blog.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">المدونة</a></li>
-                <li class="relative group">
-                    <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow" style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
-                    <ul class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
-                        <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة الإبداعية</a></li>
-                        <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة المحتوى</a></li>
-                        <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير الذات</a></li>
-                    </ul>
-                </li>
-                <!-- <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
+  <!-- شريط التنقل الرئيسي -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-primary border-b border-gold">
+    <nav class="container mx-auto flex flex-row items-center justify-between py-4 px-4 lg:px-0">
+      <a href="index.html" class="flex items-center gap-2 md:gap-2 lg:gap-3 justify-center md:justify-start">
+        <img src="images/logo.png" alt="شعار المدونة" class="w-10 h-10 rounded-full shadow">
+        <span class="font-bold text-lg text-white drop-shadow" style="text-shadow:0 1px 6px #000a">ريم محمد
+          الجهني</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
+        <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow"
+            style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
+        <li><a href="blog.html" class="text-white hover:text-gold drop-shadow"
+            style="text-shadow:0 1px 6px #000a">المدونة</a></li>
+        <li class="relative group">
+          <a href="#" class="text-white hover:text-gold flex items-center gap-1 drop-shadow"
+            style="text-shadow:0 1px 6px #000a">الفئات <i class="fas fa-chevron-down text-xs"></i></a>
+          <ul
+            class="absolute right-0 mt-2 w-44 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto z-20">
+            <li><a href="blog.html?category=creative-writing" class="block px-4 py-2 hover:bg-primary/10">الكتابة
+                الإبداعية</a></li>
+            <li><a href="blog.html?category=content-writing" class="block px-4 py-2 hover:bg-primary/10">كتابة
+                المحتوى</a></li>
+            <li><a href="blog.html?category=self-development" class="block px-4 py-2 hover:bg-primary/10">تطوير
+                الذات</a></li>
+          </ul>
+        </li>
+        <!-- <li><a href="about.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">من نحن</a></li>
                 <li><a href="contact.html" class="text-white hover:text-gold drop-shadow" style="text-shadow:0 1px 6px #000a">اتصل بنا</a></li> -->
-            </ul>
-            <div class="hidden md:flex items-center gap-2 navbar-tools">
-                <a href="reemcourceland/reemcourse.html" class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i class="fas fa-user-shield"></i> انظم الى دوارتي </a>
-                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i class="fas fa-language"></i></button>
-                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
-            </div>
-            <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية" onclick="toggleMobileMenu()">
-                <span class="w-6 h-0.5 bg-gold"></span>
-                <span class="w-6 h-0.5 bg-gold"></span>
-                <span class="w-6 h-0.5 bg-gold"></span>
-            </button>
-        </nav>
-        <!-- قائمة جانبية للجوال -->
-        <div id="mobile-drawer" class="fixed top-0 left-0 w-full h-full bg-primary/95 z-[99999] shadow-lg hidden transition-all duration-300">
-            <div class="flex flex-col gap-6 p-6">
-                <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
-                <a href="blog.html" class="text-white text-lg">المدونة</a>
-                <!-- <a href="about.html" class="text-white text-lg">من نحن</a>
+      </ul>
+      <div class="hidden md:flex items-center gap-2 navbar-tools">
+        <a href="reemcourceland/reemcourse.html"
+          class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition"
+          style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i
+            class="fas fa-user-shield"></i> انظم الى دوارتي </a>
+        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i
+            class="fas fa-language"></i></button>
+        <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تبديل الوضع الليلي"><i
+            class="fas fa-moon"></i></button>
+      </div>
+      <button class="md:hidden flex flex-col gap-1 ml-2" aria-label="Toggle mobile menu" title="فتح القائمة الجانبية"
+        onclick="toggleMobileMenu()">
+        <span class="w-6 h-0.5 bg-gold"></span>
+        <span class="w-6 h-0.5 bg-gold"></span>
+        <span class="w-6 h-0.5 bg-gold"></span>
+      </button>
+    </nav>
+    <!-- قائمة جانبية للجوال -->
+    <div id="mobile-drawer"
+      class="fixed top-0 left-0 w-full h-full bg-primary/95 z-[99999] shadow-lg hidden transition-all duration-300">
+      <div class="flex flex-col gap-6 p-6">
+        <a href="index.html" class="text-gold text-lg font-bold">الرئيسية</a>
+        <a href="blog.html" class="text-white text-lg">المدونة</a>
+        <!-- <a href="about.html" class="text-white text-lg">من نحن</a>
                 <a href="contact.html" class="text-white text-lg">اتصل بنا</a> -->
-                <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
-                <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i class="fas fa-user-shield"></i> لوحة التحكم</a>
-                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
-                <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
-                <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
-            </div>
-        </div>
-    </header>
-    <!-- <div class="pt-24"></div> -->
-    <main class="flex-1">
-        <!-- Hero Section -->
-        <section class="relative flex flex-col justify-center overflow-hidden max-w-full min-h-0 md:min-h-[420px] ">
-            <!-- SVG Abstract Background -->
-            <div class="absolute inset-0 z-0 pointer-events-none max-w-full overflow-x-hidden">
-                <svg width="100%" height="100%" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full max-w-full">
-                    <defs>
-                        <radialGradient id="circleGradient1" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.55"/>
-                            <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.38"/>
-                            <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.18"/>
-                        </radialGradient>
-                        <radialGradient id="circleGradient2" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.48"/>
-                            <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.32"/>
-                            <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.15"/>
-                        </radialGradient>
-                        <radialGradient id="circleGradient3" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.38"/>
-                            <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.28"/>
-                            <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.10"/>
-                        </radialGradient>
-                        <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="0">
-                          <stop offset="0%" stop-color="#bfa14a"/>
-                          <stop offset="100%" stop-color="#ffe7a3"/>
-                        </linearGradient>
-                    </defs>
-                    <circle cx="-100" cy="300" r="300" stroke="url(#circleGradient1)" stroke-width="32" opacity="0.98"/>
-                    <circle cx="1300" cy="300" r="300" stroke="url(#circleGradient2)" stroke-width="24" opacity="0.98"/>
-                    <circle cx="600" cy="150" r="200" stroke="url(#circleGradient3)" stroke-width="18" opacity="0.93"/>
-                    <path d="M0 400 Q300 200 600 400 T1200 400" stroke="#0a2a1c" stroke-width="2" opacity="0.32" fill="none"/>
-                    <path d="M0 350 Q400 150 800 350 T1200 350" stroke="#0a2a1c" stroke-width="1.5" opacity="0.22" fill="none"/>
-                    <path d="M0 450 Q200 250 400 450 T800 450 T1200 450" stroke="#0a2a1c" stroke-width="1" opacity="0.18" fill="none"/>
-                </svg>
-                <div class="absolute inset-0 bg-primary/95 mix-blend-multiply z-0"></div>
-            </div>
-            <!-- Hero Content -->
-            <div class="relative z-10 container mx-auto flex flex-col items-center justify-center text-center py-12 md:py-24 px-4 sm:px-6 md:px-8 lg:px-4 xl:px-8">
-                <!-- Badge أعلى العنوان -->
-                <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-gold/30 rounded-full px-8 py-3 mb-10 shadow-lg">
-                    <i class="fas fa-star text-gold animate-pulse"></i>
-                    <span class="text-white font-bold text-lg">كاتبة ومؤلفة محترفة</span>
-                    <i class="fas fa-star text-gold animate-pulse"></i>
-                </div>
-                
-                <!-- العنوان الرئيسي مع تأثير إبداعي -->
-                <div class="relative mb-8">
-                    <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-2xl" style="text-shadow:0 4px 12px rgba(0,0,0,0.6);">ريم محمد الجهني</h1>
-                    <!-- خط ذهبي تحت العنوان -->
-                    <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
-                </div>
-                
-                <!-- العنوان الفرعي مع توزيع أفقي احترافي بدون دائرة أو صورة -->
-                <div class="mb-12 flex flex-row items-center justify-center gap-1 sm:gap-4 md:gap-8 flex-nowrap overflow-x-auto px-2">
-                  <span class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition" style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
-                    مدربة كتابة إبداعية
-                  </span>
-                  <span class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition" style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
-                    كاتبة ومؤلفة
-                  </span>
-                  <span class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition" style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
-                    صانعة محتوى
-                  </span>
-                </div>
-                
-                <!-- النص التسويقي الرئيسي مع تنظيم إبداعي -->
-                <div class="w-full max-w-7xl mx-auto space-y-8 mb-16">
-                    <!-- أسماء الروايات مع تصميم مميز -->
-                    <div class="bg-white/5 backdrop-blur-sm border border-gold/20 rounded-2xl p-8 lg:p-12 mb-8">
-                        <h3 class="text-gold font-bold text-2xl md:text-3xl mb-4 text-center">رواياتي الإبداعية</h3>
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-20">
-                            <div class="text-center group">
-                                <div class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">"غضّة العود"</div>
-                                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
-                            </div>
-                            <div class="hidden md:block text-gold text-2xl">•</div>
-                            <div class="text-center group">
-                                <div class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">"أدهم"</div>
-                                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
-                            </div>
-                            <div class="hidden md:block text-gold text-2xl">•</div>
-                            <div class="text-center group">
-                                <div class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">"ثلاثية العلاقات"</div>
-                                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- وصف الروايات -->
-                    <div class="text-center mb-8">
-                        <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg leading-relaxed" style="text-shadow:0 2px 6px rgba(0,0,0,0.4);">
-                            روايات تلامس القلب وتنقل القارئ إلى عوالم من الخيال والإبداع
-                        </p>
-                    </div>
-                    
-                                         <!-- إنجازات التدريب -->
-                    
-                </div>
-                
-                <!-- الأزرار التحفيزية -->
-                <div class="flex flex-col sm:flex-row gap-8 justify-center mb-12 w-full max-w-6xl mx-auto">
-                    <a href="#novels" class="px-10 py-4 rounded-2xl text-xl flex items-center gap-4 font-bold shadow-2xl hover:scale-105 transition-all duration-300 group" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06">
-                        <i class="fas fa-book-open text-3xl group-hover:rotate-12 transition-transform duration-300"></i>
-                        <span>اكتشف رواياتي الإبداعية</span>
-                        <i class="fas fa-arrow-left text-2xl group-hover:-translate-x-2 transition-transform duration-300"></i>
-                    </a>
-                    <a href="reemcourceland/reemcourse.html" class="border-3 border-gold text-gold px-10 py-4 rounded-2xl text-xl flex items-center gap-4 font-bold hover:bg-gold/10 hover:scale-105 transition-all duration-300 group shadow-2xl">
-                        <i class="fas fa-graduation-cap text-3xl group-hover:rotate-12 transition-transform duration-300"></i>
-                        <span>انضم إلى دوراتي التدريبية</span>
-                        <i class="fas fa-arrow-left text-2xl group-hover:-translate-x-2 transition-transform duration-300"></i>
-                    </a>
-                </div>
-                
-                <!-- إحصائيات سريعة -->
-                <div class="grid grid-cols-2 gap-8 md:gap-16 lg:gap-24 w-full max-w-5xl mx-auto">
-                    <div class="text-center group">
-                        <div class="text-4xl md:text-5xl font-bold text-gold mb-2 group-hover:scale-110 transition-transform duration-300">3</div>
-                        <div class="text-sm md:text-base text-white/80 font-semibold">روايات منشورة</div>
-                    </div>
-                    <div class="text-center group">
-                        <div class="text-4xl md:text-5xl font-bold text-gold mb-2 group-hover:scale-110 transition-transform duration-300">100+</div>
-                        <div class="text-sm md:text-base text-white/80 font-semibold">متدربة</div>
-                    </div>
-                    
-                </div>
-                
-               
-            </div>
-        </section>
-        <!-- قسم عن الكاتبة مع تحسينات جمالية -->
-<section class="relative py-20" style="background:linear-gradient(135deg,#143325 70%,#cbb87c 100%);">
-  <!-- Abstract shapes -->
-  <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
-    <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-      <circle cx="200" cy="100" r="120" fill="#cbb87c" fill-opacity="0.06"/>
-      <circle cx="1240" cy="220" r="90" fill="#cbb87c" fill-opacity="0.07"/>
-      <ellipse cx="700" cy="300" rx="180" ry="60" fill="#cbb87c" fill-opacity="0.05"/>
-    </svg>
-  </div>
-  <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-    <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 text-center drop-shadow-lg about-title" style="text-shadow:0 2px 8px #000a">عن الكاتبة</h2>
-    <!-- تصميم إبداعي جديد بدون صورة -->
-    <div class="relative w-full">
-      <!-- خلفية إبداعية متحركة -->
-      <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-10 left-10 w-32 h-32 bg-gold/10 rounded-full blur-xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-20 w-40 h-40 bg-gold/5 rounded-full blur-2xl animate-bounce"></div>
-        <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-gold/15 rounded-full blur-lg animate-spin"></div>
-      </div>
-      
-      <!-- شبكة العناصر الإبداعية -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-        <!-- العنصر الأول - كاتبة ومؤلفة روايات -->
-        <div class="group relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-          <div class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-            <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-              <i class="fas fa-book-open text-white text-xl"></i>
-            </div>
-            <div class="mt-4">
-              <h3 class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">كاتبة ومؤلفة روايات</h3>
-              <p class="text-white/90 leading-relaxed">أكتب روايات وقصص تلامس القلب وتنقل القارئ إلى عوالم جديدة من الخيال والإبداع.</p>
-            </div>
-            <div class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <!-- العنصر الثاني - محررة نصوص وصوتيات -->
-        <div class="group relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-          <div class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-            <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-              <i class="fas fa-edit text-white text-xl"></i>
-            </div>
-            <div class="mt-4">
-              <h3 class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">محررة نصوص وصوتيات</h3>
-              <p class="text-white/90 leading-relaxed">أحرر النصوص والمحتوى الصوتي لضمان الجودة والوضوح في كل كلمة.</p>
-            </div>
-            <div class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <!-- العنصر الثالث - البودكاست -->
-        <div class="group relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-          <div class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-            <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-              <i class="fas fa-podcast text-white text-xl"></i>
-            </div>
-            <div class="mt-4">
-              <h3 class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">أحرر البودكاست وأصنع حكايات تُسمع وتُحس</h3>
-              <p class="text-white/90 leading-relaxed">أصنع محتوى صوتي مؤثر وحكايات تصل إلى القلب وتترك أثراً عميقاً في المستمع.</p>
-            </div>
-            <div class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <!-- العنصر الرابع - مدربة -->
-        <div class="group relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-          <div class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-            <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-              <i class="fas fa-chalkboard-teacher text-white text-xl"></i>
-            </div>
-            <div class="mt-4">
-              <h3 class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">مدربة في القراءة والكتابة</h3>
-              <p class="text-white/90 leading-relaxed">أدرب الآخرين على مهارات القراءة والكتابة الإبداعية لمساعدتهم في تطوير مواهبهم.</p>
-            </div>
-            <div class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <!-- العنصر الخامس - السوشال ميديا -->
-        <div class="group relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-          <div class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-            <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-              <i class="fas fa-share-alt text-white text-xl"></i>
-            </div>
-            <div class="mt-4">
-              <h3 class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">صانعة محتوى أدبي وثقافي على السوشال ميديا</h3>
-              <p class="text-white/90 leading-relaxed">أنشر محتوى أدبي وثقافي مؤثر على منصات التواصل الاجتماعي لوصول أوسع للجمهور.</p>
-            </div>
-            <div class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <!-- العنصر السادس - مستشارة -->
-        <div class="group relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-          <div class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-            <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-              <i class="fas fa-lightbulb text-white text-xl"></i>
-            </div>
-            <div class="mt-4">
-              <h3 class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">مستشارة في تطوير المحتوى الرقمي</h3>
-              <p class="text-white/90 leading-relaxed">أقدم استشارات متخصصة في تطوير المحتوى الرقمي واستراتيجيات التسويق بالمحتوى.</p>
-            </div>
-            <div class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300"></div>
-          </div>
-        </div>
+        <!-- أيقونات الترجمة ولوحة التحكم للجوال فقط -->
+        <a href="admin/login.html" class="flex items-center gap-2 text-gold text-lg font-bold md:hidden"><i
+            class="fas fa-user-shield"></i> لوحة التحكم</a>
+        <button
+          class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden"
+          title="تغيير اللغة"><i class="fas fa-language"></i> ترجمة</button>
+        <button
+          class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10 flex items-center gap-2 md:hidden"
+          title="تبديل الوضع الليلي"><i class="fas fa-moon"></i> الوضع الليلي</button>
+        <button onclick="toggleMobileMenu()" class="mt-8 text-white">إغلاق القائمة</button>
       </div>
     </div>
-  </div>
-  <!-- موجة ذهبية تربط القسمين -->
-  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none z-10">
-    <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-20">
-      <path d="M0,40 Q360,80 720,40 T1440,40 V80 H0Z" fill="#cbb87c" fill-opacity="0.10"/>
-    </svg>
-  </div>
-</section>
+  </header>
+  <!-- <div class="pt-24"></div> -->
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="relative flex flex-col justify-center overflow-hidden max-w-full min-h-0 md:min-h-[420px] ">
+      <!-- SVG Abstract Background -->
+      <div class="absolute inset-0 z-0 pointer-events-none max-w-full overflow-x-hidden">
+        <svg width="100%" height="100%" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="w-full h-full max-w-full">
+          <defs>
+            <radialGradient id="circleGradient1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.55" />
+              <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.38" />
+              <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.18" />
+            </radialGradient>
+            <radialGradient id="circleGradient2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.48" />
+              <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.32" />
+              <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.15" />
+            </radialGradient>
+            <radialGradient id="circleGradient3" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.38" />
+              <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.28" />
+              <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.10" />
+            </radialGradient>
+            <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#bfa14a" />
+              <stop offset="100%" stop-color="#ffe7a3" />
+            </linearGradient>
+          </defs>
+          <circle cx="-100" cy="300" r="300" stroke="url(#circleGradient1)" stroke-width="32" opacity="0.98" />
+          <circle cx="1300" cy="300" r="300" stroke="url(#circleGradient2)" stroke-width="24" opacity="0.98" />
+          <circle cx="600" cy="150" r="200" stroke="url(#circleGradient3)" stroke-width="18" opacity="0.93" />
+          <path d="M0 400 Q300 200 600 400 T1200 400" stroke="#0a2a1c" stroke-width="2" opacity="0.32" fill="none" />
+          <path d="M0 350 Q400 150 800 350 T1200 350" stroke="#0a2a1c" stroke-width="1.5" opacity="0.22" fill="none" />
+          <path d="M0 450 Q200 250 400 450 T800 450 T1200 450" stroke="#0a2a1c" stroke-width="1" opacity="0.18"
+            fill="none" />
+        </svg>
+        <div class="absolute inset-0 bg-primary/95 mix-blend-multiply z-0"></div>
+      </div>
+      <!-- Hero Content -->
+      <div
+        class="relative z-10 container mx-auto flex flex-col items-center justify-center text-center py-12 md:py-24 px-4 sm:px-6 md:px-8 lg:px-4 xl:px-8">
+        <!-- Badge أعلى العنوان -->
+        <div
+          class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-gold/30 rounded-full px-8 py-3 mb-10 shadow-lg">
+          <i class="fas fa-star text-gold animate-pulse"></i>
+          <span class="text-white font-bold text-lg">كاتبة ومؤلفة محترفة</span>
+          <i class="fas fa-star text-gold animate-pulse"></i>
+        </div>
 
-<!-- ======= الدورات التدريبية (تصميم جديد ومبتكر) ======= -->
-<section id="courses" class="relative py-24 overflow-hidden" style="background: linear-gradient(145deg, #0a2a1c 0%, #14532d 100%);">
-  <!-- خلفية إبداعية -->
-  <div class="absolute inset-0 pointer-events-none opacity-20">
-    <svg class="w-full h-full" width="100%" height="100%" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="400" stroke="#bfa14a" stroke-width="2" stroke-opacity="0.3"/>
-      <circle cx="1100" cy="700" r="300" stroke="#bfa14a" stroke-width="1" stroke-opacity="0.2"/>
-      <path d="M-200 400 C 200 200, 600 600, 1400 400" stroke="#bfa14a" stroke-width="1" stroke-opacity="0.25" fill="none"/>
-    </svg>
-  </div>
+        <!-- العنوان الرئيسي مع تأثير إبداعي -->
+        <div class="relative mb-8">
+          <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-2xl"
+            style="text-shadow:0 4px 12px rgba(0,0,0,0.6);">ريم محمد الجهني</h1>
+          <!-- خط ذهبي تحت العنوان -->
+          <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
+        </div>
 
-  <div class="container mx-auto px-4 relative z-10">
-    <!-- العنوان -->
-    <div class="text-center mb-20">
-      <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-        <span class="text-gold">دورات تدريبية</span> لإطلاق العنان لإبداعك
-      </h2>
-      <p class="text-lg text-white/80 max-w-3xl mx-auto">
-        انضم إلى مجتمع من المبدعين وصقل مهاراتك من خلال دوراتنا المصممة بعناية لتناسب شغفك وتطلعاتك.
-      </p>
-    </div>
+        <!-- العنوان الفرعي مع توزيع أفقي احترافي بدون دائرة أو صورة -->
+        <div
+          class="mb-12 flex flex-row items-center justify-center gap-1 sm:gap-4 md:gap-8 flex-nowrap overflow-x-auto px-2">
+          <span
+            class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition"
+            style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
+            مدربة كتابة إبداعية
+          </span>
+          <span
+            class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition"
+            style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
+            كاتبة ومؤلفة
+          </span>
+          <span
+            class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition"
+            style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
+            صانعة محتوى
+          </span>
+        </div>
 
-    <!-- شبكة البطاقات -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-      
-      <!-- بطاقة 1: الكتابة الإبداعية -->
-      <div class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform">
-        <div class="absolute top-0 right-0 w-24 h-24 bg-gold/10 rounded-full blur-2xl -mt-8 -mr-8"></div>
-        <div class="relative z-10">
-          <div class="mb-6">
-            <div class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <img src="https://source.unsplash.com/400x200/?writing,book" alt="دورة الكتابة الإبداعية" class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
+        <!-- النص التسويقي الرئيسي مع تنظيم إبداعي -->
+        <div class="w-full max-w-7xl mx-auto space-y-8 mb-16">
+          <!-- أسماء الروايات مع تصميم مميز -->
+          <div class="bg-white/5 backdrop-blur-sm border border-gold/20 rounded-2xl p-8 lg:p-12 mb-8">
+            <h3 class="text-gold font-bold text-2xl md:text-3xl mb-4 text-center">رواياتي الإبداعية</h3>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-20">
+              <div class="text-center group">
+                <div
+                  class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">
+                  "غضّة العود"</div>
+                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
+              </div>
+              <div class="hidden md:block text-gold text-2xl">•</div>
+              <div class="text-center group">
+                <div
+                  class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">
+                  "أدهم"</div>
+                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
+              </div>
+              <div class="hidden md:block text-gold text-2xl">•</div>
+              <div class="text-center group">
+                <div
+                  class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">
+                  "ثلاثية العلاقات"</div>
+                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
+              </div>
             </div>
           </div>
-          <h3 class="font-bold text-gold text-2xl mb-3 text-center">الكتابة الإبداعية</h3>
-          <p class="text-white/80 text-center mb-8 leading-relaxed">
-            أطلق العنان لكاتبك الداخلي وتعلم فنون السرد وبناء الشخصيات وخلق عوالم تأسر القلوب.
-          </p>
-          <button class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-            <i class="fas fa-pen-nib"></i>
-            <span>سجل الآن</span>
-          </button>
-        </div>
-      </div>
 
-      <!-- بطاقة 2: صناعة المحتوى -->
-      <div class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform lg:scale-105">
-        <div class="absolute top-0 left-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mt-12 -ml-12"></div>
-        <div class="relative z-10">
-          <div class="mb-6">
-            <div class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <img src="https://source.unsplash.com/400x200/?content,typing" alt="دورة صناعة المحتوى" class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
-            </div>
+          <!-- وصف الروايات -->
+          <div class="text-center mb-8">
+            <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg leading-relaxed"
+              style="text-shadow:0 2px 6px rgba(0,0,0,0.4);">
+              روايات تلامس القلب وتنقل القارئ إلى عوالم من الخيال والإبداع
+            </p>
           </div>
-          <h3 class="font-bold text-gold text-2xl mb-3 text-center">صناعة المحتوى</h3>
-          <p class="text-white/80 text-center mb-8 leading-relaxed">
-            احترف كتابة المحتوى الجذاب والمؤثر الذي يحقق أهدافك التسويقية ويبني جسوراً مع جمهورك.
-          </p>
-          <button class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-            <i class="fas fa-lightbulb"></i>
-            <span>سجل الآن</span>
-          </button>
-        </div>
-      </div>
 
-      <!-- بطاقة 3: تطوير الذات -->
-      <div class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform">
-        <div class="absolute bottom-0 right-0 w-28 h-28 bg-gold/10 rounded-full blur-2xl -mb-10 -mr-10"></div>
-        <div class="relative z-10">
-          <div class="mb-6">
-            <div class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <img src="https://source.unsplash.com/400x200/?self-development,success" alt="دورة تطوير الذات" class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
-            </div>
+          <!-- إنجازات التدريب -->
+
+        </div>
+
+        <!-- الأزرار التحفيزية -->
+        <div class="flex flex-col sm:flex-row gap-8 justify-center mb-12 w-full max-w-6xl mx-auto">
+          <a href="#novels"
+            class="px-10 py-4 rounded-2xl text-xl flex items-center gap-4 font-bold shadow-2xl hover:scale-105 transition-all duration-300 group"
+            style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06">
+            <i class="fas fa-book-open text-3xl group-hover:rotate-12 transition-transform duration-300"></i>
+            <span>اكتشف رواياتي الإبداعية</span>
+            <i class="fas fa-arrow-left text-2xl group-hover:-translate-x-2 transition-transform duration-300"></i>
+          </a>
+          <a href="reemcourceland/reemcourse.html"
+            class="border-3 border-gold text-gold px-10 py-4 rounded-2xl text-xl flex items-center gap-4 font-bold hover:bg-gold/10 hover:scale-105 transition-all duration-300 group shadow-2xl">
+            <i class="fas fa-graduation-cap text-3xl group-hover:rotate-12 transition-transform duration-300"></i>
+            <span>انضم إلى دوراتي التدريبية</span>
+            <i class="fas fa-arrow-left text-2xl group-hover:-translate-x-2 transition-transform duration-300"></i>
+          </a>
+        </div>
+
+        <!-- إحصائيات سريعة -->
+        <div class="grid grid-cols-2 gap-8 md:gap-16 lg:gap-24 w-full max-w-5xl mx-auto">
+          <div class="text-center group">
+            <div
+              class="text-4xl md:text-5xl font-bold text-gold mb-2 group-hover:scale-110 transition-transform duration-300">
+              3</div>
+            <div class="text-sm md:text-base text-white/80 font-semibold">روايات منشورة</div>
           </div>
-          <h3 class="font-bold text-gold text-2xl mb-3 text-center">تطوير الذات</h3>
-          <p class="text-white/80 text-center mb-8 leading-relaxed">
-            استثمر في نفسك واكتسب أدوات عملية لتعزيز ثقتك، تحقيق أهدافك، وبناء حياة أكثر نجاحاً.
-          </p>
-          <button class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-            <i class="fas fa-rocket"></i>
-            <span>سجل الآن</span>
-          </button>
+          <div class="text-center group">
+            <div
+              class="text-4xl md:text-5xl font-bold text-gold mb-2 group-hover:scale-110 transition-transform duration-300">
+              100+</div>
+            <div class="text-sm md:text-base text-white/80 font-semibold">متدربة</div>
+          </div>
+
         </div>
+
+
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- بداية قسم آراء العملاء (سلايدر مبتكر) -->
-<section class="relative py-20 bg-gradient-to-tr from-green-900/90 via-green-800/80 to-gold/10 overflow-hidden">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-14">
-      <h2 class="text-4xl sm:text-5xl font-black text-gold drop-shadow-lg mb-3 tracking-tight">آراء العملاء</h2>
-      <p class="text-xl text-white/90 font-medium">لقطات حقيقية من تفاعل العملاء على منصات التواصل</p>
-    </div>
-    <div class="swiper myClientsSwiper">
-      <div class="swiper-wrapper">
-        <!-- بطاقة 1 -->
-        <div class="swiper-slide client-card">
-          <img src="images/blog-1.png" alt="تعليق عميل 1" class="client-img" />
-          <a href="https://instagram.com/realclient1" target="_blank" class="client-link" title="رابط التعليق"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg></a>
-          <span class="client-name">أحمد علي</span>
-        </div>
-        <!-- بطاقة 2 -->
-        <div class="swiper-slide client-card">
-          <img src="images/blog-2.png" alt="تعليق عميل 2" class="client-img" />
-          <a href="https://twitter.com/realclient2" target="_blank" class="client-link" title="رابط التعليق"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg></a>
-          <span class="client-name">سارة محمد</span>
-        </div>
-        <!-- بطاقة 3 -->
-        <div class="swiper-slide client-card">
-          <img src="images/blog-3.webp" alt="تعليق عميل 3" class="client-img" />
-          <a href="https://facebook.com/realclient3" target="_blank" class="client-link" title="رابط التعليق"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"/><path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z"/></svg></a>
-          <span class="client-name">محمد يوسف</span>
-        </div>
-        <!-- يمكن إضافة المزيد من البطاقات هنا -->
+    </section>
+    <!-- قسم عن الكاتبة مع تحسينات جمالية -->
+    <section class="relative py-20" style="background:linear-gradient(135deg,#143325 70%,#cbb87c 100%);">
+      <!-- Abstract shapes -->
+      <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+        <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="w-full h-full">
+          <circle cx="200" cy="100" r="120" fill="#cbb87c" fill-opacity="0.06" />
+          <circle cx="1240" cy="220" r="90" fill="#cbb87c" fill-opacity="0.07" />
+          <ellipse cx="700" cy="300" rx="180" ry="60" fill="#cbb87c" fill-opacity="0.05" />
+        </svg>
       </div>
-      <!-- أزرار التنقل -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
-</section>
-<!-- نهاية قسم آراء العملاء (سلايدر مبتكر) -->
-<!-- إضافة Swiper.js CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    new Swiper('.myClientsSwiper', {
-      slidesPerView: 3,
-      spaceBetween: 30,
-      centeredSlides: true,
-      loop: true,
-      autoplay: { delay: 3500, disableOnInteraction: false },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      pagination: { el: '.swiper-pagination', clickable: true },
-      breakpoints: {
-        0: { slidesPerView: 1 },
-        640: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 }
-      }
-    });
-  });
-</script>
-<!-- نهاية إضافة Swiper.js -->
-
-<!-- قسم الروايات الإبداعية -->
-<section class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #0a2a1c 0%, #1a4a2c 50%, #0a2a1c 100%);">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 text-center drop-shadow-lg about-title"
+          style="text-shadow:0 2px 8px #000a">عن الكاتبة</h2>
+        <!-- تصميم إبداعي جديد بدون صورة -->
+        <div class="relative w-full">
           <!-- خلفية إبداعية متحركة -->
-          <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-gold/5 rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-20 right-20 w-80 h-80 bg-gold/3 rounded-full blur-3xl animate-bounce"></div>
-            <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-gold/8 rounded-full blur-2xl animate-spin"></div>
-            <!-- خطوط إبداعية -->
-            <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 600" fill="none">
-              <path d="M0,300 Q300,100 600,300 T1200,300" stroke="#bfa14a" stroke-width="2" fill="none"/>
-              <path d="M0,200 Q400,50 800,200 T1200,200" stroke="#bfa14a" stroke-width="1.5" fill="none"/>
-              <path d="M0,400 Q200,250 400,400 T800,400 T1200,400" stroke="#bfa14a" stroke-width="1" fill="none"/>
-            </svg>
+          <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-gold/10 rounded-full blur-xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-20 w-40 h-40 bg-gold/5 rounded-full blur-2xl animate-bounce"></div>
+            <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-gold/15 rounded-full blur-lg animate-spin"></div>
           </div>
-          
-          <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-            <!-- العنوان الرئيسي -->
-            <div class="text-center mb-16">
-              <div class="inline-flex items-center gap-3 mb-4">
-                <div class="w-12 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
-                <i class="fas fa-book-open text-gold text-2xl"></i>
-                <div class="w-12 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
-              </div>
-              <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">رواياتي الإبداعية</h2>
-              <p class="text-gold-light text-lg max-w-2xl mx-auto">اكتشف عوالم من الخيال والإبداع في رواياتي الثلاث التي تلامس القلب وتنقل القارئ إلى عوالم جديدة</p>
-            </div>
 
-            <!-- عرض الروايات -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-              <!-- الرواية الأولى: غضّة العود -->
-              <div class="group relative">
-                <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700"></div>
-                <div class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
-                  <!-- خلفية الرواية -->
-                  <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-amber-800/15 to-amber-700/10 rounded-3xl"></div>
-                  
-                  <!-- صورة الغلاف -->
-                  <div class="relative mb-6">
-                    <div class="w-full h-64 rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
-                      <img src="images/R1.png" 
-                           alt="غضّة العود" 
-                           class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 rounded-xl">
-                    </div>
-                    <!-- شارة الرواية -->
-                    <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                      <i class="fas fa-leaf text-white text-xl"></i>
-                    </div>
-                  </div>
-                  
-                  <!-- محتوى الرواية -->
-                  <div class="relative z-10">
-                    <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">غضّة العود</h3>
-                    <p class="text-white/90 leading-relaxed mb-4">رواية إبداعية تروي قصة شجرة العود العريقة التي تحمل في جذورها أسرار الأجداد وحكايات الماضي. تتبع الرواية رحلة البحث عن الهوية والجذور من خلال قصة عائلية مؤثرة.</p>
-                    
-                    <!-- تفاصيل الرواية -->
-                    <div class="flex items-center justify-between text-sm text-white/70 mb-4">
-                      <span><i class="fas fa-calendar-alt text-gold"></i> 2023</span>
-                      <span><i class="fas fa-file-alt text-gold"></i> 280 صفحة</span>
-                      <span><i class="fas fa-star text-gold"></i> 4.8/5</span>
-                    </div>
-                    
-                    <!-- أزرار التفاعل -->
-                    <div class="flex gap-3">
-                      <button class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300" title="اقرأ المزيد عن رواية غضّة العود">
-                        <i class="fas fa-book-open ml-2"></i>اقرأ المزيد
-                      </button>
-                      <button class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300" title="أضف رواية غضّة العود إلى المفضلة">
-                        <i class="fas fa-heart"></i>
-                      </button>
-                    </div>
-                  </div>
+          <!-- شبكة العناصر الإبداعية -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+            <!-- العنصر الأول - كاتبة ومؤلفة روايات -->
+            <div class="group relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
+              </div>
+              <div
+                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
+                <div
+                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-book-open text-white text-xl"></i>
                 </div>
-              </div>
-
-              <!-- الرواية الثانية: أدهم -->
-              <div class="group relative">
-                <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700"></div>
-                <div class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
-                  <!-- خلفية الرواية -->
-                  <div class="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-slate-800/15 to-slate-700/10 rounded-3xl"></div>
-                  
-                  <!-- صورة الغلاف -->
-                  <div class="relative mb-6">
-                    <div class="w-full h-64 rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
-                      <img src="images/R2.png" 
-                           alt="أدهم" 
-                           class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 rounded-xl">
-                    </div>
-                    <!-- شارة الرواية -->
-                    <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                      <i class="fas fa-user-secret text-white text-xl"></i>
-                    </div>
-                  </div>
-                  
-                  <!-- محتوى الرواية -->
-                  <div class="relative z-10">
-                    <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">أدهم</h3>
-                    <p class="text-white/90 leading-relaxed mb-4">رواية غموض وإثارة تدور أحداثها حول شخصية أدهم الغامضة التي تحمل أسراراً كثيرة. تتبع الرواية رحلة اكتشاف الذات والحقيقة من خلال أحداث مشوقة ومفاجآت غير متوقعة.</p>
-                    
-                    <!-- تفاصيل الرواية -->
-                    <div class="flex items-center justify-between text-sm text-white/70 mb-4">
-                      <span><i class="fas fa-calendar-alt text-gold"></i> 2024</span>
-                      <span><i class="fas fa-file-alt text-gold"></i> 320 صفحة</span>
-                      <span><i class="fas fa-star text-gold"></i> 4.9/5</span>
-                    </div>
-                    
-                    <!-- أزرار التفاعل -->
-                    <div class="flex gap-3">
-                      <button class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300" title="اقرأ المزيد عن رواية أدهم">
-                        <i class="fas fa-book-open ml-2"></i>اقرأ المزيد
-                      </button>
-                      <button class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300" title="أضف رواية أدهم إلى المفضلة">
-                        <i class="fas fa-heart"></i>
-                      </button>
-                    </div>
-                  </div>
+                <div class="mt-4">
+                  <h3
+                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                    كاتبة ومؤلفة روايات</h3>
+                  <p class="text-white/90 leading-relaxed">أكتب روايات وقصص تلامس القلب وتنقل القارئ إلى عوالم جديدة من
+                    الخيال والإبداع.</p>
                 </div>
-              </div>
-
-              <!-- الرواية الثالثة: ثلاثية العلاقات - متجر ألسن -->
-              <div class="group relative">
-                <div class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700"></div>
-                <div class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
-                  <!-- خلفية الرواية -->
-                  <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-purple-800/15 to-purple-700/10 rounded-3xl"></div>
-                  
-                  <!-- صورة الغلاف -->
-                  <div class="relative mb-6">
-                    <div class="w-full h-64 rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
-                      <img src="images/R3.png" 
-                           alt="ثلاثية العلاقات - متجر ألسن" 
-                           class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 rounded-xl">
-                    </div>
-                    <!-- شارة الرواية -->
-                    <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                      <i class="fas fa-store text-white text-xl"></i>
-                    </div>
-                  </div>
-                  
-                  <!-- محتوى الرواية -->
-                  <div class="relative z-10">
-                    <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">ثلاثية العلاقات - متجر ألسن</h3>
-                    <p class="text-white/90 leading-relaxed mb-4">ثلاثية روائية فريدة تدور أحداثها حول متجر ألسن الغامض الذي يبيع الكلمات والعبارات. تتعمق الرواية في العلاقات الإنسانية وتأثير الكلمات على حياتنا.</p>
-                    
-                    <!-- تفاصيل الرواية -->
-                    <div class="flex items-center justify-between text-sm text-white/70 mb-4">
-                      <span><i class="fas fa-calendar-alt text-gold"></i> 2024</span>
-                      <span><i class="fas fa-file-alt text-gold"></i> 450 صفحة</span>
-                      <span><i class="fas fa-star text-gold"></i> 5.0/5</span>
-                    </div>
-                    
-                    <!-- أزرار التفاعل -->
-                    <div class="flex gap-3">
-                      <button class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300" title="اقرأ المزيد عن ثلاثية العلاقات - متجر ألسن">
-                        <i class="fas fa-book-open ml-2"></i>اقرأ المزيد
-                      </button>
-                      <button class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300" title="أضف ثلاثية العلاقات إلى المفضلة">
-                        <i class="fas fa-heart"></i>
-                      </button>
-                    </div>
-                  </div>
+                <div
+                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
                 </div>
               </div>
             </div>
 
-            <!-- زر عرض جميع الروايات -->
-            <!-- <div class="text-center">
+            <!-- العنصر الثاني - محررة نصوص وصوتيات -->
+            <div class="group relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
+              </div>
+              <div
+                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
+                <div
+                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-edit text-white text-xl"></i>
+                </div>
+                <div class="mt-4">
+                  <h3
+                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                    محررة نصوص وصوتيات</h3>
+                  <p class="text-white/90 leading-relaxed">أحرر النصوص والمحتوى الصوتي لضمان الجودة والوضوح في كل كلمة.
+                  </p>
+                </div>
+                <div
+                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
+                </div>
+              </div>
+            </div>
+
+            <!-- العنصر الثالث - البودكاست -->
+            <div class="group relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
+              </div>
+              <div
+                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
+                <div
+                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-podcast text-white text-xl"></i>
+                </div>
+                <div class="mt-4">
+                  <h3
+                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                    أحرر البودكاست وأصنع حكايات تُسمع وتُحس</h3>
+                  <p class="text-white/90 leading-relaxed">أصنع محتوى صوتي مؤثر وحكايات تصل إلى القلب وتترك أثراً عميقاً
+                    في المستمع.</p>
+                </div>
+                <div
+                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
+                </div>
+              </div>
+            </div>
+
+            <!-- العنصر الرابع - مدربة -->
+            <div class="group relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
+              </div>
+              <div
+                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
+                <div
+                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-chalkboard-teacher text-white text-xl"></i>
+                </div>
+                <div class="mt-4">
+                  <h3
+                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                    مدربة في القراءة والكتابة</h3>
+                  <p class="text-white/90 leading-relaxed">أدرب الآخرين على مهارات القراءة والكتابة الإبداعية لمساعدتهم
+                    في تطوير مواهبهم.</p>
+                </div>
+                <div
+                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
+                </div>
+              </div>
+            </div>
+
+            <!-- العنصر الخامس - السوشال ميديا -->
+            <div class="group relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
+              </div>
+              <div
+                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
+                <div
+                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-share-alt text-white text-xl"></i>
+                </div>
+                <div class="mt-4">
+                  <h3
+                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                    صانعة محتوى أدبي وثقافي على السوشال ميديا</h3>
+                  <p class="text-white/90 leading-relaxed">أنشر محتوى أدبي وثقافي مؤثر على منصات التواصل الاجتماعي لوصول
+                    أوسع للجمهور.</p>
+                </div>
+                <div
+                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
+                </div>
+              </div>
+            </div>
+
+            <!-- العنصر السادس - مستشارة -->
+            <div class="group relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
+              </div>
+              <div
+                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
+                <div
+                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-lightbulb text-white text-xl"></i>
+                </div>
+                <div class="mt-4">
+                  <h3
+                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                    مستشارة في تطوير المحتوى الرقمي</h3>
+                  <p class="text-white/90 leading-relaxed">أقدم استشارات متخصصة في تطوير المحتوى الرقمي واستراتيجيات
+                    التسويق بالمحتوى.</p>
+                </div>
+                <div
+                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- موجة ذهبية تربط القسمين -->
+      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none z-10">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-20">
+          <path d="M0,40 Q360,80 720,40 T1440,40 V80 H0Z" fill="#cbb87c" fill-opacity="0.10" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ======= الدورات التدريبية (تصميم جديد ومبتكر) ======= -->
+    <section id="courses" class="relative py-24 overflow-hidden"
+      style="background: linear-gradient(145deg, #0a2a1c 0%, #14532d 100%);">
+      <!-- خلفية إبداعية -->
+      <div class="absolute inset-0 pointer-events-none opacity-20">
+        <svg class="w-full h-full" width="100%" height="100%" viewBox="0 0 1200 800" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="400" stroke="#bfa14a" stroke-width="2" stroke-opacity="0.3" />
+          <circle cx="1100" cy="700" r="300" stroke="#bfa14a" stroke-width="1" stroke-opacity="0.2" />
+          <path d="M-200 400 C 200 200, 600 600, 1400 400" stroke="#bfa14a" stroke-width="1" stroke-opacity="0.25"
+            fill="none" />
+        </svg>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <!-- العنوان -->
+        <div class="text-center mb-20">
+          <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg"
+            style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+            <span class="text-gold">دورات تدريبية</span> لإطلاق العنان لإبداعك
+          </h2>
+          <p class="text-lg text-white/80 max-w-3xl mx-auto">
+            انضم إلى مجتمع من المبدعين وصقل مهاراتك من خلال دوراتنا المصممة بعناية لتناسب شغفك وتطلعاتك.
+          </p>
+        </div>
+
+        <!-- شبكة البطاقات -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+          <!-- بطاقة 1: الكتابة الإبداعية -->
+          <div
+            class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gold/10 rounded-full blur-2xl -mt-8 -mr-8"></div>
+            <div class="relative z-10">
+              <div class="mb-6">
+                <div
+                  class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <img src="https://source.unsplash.com/400x200/?writing,book" alt="دورة الكتابة الإبداعية"
+                    class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
+                </div>
+              </div>
+              <h3 class="font-bold text-gold text-2xl mb-3 text-center">الكتابة الإبداعية</h3>
+              <p class="text-white/80 text-center mb-8 leading-relaxed">
+                أطلق العنان لكاتبك الداخلي وتعلم فنون السرد وبناء الشخصيات وخلق عوالم تأسر القلوب.
+              </p>
+              <button
+                class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fas fa-pen-nib"></i>
+                <span>سجل الآن</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- بطاقة 2: صناعة المحتوى -->
+          <div
+            class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform lg:scale-105">
+            <div class="absolute top-0 left-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mt-12 -ml-12"></div>
+            <div class="relative z-10">
+              <div class="mb-6">
+                <div
+                  class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <img src="https://source.unsplash.com/400x200/?content,typing" alt="دورة صناعة المحتوى"
+                    class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
+                </div>
+              </div>
+              <h3 class="font-bold text-gold text-2xl mb-3 text-center">صناعة المحتوى</h3>
+              <p class="text-white/80 text-center mb-8 leading-relaxed">
+                احترف كتابة المحتوى الجذاب والمؤثر الذي يحقق أهدافك التسويقية ويبني جسوراً مع جمهورك.
+              </p>
+              <button
+                class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fas fa-lightbulb"></i>
+                <span>سجل الآن</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- بطاقة 3: تطوير الذات -->
+          <div
+            class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform">
+            <div class="absolute bottom-0 right-0 w-28 h-28 bg-gold/10 rounded-full blur-2xl -mb-10 -mr-10"></div>
+            <div class="relative z-10">
+              <div class="mb-6">
+                <div
+                  class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <img src="https://source.unsplash.com/400x200/?self-development,success" alt="دورة تطوير الذات"
+                    class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
+                </div>
+              </div>
+              <h3 class="font-bold text-gold text-2xl mb-3 text-center">تطوير الذات</h3>
+              <p class="text-white/80 text-center mb-8 leading-relaxed">
+                استثمر في نفسك واكتسب أدوات عملية لتعزيز ثقتك، تحقيق أهدافك، وبناء حياة أكثر نجاحاً.
+              </p>
+              <button
+                class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fas fa-rocket"></i>
+                <span>سجل الآن</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- بداية قسم آراء العملاء (سلايدر مبتكر) -->
+    <section class="relative py-20 bg-gradient-to-tr from-green-900/90 via-green-800/80 to-gold/10 overflow-hidden">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-14">
+          <h2 class="text-4xl sm:text-5xl font-black text-gold drop-shadow-lg mb-3 tracking-tight">آراء العملاء</h2>
+          <p class="text-xl text-white/90 font-medium">لقطات حقيقية من تفاعل العملاء على منصات التواصل</p>
+        </div>
+        <div class="swiper myClientsSwiper">
+          <div class="swiper-wrapper">
+            <!-- بطاقة 1 -->
+            <div class="swiper-slide client-card">
+              <img src="images/blog-1.png" alt="تعليق عميل 1" class="client-img" />
+              <a href="https://instagram.com/realclient1" target="_blank" class="client-link" title="رابط التعليق"><svg
+                  class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+                  <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
+                </svg></a>
+              <span class="client-name">أحمد علي</span>
+            </div>
+            <!-- بطاقة 2 -->
+            <div class="swiper-slide client-card">
+              <img src="images/blog-2.png" alt="تعليق عميل 2" class="client-img" />
+              <a href="https://twitter.com/realclient2" target="_blank" class="client-link" title="رابط التعليق"><svg
+                  class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+                  <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
+                </svg></a>
+              <span class="client-name">سارة محمد</span>
+            </div>
+            <!-- بطاقة 3 -->
+            <div class="swiper-slide client-card">
+              <img src="images/blog-3.webp" alt="تعليق عميل 3" class="client-img" />
+              <a href="https://facebook.com/realclient3" target="_blank" class="client-link" title="رابط التعليق"><svg
+                  class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+                  <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
+                </svg></a>
+              <span class="client-name">محمد يوسف</span>
+            </div>
+            <!-- يمكن إضافة المزيد من البطاقات هنا -->
+          </div>
+          <!-- أزرار التنقل -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+    <!-- نهاية قسم آراء العملاء (سلايدر مبتكر) -->
+    <!-- إضافة Swiper.js CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.myClientsSwiper', {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          centeredSlides: true,
+          loop: true,
+          autoplay: { delay: 3500, disableOnInteraction: false },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          pagination: { el: '.swiper-pagination', clickable: true },
+          breakpoints: {
+            0: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+          }
+        });
+      });
+    </script>
+    <!-- نهاية إضافة Swiper.js -->
+
+    <!-- قسم الروايات الإبداعية -->
+    <section class="relative py-20 overflow-hidden"
+      style="background: linear-gradient(135deg, #0a2a1c 0%, #1a4a2c 50%, #0a2a1c 100%);">
+      <!-- خلفية إبداعية متحركة -->
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-10 left-10 w-64 h-64 bg-gold/5 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-20 w-80 h-80 bg-gold/3 rounded-full blur-3xl animate-bounce"></div>
+        <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-gold/8 rounded-full blur-2xl animate-spin"></div>
+        <!-- خطوط إبداعية -->
+        <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 600" fill="none">
+          <path d="M0,300 Q300,100 600,300 T1200,300" stroke="#bfa14a" stroke-width="2" fill="none" />
+          <path d="M0,200 Q400,50 800,200 T1200,200" stroke="#bfa14a" stroke-width="1.5" fill="none" />
+          <path d="M0,400 Q200,250 400,400 T800,400 T1200,400" stroke="#bfa14a" stroke-width="1" fill="none" />
+        </svg>
+      </div>
+
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+        <!-- العنوان الرئيسي -->
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-3 mb-4">
+            <div class="w-12 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+            <i class="fas fa-book-open text-gold text-2xl"></i>
+            <div class="w-12 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
+            رواياتي الإبداعية</h2>
+          <p class="text-gold-light text-lg max-w-2xl mx-auto">اكتشف عوالم من الخيال والإبداع في رواياتي الثلاث التي
+            تلامس القلب وتنقل القارئ إلى عوالم جديدة</p>
+        </div>
+
+        <!-- عرض الروايات -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <!-- رواية غضّة العود -->
+          <div class="group relative">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
+            </div>
+            <div
+              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              <!-- خلفية الرواية -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-amber-800/15 to-amber-700/10 rounded-3xl">
+              </div>
+
+              <!-- صورة الغلاف -->
+              <div class="relative mb-6">
+                <div
+                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  <img src="rwayah_images/رواية_غصة_ _العود.jpg" alt="غضّة العود"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                </div>
+                <!-- شارة الرواية -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-leaf text-white text-xl"></i>
+                </div>
+              </div>
+
+              <!-- محتوى الرواية -->
+              <div class="relative z-10">
+                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                  غضّة العود</h3>
+                <p class="text-white/90 leading-relaxed mb-4">رواية اجتماعية تسلّط الضوء على قضية نفسية تمس الفرد
+                  والمجتمع معًا، وتتناول آثارها الممتدة على العلاقات والسلوك والقرارات المصيرية. بأسلوب سردي مؤثر، ترصد
+                  الرواية رحلة التعافي والتعامل مع الألم.</p>
+
+                <!-- تفاصيل الرواية -->
+                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                  <span><i class="fas fa-calendar-alt text-gold"></i> 2021</span>
+                  <span><i class="fas fa-file-alt text-gold"></i> 156 صفحة</span>
+                </div>
+
+                <!-- أزرار التفاعل -->
+                <div class="flex gap-3">
+                  <a href="#"
+                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    title="اشتري رواية غضّة العود من دار ألسن">
+                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                  </a>
+                  <button
+                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    title="أضف رواية غضّة العود إلى المفضلة">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- رواية أدهم -->
+          <div class="group relative">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
+            </div>
+            <div
+              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              <!-- خلفية الرواية -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-slate-800/15 to-slate-700/10 rounded-3xl">
+              </div>
+
+              <!-- صورة الغلاف -->
+              <div class="relative mb-6">
+                <div
+                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  <img src="rwayah_images/رواية_أدهم.jpg" alt="أدهم"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                </div>
+                <!-- شارة الرواية -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-user-secret text-white text-xl"></i>
+                </div>
+              </div>
+
+              <!-- محتوى الرواية -->
+              <div class="relative z-10">
+                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                  أدهم</h3>
+                <p class="text-white/90 leading-relaxed mb-4">رواية خيالية من أدب الفانتازيا، تدور حول أدهم، الشاب الذي
+                  يعيش مع عجوز غامضة في قرية معزولة، بينما يرزح تحت وطأة ضغط نفسي خانق. من خلال صوته الداخلي وأحاديثه
+                  الصامتة، يكشف لنا أدهم حقيقة لا يراها سواه.</p>
+
+                <!-- تفاصيل الرواية -->
+                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                  <span><i class="fas fa-calendar-alt text-gold"></i> 2024</span>
+                  <span><i class="fas fa-file-alt text-gold"></i> 160 صفحة</span>
+                </div>
+
+                <!-- أزرار التفاعل -->
+                <div class="flex gap-3">
+                  <a href="#"
+                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    title="اشتري رواية أدهم من دار ألسن">
+                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                  </a>
+                  <button
+                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    title="أضف رواية أدهم إلى المفضلة">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- كتاب ثلاثية العلاقات -->
+          <div class="group relative">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
+            </div>
+            <div
+              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              <!-- خلفية الرواية -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-purple-800/15 to-purple-700/10 rounded-3xl">
+              </div>
+
+              <!-- صورة الغلاف -->
+              <div class="relative mb-6">
+                <div
+                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  <img src="rwayah_images/رواية_ثلاثية_العلاقات.jpg" alt="ثلاثية العلاقات"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                </div>
+                <!-- شارة الرواية -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-users text-white text-xl"></i>
+                </div>
+              </div>
+
+              <!-- محتوى الرواية -->
+              <div class="relative z-10">
+                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                  ثلاثية العلاقات</h3>
+                <p class="text-white/90 leading-relaxed mb-4">ثمرة تعاون مع الدكتورة الهنوف، يقدّم هذا الكتاب محتوى
+                  بودكاستات تم تحويلها بعناية من الصوت إلى النص. يتناول الكتاب ثلاثة محاور عميقة: الابتزاز العاطفي،
+                  العلاقات السامة، والتعلّق.</p>
+
+                <!-- تفاصيل الرواية -->
+                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                  <span><i class="fas fa-calendar-alt text-gold"></i> 2024</span>
+                  <span><i class="fas fa-users text-gold"></i> تعاون مع د. الهنوف</span>
+                </div>
+
+                <!-- أزرار التفاعل -->
+                <div class="flex gap-3">
+                  <a href="#"
+                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    title="اشتري كتاب ثلاثية العلاقات من دار ألسن">
+                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                  </a>
+                  <button
+                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    title="أضف كتاب ثلاثية العلاقات إلى المفضلة">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- كتاب ولكن -->
+          <div class="group relative">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
+            </div>
+            <div
+              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              <!-- خلفية الرواية -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-emerald-800/15 to-emerald-700/10 rounded-3xl">
+              </div>
+
+              <!-- صورة الغلاف -->
+              <div class="relative mb-6">
+                <div
+                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  <img src="rwayah_images/كتاب_ولكن.jpg" alt="كتاب ولكن"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                </div>
+                <!-- شارة الرواية -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-trophy text-white text-xl"></i>
+                </div>
+              </div>
+
+              <!-- محتوى الرواية -->
+              <div class="relative z-10">
+                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                  ولكن</h3>
+                <p class="text-white/90 leading-relaxed mb-4">كتاب جماعي شارك في تأليفه أكثر من 400 كاتب وكاتبة، ما جعله
+                  يدخل موسوعة غينيس للأرقام القياسية كأول كتاب يضم هذا العدد من الكتّاب في إصدار واحد. يقدّم مجموعة
+                  مقالات متنوعة تتناول قضايا المجتمع من زوايا مختلفة.</p>
+
+                <!-- تفاصيل الرواية -->
+                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                  <span><i class="fas fa-trophy text-gold"></i> غينيس</span>
+                  <span><i class="fas fa-users text-gold"></i> 400+ كاتب</span>
+                </div>
+
+                <!-- أزرار التفاعل -->
+                <div class="flex gap-3">
+                  <a href="#"
+                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    title="اشتري كتاب ولكن من دار ألسن">
+                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                  </a>
+                  <button
+                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    title="أضف كتاب ولكن إلى المفضلة">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- كتاب الجُمار -->
+          <div class="group relative">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
+            </div>
+            <div
+              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              <!-- خلفية الرواية -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-teal-800/15 to-teal-700/10 rounded-3xl">
+              </div>
+
+              <!-- صورة الغلاف -->
+              <div class="relative mb-6">
+                <div
+                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  <img src="rwayah_images/كتاب_الجمار.jpg" alt="كتاب الجُمار"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                </div>
+                <!-- شارة الرواية -->
+                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
+                  <i class="fas fa-quran text-white text-xl"></i>
+                </div>
+              </div>
+
+              <!-- محتوى الرواية -->
+              <div class="relative z-10">
+                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                  الجُمار</h3>
+                <p class="text-white/90 leading-relaxed mb-4">عمل جماعي شارك في تأليفه 500 كاتب وكاتبة، يسلّط الضوء على
+                  أثر آيات مختارة من القرآن الكريم في نفوس الكتّاب. يجمع الكتاب بين تجارب شخصية وتأملات روحانية، مدعومة
+                  بتفسير مبسّط لكل آية.</p>
+
+                <!-- تفاصيل الرواية -->
+                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                  <span><i class="fas fa-quran text-gold"></i> قرآني</span>
+                  <span><i class="fas fa-users text-gold"></i> 500 كاتب</span>
+                </div>
+
+                <!-- أزرار التفاعل -->
+                <div class="flex gap-3">
+                  <a href="#"
+                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    title="اشتري كتاب الجُمار من دار ألسن">
+                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                  </a>
+                  <button
+                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    title="أضف كتاب الجُمار إلى المفضلة">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- زر عرض جميع الروايات -->
+        <!-- <div class="text-center">
               <button class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-gold to-yellow-400 text-primary rounded-2xl font-bold text-lg shadow-2xl hover:shadow-gold/30 hover:scale-105 transition-all duration-300">
                 <i class="fas fa-books"></i>
                 <span>عرض جميع رواياتي</span>
@@ -717,275 +1203,412 @@ function toggleMobileMenu() {
               </button>
             </div>
           </div> -->
-        </section>
+    </section>
 
-<!-- قسم آراء العملاء (Testimonials Slider) -->
-<section class="relative py-20 bg-gradient-to-b from-gold/10 via-white/80 to-gold/5">
-  <div class="container mx-auto px-4 sm:px-6 md:px-8">
-    <h2 class="text-2xl md:text-3xl font-bold text-primary text-center mb-10">آراء العملاء</h2>
-    <div id="testimonials-slider" class="relative flex flex-col items-center">
-      <!-- الأسهم -->
-      <button id="testimonial-prev" title="السابق" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gold/10 text-gold rounded-full p-2 opacity-40 hover:opacity-80 transition" style="right:2rem;">
-        <i class="fas fa-chevron-right text-2xl"></i>
-      </button>
-      <button id="testimonial-next" title="التالي" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gold/10 text-gold rounded-full p-2 opacity-40 hover:opacity-80 transition" style="left:2rem;">
-        <i class="fas fa-chevron-left text-2xl"></i>
-      </button>
-      <div class="flex items-center justify-center gap-4 md:gap-8 w-full">
-        <!-- الصورة السابقة -->
-        <div class="w-24 h-24 md:w-32 md:h-32 overflow-hidden border-4 border-gold/30 shadow-lg -mr-4 md:-mr-8 opacity-60 scale-90 transition-all duration-300 rounded-[18px] relative group" id="testimonial-prev-img">
-          <div class="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 rounded-[18px] flex items-center justify-center">
-            <i class="fas fa-user text-white text-2xl md:text-3xl"></i>
+    <!-- قسم آراء العملاء (Testimonials Slider) -->
+    <section class="relative py-20 bg-gradient-to-b from-gold/10 via-white/80 to-gold/5">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-primary text-center mb-10">آراء العملاء</h2>
+        <div id="testimonials-slider" class="relative flex flex-col items-center">
+          <!-- الأسهم -->
+          <button id="testimonial-prev" title="السابق"
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gold/10 text-gold rounded-full p-2 opacity-40 hover:opacity-80 transition"
+            style="right:2rem;">
+            <i class="fas fa-chevron-right text-2xl"></i>
+          </button>
+          <button id="testimonial-next" title="التالي"
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gold/10 text-gold rounded-full p-2 opacity-40 hover:opacity-80 transition"
+            style="left:2rem;">
+            <i class="fas fa-chevron-left text-2xl"></i>
+          </button>
+          <div class="flex items-center justify-center gap-6 md:gap-12 w-full">
+            <!-- الصورة السابقة -->
+            <div
+              class="testimonial-side-img testimonial-image-container w-40 h-64 md:w-52 md:h-80 overflow-hidden border-4 border-gold/30 shadow-lg -mr-4 md:-mr-8 opacity-60 scale-90 transition-all duration-300 rounded-[18px] relative group cursor-pointer hover:scale-95 hover:opacity-80"
+              id="testimonial-prev-img" onclick="openImageModal(this)">
+              <div class="w-full h-full rounded-[18px] overflow-hidden bg-white">
+                <img src="images/تعليقات_المستخدمين_شروق.png" alt="شروق" class="w-full h-full object-contain">
+              </div>
+              <div class="absolute top-0 left-0 w-6 h-6 md:w-8 md:h-8 bg-gold rounded-tr-[18px]"
+                style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+              <div
+                class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 border border-white/20 shadow-lg hover:bg-black/80 transition-all duration-200">
+                <span class="text-white text-xs md:text-sm font-bold" id="testimonial-prev-name">شروق</span>
+              </div>
+              <!-- زر المعاينة بارز ومحسن -->
+              <div
+                class="testimonial-preview-btn absolute top-3 left-3 bg-gradient-to-r from-gold to-yellow-400 backdrop-blur-sm rounded-full p-2 shadow-xl border-2 border-white/40 opacity-95 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 hover:shadow-2xl z-20">
+                <i class="fas fa-eye text-white text-sm drop-shadow-md animate-pulse"></i>
+              </div>
+              <!-- تأثير hover إضافي -->
+              <div
+                class="absolute inset-0 bg-gold/10 rounded-[18px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+              </div>
+            </div>
+            <!-- الصورة الحالية -->
+            <div
+              class="testimonial-current-img testimonial-image-container w-56 h-84 md:w-72 md:h-96 overflow-hidden border-4 border-gold shadow-2xl z-10 transition-all duration-300 rounded-[22px] relative group cursor-pointer hover:scale-105 hover:shadow-gold/30"
+              id="testimonial-current-img" onclick="openImageModal(this)">
+              <div class="w-full h-full rounded-[22px] overflow-hidden bg-white">
+                <img src="images/تعليقات_المستخدمين_آلاء.jpg" alt="آلاء" class="w-full h-full object-contain">
+              </div>
+              <div class="absolute top-0 left-0 w-8 h-8 md:w-10 md:h-10 bg-gold rounded-tr-[22px]"
+                style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+              <div
+                class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/20 shadow-lg hover:bg-black/80 transition-all duration-200">
+                <span class="text-white text-sm md:text-base font-bold" id="testimonial-current-name">آلاء</span>
+              </div>
+              <!-- زر المعاينة بارز ومحسن للصورة الحالية -->
+              <div
+                class="testimonial-preview-btn absolute top-4 left-4 bg-gradient-to-r from-gold to-yellow-400 backdrop-blur-sm rounded-full p-3 shadow-2xl border-3 border-white/50 opacity-100 group-hover:scale-125 transition-all duration-300 hover:shadow-gold/60 z-30">
+                <i class="fas fa-eye text-white text-lg drop-shadow-lg animate-pulse"></i>
+              </div>
+              <!-- تأثير hover إضافي -->
+              <div
+                class="absolute inset-0 bg-gold/10 rounded-[22px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+              </div>
+              <!-- تأثير إضاءة -->
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-gold/5 rounded-[22px] opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
+              </div>
+            </div>
+            <!-- الصورة التالية -->
+            <div
+              class="testimonial-side-img testimonial-image-container w-40 h-64 md:w-52 md:h-80 overflow-hidden border-4 border-gold/30 shadow-lg -ml-4 md:-ml-8 opacity-60 scale-90 transition-all duration-300 rounded-[18px] relative group cursor-pointer hover:scale-95 hover:opacity-80"
+              id="testimonial-next-img" onclick="openImageModal(this)">
+              <div class="w-full h-full rounded-[18px] overflow-hidden bg-white">
+                <img src="images/تعليقات_المستخدمين_فاطمة_خالد.jpg" alt="فاطمة خالد"
+                  class="w-full h-full object-contain">
+              </div>
+              <div class="absolute top-0 left-0 w-6 h-6 md:w-8 md:h-8 bg-gold rounded-tr-[18px]"
+                style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
+              <div
+                class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 border border-white/20 shadow-lg hover:bg-black/80 transition-all duration-200">
+                <span class="text-white text-xs md:text-sm font-bold" id="testimonial-next-name">فاطمة خالد</span>
+              </div>
+              <!-- زر المعاينة بارز ومحسن -->
+              <div
+                class="testimonial-preview-btn absolute top-3 left-3 bg-gradient-to-r from-gold to-yellow-400 backdrop-blur-sm rounded-full p-2 shadow-xl border-2 border-white/40 opacity-95 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 hover:shadow-2xl z-20">
+                <i class="fas fa-eye text-white text-sm drop-shadow-md animate-pulse"></i>
+              </div>
+              <!-- تأثير hover إضافي -->
+              <div
+                class="absolute inset-0 bg-gold/10 rounded-[18px] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+              </div>
+              <!-- تأثير إضاءة -->
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-gold/5 rounded-[18px] opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
+              </div>
+            </div>
           </div>
-          <div class="absolute top-0 left-0 w-6 h-6 md:w-8 md:h-8 bg-gold rounded-tr-[18px]" style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
-          <div class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 border border-white/20 shadow-lg hover:bg-black/80 transition-all duration-200">
-            <span class="text-white text-xs md:text-sm font-bold" id="testimonial-prev-name">أحمد محمد</span>
-          </div>
-        </div>
-        <!-- الصورة الحالية -->
-        <div class="w-40 h-40 md:w-48 md:h-48 overflow-hidden border-4 border-gold shadow-2xl z-10 transition-all duration-300 rounded-[22px] relative group" id="testimonial-current-img">
-          <div class="w-full h-full bg-gradient-to-br from-pink-400 to-red-500 rounded-[22px] flex items-center justify-center">
-            <i class="fas fa-user text-white text-4xl md:text-5xl"></i>
-          </div>
-          <div class="absolute top-0 left-0 w-8 h-8 md:w-10 md:h-10 bg-gold rounded-tr-[22px]" style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
-          <div class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/20 shadow-lg hover:bg-black/80 transition-all duration-200">
-            <span class="text-white text-sm md:text-base font-bold" id="testimonial-current-name">سارة أحمد</span>
-          </div>
-        </div>
-        <!-- الصورة التالية -->
-        <div class="w-24 h-24 md:w-32 md:h-32 overflow-hidden border-4 border-gold/30 shadow-lg -ml-4 md:-ml-8 opacity-60 scale-90 transition-all duration-300 rounded-[18px] relative group" id="testimonial-next-img">
-          <div class="w-full h-full bg-gradient-to-br from-green-400 to-blue-500 rounded-[18px] flex items-center justify-center">
-            <i class="fas fa-user text-white text-2xl md:text-3xl"></i>
-          </div>
-          <div class="absolute top-0 left-0 w-6 h-6 md:w-8 md:h-8 bg-gold rounded-tr-[18px]" style="clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
-          <div class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 border border-white/20 shadow-lg hover:bg-black/80 transition-all duration-200">
-            <span class="text-white text-xs md:text-sm font-bold" id="testimonial-next-name">محمد علي</span>
+          <!-- زر المعاينة -->
+          <div
+            class="absolute top-2 right-2 bg-gold/90 backdrop-blur-sm rounded-full p-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
+            <i class="fas fa-eye text-white text-xs"></i>
           </div>
         </div>
       </div>
       <!-- التعليقات والأسماء -->
       <div class="flex items-center justify-center gap-4 mt-8 w-full">
         <!-- التعليق السابق -->
-        <div class="hidden md:block w-1/4 text-center text-primary/60 text-base italic opacity-60 transition-all duration-300" id="testimonial-prev-text">
-          <p class="mb-2">"مدونة رائعة ومحتوى ملهم!"</p>
-          <p class="text-sm font-semibold text-gold" id="testimonial-prev-name">أحمد محمد</p>
+        <div
+          class="hidden md:block w-1/4 text-center text-primary/60 text-base italic opacity-60 transition-all duration-300"
+          id="testimonial-prev-text">
+          <p class="mb-2">"تجربة مميزة مع الأستاذة ريم في دورة الكتابة الإبداعية. تعلمت الكثير من التقنيات والأساليب
+            الجديدة في الكتابة."</p>
+          <p class="text-sm font-semibold text-gold" id="testimonial-prev-name">شروق</p>
         </div>
         <!-- التعليق الحالي -->
-        <div class="w-full md:w-1/2 text-center text-lg md:text-xl text-primary font-semibold transition-all duration-300" id="testimonial-current-text">
-          <p class="mb-2">"أفضل مدونة عربية للكتابة الإبداعية وتطوير الذات. أنصح بها بشدة!"</p>
-          <p class="text-sm font-semibold text-gold" id="testimonial-current-name">سارة أحمد</p>
+        <div
+          class="w-full md:w-1/2 text-center text-lg md:text-xl text-primary font-semibold transition-all duration-300"
+          id="testimonial-current-text">
+          <p class="mb-2">"استفدت كثيراً من دورة الكتابة الإبداعية مع الأستاذة ريم. أسلوبها في التدريب رائع ومحفز،
+            وقد ساعدتني في تطوير مهاراتي الكتابية بشكل كبير."</p>
+          <p class="text-sm font-semibold text-gold" id="testimonial-current-name">آلاء</p>
         </div>
         <!-- التعليق التالي -->
-        <div class="hidden md:block w-1/4 text-center text-primary/60 text-base italic opacity-60 transition-all duration-300" id="testimonial-next-text">
-          <p class="mb-2">"مقالات مفيدة جدًا وأسلوب عرض احترافي."</p>
-          <p class="text-sm font-semibold text-gold" id="testimonial-next-name">محمد علي</p>
+        <div
+          class="hidden md:block w-1/4 text-center text-primary/60 text-base italic opacity-60 transition-all duration-300"
+          id="testimonial-next-text">
+          <p class="mb-2">"دورة الكتابة الإبداعية مع الأستاذة ريم كانت نقطة تحول في مسيرتي الكتابية. المنهج شامل
+            ومنظم، والتدريبات العملية ساعدتني كثيراً."</p>
+          <p class="text-sm font-semibold text-gold" id="testimonial-next-name">فاطمة خالد</p>
+        </div>
+      </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Modal للمعاينة -->
+    <div id="imageModal"
+      class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] hidden items-center justify-center p-4">
+      <div class="relative bg-white rounded-2xl max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl">
+        <!-- زر الإغلاق -->
+        <button onclick="closeImageModal()"
+          class="absolute top-4 right-4 z-10 bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-600 transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <!-- محتوى Modal -->
+        <div class="flex flex-col md:flex-row">
+          <!-- الصورة -->
+          <div class="md:w-1/2 p-6">
+            <img id="modalImage" src="" alt="" class="w-full h-auto rounded-xl shadow-lg">
+          </div>
+
+          <!-- المعلومات والأزرار -->
+          <div class="md:w-1/2 p-6 flex flex-col justify-center">
+            <h3 id="modalName" class="text-2xl font-bold text-primary mb-4"></h3>
+            <p id="modalText" class="text-gray-700 mb-6 leading-relaxed"></p>
+            <p id="modalRole" class="text-gold font-semibold mb-6"></p>
+
+            <!-- زر عرض على منصة X -->
+            <a id="modalXLink" href="#" target="_blank"
+              class="inline-flex items-center justify-center gap-3 bg-black text-white px-6 py-3 rounded-xl font-bold hover:bg-gray-800 transition-colors">
+              <i class="fab fa-x-twitter text-xl"></i>
+              <span>عرض التعليق على منصة X</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<script>
-// Testimonials slider logic مع 10 تعليقات متحركة
-const testimonials = [
-  {
-    gradient: 'from-pink-400 to-red-500',
-    text: '"أفضل مدونة عربية للكتابة الإبداعية وتطوير الذات. أنصح بها بشدة!"',
-    name: 'سارة أحمد',
-    role: 'كاتبة إبداعية'
-  },
-  {
-    gradient: 'from-blue-400 to-purple-600',
-    text: '"مدونة رائعة ومحتوى ملهم! ساعدتني في تطوير مهاراتي الكتابية."',
-    name: 'أحمد محمد',
-    role: 'مدير محتوى'
-  },
-  {
-    gradient: 'from-green-400 to-blue-500',
-    text: '"مقالات مفيدة جدًا وأسلوب عرض احترافي. أصبحت مرجعي الأول."',
-    name: 'محمد علي',
-    role: 'محرر نصوص'
-  },
-  {
-    gradient: 'from-yellow-400 to-orange-500',
-    text: '"محتوى استثنائي! كل مقال يضيف قيمة حقيقية لمعرفتي."',
-    name: 'فاطمة حسن',
-    role: 'مدربة تطوير ذات'
-  },
-  {
-    gradient: 'from-indigo-400 to-purple-600',
-    text: '"أسلوب الكتابة سلس ومفهوم. أنصح بها لكل من يريد التطور."',
-    name: 'علي رضا',
-    role: 'مؤلف روايات'
-  },
-  {
-    gradient: 'from-red-400 to-pink-500',
-    text: '"مدونة احترافية بكل معنى الكلمة. محتوى عالي الجودة دائماً."',
-    name: 'نور الدين',
-    role: 'كاتب محتوى'
-  },
-  {
-    gradient: 'from-teal-400 to-cyan-500',
-    text: '"أفضل مصدر عربي للكتابة الإبداعية. شكراً لكم على هذا المحتوى."',
-    name: 'ليلى أحمد',
-    role: 'صحفية'
-  },
-  {
-    gradient: 'from-purple-400 to-indigo-500',
-    text: '"مقالات تطوير الذات غيرت حياتي للأفضل. أنصح بها بشدة!"',
-    name: 'حسن محمود',
-    role: 'طالب جامعي'
-  },
-  {
-    gradient: 'from-orange-400 to-red-500',
-    text: '"محتوى مميز ومفيد. أصبحت أتابع كل جديد في المدونة."',
-    name: 'مريم سعيد',
-    role: 'مستشارة تعليمية'
-  },
-  {
-    gradient: 'from-green-400 to-emerald-500',
-    text: '"أفضل مدونة عربية في مجال الكتابة والمحتوى. شكراً لكم!"',
-    name: 'كريم عبدالله',
-    role: 'محرر أدبي'
-  }
-];
 
-let current = 0;
-let sliderInterval = null;
+    <script>
+      // Testimonials slider logic مع النصوص الحقيقية من الصور
+      const testimonials = [
+        {
+          image: 'images/تعليقات_المستخدمين_آلاء.jpg',
+          text: '"استفدت كثيراً من دورة الكتابة الإبداعية مع الأستاذة ريم. أسلوبها في التدريب رائع ومحفز، وقد ساعدتني في تطوير مهاراتي الكتابية بشكل كبير. أنصح بشدة بالانضمام لدوراتها."',
+          name: 'آلاء',
+          role: 'كاتبة إبداعية',
+          xLink: 'https://x.com/ReemAlJuhani'
+        },
+        {
+          image: 'images/تعليقات_المستخدمين_شروق.png',
+          text: '"تجربة مميزة مع الأستاذة ريم في دورة الكتابة الإبداعية. تعلمت الكثير من التقنيات والأساليب الجديدة في الكتابة. المحتوى غني ومفيد جداً، والتدريب عملي وتطبيقي."',
+          name: 'شروق',
+          role: 'مدير محتوى',
+          xLink: 'https://x.com/ReemAlJuhani'
+        },
+        {
+          image: 'images/تعليقات_المستخدمين_فاطمة_خالد.jpg',
+          text: '"دورة الكتابة الإبداعية مع الأستاذة ريم كانت نقطة تحول في مسيرتي الكتابية. المنهج شامل ومنظم، والتدريبات العملية ساعدتني كثيراً في تحسين أسلوبي. شكراً لك أستاذة ريم."',
+          name: 'فاطمة خالد',
+          role: 'محرر نصوص',
+          xLink: 'https://x.com/ReemAlJuhani'
+        },
+        {
+          image: 'images/تعليقات_المستخدمين_ياسمين.jpg',
+          text: '"أشكر الأستاذة ريم على الدورة الرائعة في الكتابة الإبداعية. استطعت من خلالها اكتشاف قدراتي الكتابية وتطويرها. المحتوى ثري والأسلوب ممتع وتفاعلي. تجربة لا تُنسى."',
+          name: 'ياسمين',
+          role: 'مدربة تطوير ذات',
+          xLink: 'https://x.com/ReemAlJuhani'
+        },
+        {
+          image: 'reemcourceland/images/تعليقات_المستخدمين_1.png',
+          text: '"دورة الكتابة الإبداعية مع الأستاذة ريم فاقت توقعاتي. تعلمت تقنيات جديدة في السرد والوصف، وأصبحت أكثر ثقة في كتاباتي. أنصح كل من يريد تطوير مهاراته الكتابية بالانضمام."',
+          name: 'مريم',
+          role: 'مؤلفة روايات',
+          xLink: 'https://x.com/ReemAlJuhani'
+        }
+      ];
 
-function updateTestimonial() {
-  const prev = (current - 1 + testimonials.length) % testimonials.length;
-  const next = (current + 1) % testimonials.length;
-  
-  // تحديث الصور الحالية
-  updateTestimonialImage('testimonial-current-img', testimonials[current]);
-  updateTestimonialImage('testimonial-prev-img', testimonials[prev]);
-  updateTestimonialImage('testimonial-next-img', testimonials[next]);
-  
-  // تحديث النصوص
-  document.getElementById('testimonial-current-text').innerHTML = 
-    `<p class="mb-2">${testimonials[current].text}</p>
+      let current = 0;
+      let sliderInterval = null;
+
+      function updateTestimonial() {
+        const prev = (current - 1 + testimonials.length) % testimonials.length;
+        const next = (current + 1) % testimonials.length;
+
+        // تحديث الصور الحالية
+        updateTestimonialImage('testimonial-current-img', testimonials[current]);
+        updateTestimonialImage('testimonial-prev-img', testimonials[prev]);
+        updateTestimonialImage('testimonial-next-img', testimonials[next]);
+
+        // تحديث النصوص
+        document.getElementById('testimonial-current-text').innerHTML =
+          `<p class="mb-2">${testimonials[current].text}</p>
      <p class="text-xs text-primary/60">${testimonials[current].role}</p>`;
-  
-  document.getElementById('testimonial-prev-text').innerHTML = 
-    `<p class="mb-2">${testimonials[prev].text}</p>
+
+        document.getElementById('testimonial-prev-text').innerHTML =
+          `<p class="mb-2">${testimonials[prev].text}</p>
      <p class="text-xs text-primary/60">${testimonials[prev].role}</p>`;
-  
-  document.getElementById('testimonial-next-text').innerHTML = 
-    `<p class="mb-2">${testimonials[next].text}</p>
+
+        document.getElementById('testimonial-next-text').innerHTML =
+          `<p class="mb-2">${testimonials[next].text}</p>
      <p class="text-xs text-primary/60">${testimonials[next].role}</p>`;
-}
+      }
 
-function updateTestimonialImage(elementId, testimonial) {
-  const element = document.getElementById(elementId);
-  const iconContainer = element.querySelector('div');
-  const icon = element.querySelector('i');
-  const nameElement = element.querySelector(`#${elementId.replace('-img', '-name')}`);
-  
-  // تحديث التدرج اللوني
-  iconContainer.className = `w-full h-full bg-gradient-to-br ${testimonial.gradient} rounded-[18px] flex items-center justify-center`;
-  
-  // تحديث الأيقونة (نفس الأيقونة للجميع)
-  icon.className = 'fas fa-user text-white';
-  
-  // تحديث حجم الأيقونة حسب العنصر
-  if (elementId === 'testimonial-current-img') {
-    icon.className += ' text-4xl md:text-5xl';
-  } else {
-    icon.className += ' text-2xl md:text-3xl';
-  }
-  
-  // تحديث اسم الشخص على الصورة
-  if (nameElement) {
-    nameElement.textContent = testimonial.name;
-  }
-}
+      function updateTestimonialImage(elementId, testimonial) {
+        const element = document.getElementById(elementId);
+        const nameElement = element.querySelector(`#${elementId.replace('-img', '-name')}`);
 
-function nextTestimonial() {
-  current = (current + 1) % testimonials.length;
-  updateTestimonial();
-}
+        // إنشاء عنصر الصورة الجديد مع خلفية بيضاء
+        const newImageContainer = document.createElement('div');
 
-function prevTestimonial() {
-  current = (current - 1 + testimonials.length) % testimonials.length;
-  updateTestimonial();
-}
+        if (elementId === 'testimonial-current-img') {
+          newImageContainer.className = 'w-full h-full rounded-[22px] overflow-hidden bg-white';
+        } else {
+          newImageContainer.className = 'w-full h-full rounded-[18px] overflow-hidden bg-white';
+        }
 
-// إضافة مستمعي الأحداث
-document.getElementById('testimonial-prev').onclick = function() {
-  prevTestimonial();
-  resetSliderInterval();
-};
+        newImageContainer.innerHTML = `
+          <img src="${testimonial.image}" alt="${testimonial.name}" 
+               class="w-full h-full object-contain">
+        `;
 
-document.getElementById('testimonial-next').onclick = function() {
-  nextTestimonial();
-  resetSliderInterval();
-};
+        // استبدال المحتوى القديم بالصورة الجديدة
+        const oldContainer = element.querySelector('div:first-child');
+        if (oldContainer) {
+          element.replaceChild(newImageContainer, oldContainer);
+        }
 
-function startSliderInterval() {
-  sliderInterval = setInterval(nextTestimonial, 4000); // تحديث كل 4 ثواني
-}
+        // تحديث اسم الشخص على الصورة
+        if (nameElement) {
+          nameElement.textContent = testimonial.name;
+        }
+      }
 
-function resetSliderInterval() {
-  clearInterval(sliderInterval);
-  startSliderInterval();
-}
+      function nextTestimonial() {
+        current = (current + 1) % testimonials.length;
+        updateTestimonial();
+      }
 
-// تهيئة العرض
-updateTestimonial();
-startSliderInterval();
+      function prevTestimonial() {
+        current = (current - 1 + testimonials.length) % testimonials.length;
+        updateTestimonial();
+      }
 
-// إضافة تأثيرات إضافية عند التحميل
-document.addEventListener('DOMContentLoaded', function() {
-  // إضافة تأثير ظهور تدريجي للصور
-  const images = document.querySelectorAll('#testimonial-current-img, #testimonial-prev-img, #testimonial-next-img');
-  images.forEach((img, index) => {
-    img.style.animationDelay = `${index * 0.2}s`;
-    img.classList.add('animate-fade-in');
-  });
-});
-</script>
-    </main>
-    <footer class="bg-primary text-gold py-8 mt-8">
-        <div class="container mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 footer-content">
-            <div>
-                <img src="images/logo.png" alt="شعار المدونة" class="w-12 h-12 mb-2">
-                <h3 class="font-bold text-lg mb-1">مدونة المعرفة</h3>
-                <p class="text-sm">منصة معرفية شاملة تهدف إلى نشر المحتوى المفيد والملهم</p>
-            </div>
-            <div>
-                <h4 class="font-semibold mb-2">روابط سريعة</h4>
-                <ul class="space-y-1 text-sm">
-                    <li><a href="index.html" class="hover:underline">الرئيسية</a></li>
-                    <li><a href="blog.html" class="hover:underline">المدونة</a></li>
-                    <li><a href="about.html" class="hover:underline">من نحن</a></li>
-                    <li><a href="contact.html" class="hover:underline">اتصل بنا</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold mb-2">الفئات</h4>
-                <ul class="space-y-1 text-sm">
-                    <li><a href="blog.html?category=creative-writing" class="hover:underline">الكتابة الإبداعية</a></li>
-                    <li><a href="blog.html?category=content-writing" class="hover:underline">كتابة المحتوى</a></li>
-                    <li><a href="blog.html?category=self-development" class="hover:underline">تطوير الذات</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold mb-2">تابعنا</h4>
-                <div class="flex gap-3 mt-2">
-                    <a href="#" class="hover:text-gold"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-gold"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-gold"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="hover:text-gold"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+      // إضافة مستمعي الأحداث
+      document.getElementById('testimonial-prev').onclick = function () {
+        prevTestimonial();
+        resetSliderInterval();
+      };
+
+      document.getElementById('testimonial-next').onclick = function () {
+        nextTestimonial();
+        resetSliderInterval();
+      };
+
+      function startSliderInterval() {
+        sliderInterval = setInterval(nextTestimonial, 4000); // تحديث كل 4 ثواني
+      }
+
+      function resetSliderInterval() {
+        clearInterval(sliderInterval);
+        startSliderInterval();
+      }
+
+      // وظائف Modal المعاينة
+      function openImageModal(element) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalName = document.getElementById('modalName');
+        const modalText = document.getElementById('modalText');
+        const modalRole = document.getElementById('modalRole');
+        const modalXLink = document.getElementById('modalXLink');
+
+        // الحصول على معلومات الصورة
+        const img = element.querySelector('img');
+        const name = element.querySelector('span').textContent;
+
+        // العثور على البيانات المطابقة
+        const testimonialData = testimonials.find(t => t.name === name);
+
+        if (testimonialData) {
+          modalImage.src = testimonialData.image;
+          modalImage.alt = testimonialData.name;
+          modalName.textContent = testimonialData.name;
+          modalText.textContent = testimonialData.text;
+          modalRole.textContent = testimonialData.role;
+          modalXLink.href = testimonialData.xLink;
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+      }
+
+      // إغلاق Modal عند الضغط خارجه
+      document.getElementById('imageModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+          closeImageModal();
+        }
+      });
+
+      // إغلاق Modal بمفتاح Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeImageModal();
+        }
+      });
+
+      // تهيئة العرض
+      updateTestimonial();
+      startSliderInterval();
+
+      // إضافة تأثيرات إضافية عند التحميل
+      document.addEventListener('DOMContentLoaded', function () {
+        // إضافة تأثير ظهور تدريجي للصور
+        const images = document.querySelectorAll('#testimonial-current-img, #testimonial-prev-img, #testimonial-next-img');
+        images.forEach((img, index) => {
+          img.style.animationDelay = `${index * 0.2}s`;
+          img.classList.add('animate-fade-in');
+        });
+      });
+    </script>
+  </main>
+  <footer class="bg-primary text-gold py-8 mt-8">
+    <div
+      class="container mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 footer-content">
+      <div>
+        <img src="images/logo.png" alt="شعار المدونة" class="w-12 h-12 mb-2">
+        <h3 class="font-bold text-lg mb-1">مدونة المعرفة</h3>
+        <p class="text-sm">منصة معرفية شاملة تهدف إلى نشر المحتوى المفيد والملهم</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">روابط سريعة</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="index.html" class="hover:underline">الرئيسية</a></li>
+          <li><a href="blog.html" class="hover:underline">المدونة</a></li>
+          <li><a href="about.html" class="hover:underline">من نحن</a></li>
+          <li><a href="contact.html" class="hover:underline">اتصل بنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">الفئات</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="blog.html?category=creative-writing" class="hover:underline">الكتابة الإبداعية</a></li>
+          <li><a href="blog.html?category=content-writing" class="hover:underline">كتابة المحتوى</a></li>
+          <li><a href="blog.html?category=self-development" class="hover:underline">تطوير الذات</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">تابعنا</h4>
+        <div class="flex gap-3 mt-2">
+          <a href="#" class="hover:text-gold"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-gold"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-gold"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="hover:text-gold"><i class="fab fa-instagram"></i></a>
         </div>
-        <div class="container mx-auto px-4 sm:px-6 md:px-8 mt-8 border-t border-primary/20 pt-4 flex flex-col md:flex-row items-center justify-between text-sm footer-bottom-content">
-            <p>&copy; 2024 مدونة المعرفة. جميع الحقوق محفوظة.</p>
-            <div class="flex gap-4 mt-2 md:mt-0">
-                <a href="#" class="hover:underline">سياسة الخصوصية</a>
-                <a href="#" class="hover:underline">شروط الاستخدام</a>
-            </div>
-        </div>
-    </footer>
+      </div>
+    </div>
+    <div
+      class="container mx-auto px-4 sm:px-6 md:px-8 mt-8 border-t border-primary/20 pt-4 flex flex-col md:flex-row items-center justify-between text-sm footer-bottom-content">
+      <p>&copy; 2024 مدونة المعرفة. جميع الحقوق محفوظة.</p>
+      <div class="flex gap-4 mt-2 md:mt-0">
+        <a href="#" class="hover:underline">سياسة الخصوصية</a>
+        <a href="#" class="hover:underline">شروط الاستخدام</a>
+      </div>
+    </div>
+  </footer>
 </body>
+
 </html>

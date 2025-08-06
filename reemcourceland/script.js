@@ -58,48 +58,37 @@ document.addEventListener('DOMContentLoaded', function() {
     let slideInterval;
     let isTransitioning = false;
 
-    // Initialize carousel positions
+    // Initialize 3-card carousel system
     function initializeCarousel() {
-        testimonialCards.forEach((card, index) => {
-            card.setAttribute('data-index', getRelativeIndex(index, currentSlide));
-            card.classList.add('transitioning');
-        });
-        updateIndicators();
+        updateCarousel();
     }
 
-    // Get relative index for positioning
-    function getRelativeIndex(cardIndex, centerIndex) {
-        const totalCards = testimonialCards.length;
-        let relativeIndex = cardIndex - centerIndex;
-        
-        if (relativeIndex < 0) {
-            relativeIndex += totalCards;
-        }
-        
-        // Normalize to 0-3 range for positioning
-        if (relativeIndex >= totalCards) {
-            relativeIndex = relativeIndex % totalCards;
-        }
-        
-        return Math.min(relativeIndex, 3);
-    }
-
-    // Update carousel positions
+    // Update carousel to show only 3 cards (prev, active, next)
     function updateCarousel() {
         if (isTransitioning) return;
         
         isTransitioning = true;
         
+        const totalCards = testimonialCards.length;
+        
         testimonialCards.forEach((card, index) => {
-            const relativeIndex = getRelativeIndex(index, currentSlide);
-            card.setAttribute('data-index', relativeIndex);
+            // Remove all positioning classes
+            card.classList.remove('active', 'prev', 'next');
             
-            // Add active class to center card
-            if (relativeIndex === 0) {
+            // Calculate positions for 3-card display
+            if (index === currentSlide) {
+                // Center card (active/focus)
                 card.classList.add('active');
-            } else {
-                card.classList.remove('active');
+            } else if (index === (currentSlide - 1 + totalCards) % totalCards) {
+                // Left background card
+                card.classList.add('prev');
+            } else if (index === (currentSlide + 1) % totalCards) {
+                // Right background card
+                card.classList.add('next');
             }
+            
+            // Add transition class for smooth animation
+            card.classList.add('transitioning');
         });
         
         updateIndicators();
@@ -107,7 +96,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset transition flag after animation completes
         setTimeout(() => {
             isTransitioning = false;
-        }, 600);
+            testimonialCards.forEach(card => {
+                card.classList.remove('transitioning');
+            });
+        }, 800);
     }
 
     // Update indicators
@@ -177,19 +169,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Card click navigation
+    // Card click navigation for 3-card system
     testimonialCards.forEach((card, index) => {
         card.addEventListener('click', function() {
-            const cardIndex = parseInt(card.getAttribute('data-index'));
-            if (cardIndex === 1) { // Right side card
+            if (card.classList.contains('next')) {
+                // Click on right background card - go to next
                 stopAutoPlay();
                 nextSlide();
                 startAutoPlay();
-            } else if (cardIndex === 2) { // Left side card
+            } else if (card.classList.contains('prev')) {
+                // Click on left background card - go to previous
                 stopAutoPlay();
                 prevSlide();
                 startAutoPlay();
             }
+            // Active card in center doesn't trigger navigation
         });
     });
 
