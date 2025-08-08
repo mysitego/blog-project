@@ -14,20 +14,22 @@
         extend: {
           colors: {
             primary: {
-              DEFAULT: '#0a2a1c', // أخضر داكن جداً (أقرب للأسود)
-              dark: '#05140d',
-              light: '#14532d',
+              DEFAULT: 'rgb(10, 42, 28)', // اللون الجديد للنافبار والهيدر
+              dark: '#042618',
+              light: '#2d7a5f',
             },
             gold: {
-              DEFAULT: '#bfa14a', // ذهبي أغمق وأكثر واقعية
-              dark: '#8c781c',
-              light: '#ffe7a3',
-              gradient: 'linear-gradient(90deg, #bfa14a 0%, #ffe7a3 100%)',
+              DEFAULT: 'rgb(191, 161, 74)', // اللون الذهبي الجديد
+              dark: 'rgb(150, 130, 60)',
+              light: '#f4e8a6',
+              gradient: 'linear-gradient(90deg, rgb(191, 161, 74) 0%, #f4e8a6 100%)',
             },
             graybg: '#f6f6f6',
+            'light-green': '#e8f5f0',
+            'light-gold': '#f4e8a6',
           },
           fontFamily: {
-            arabic: ["IBM Plex Sans Arabic", "IBM Plex Sans", "sans-serif"]
+            arabic: ["IBM Plex Sans Arabic", "sans-serif"]
           }
         }
       }
@@ -36,11 +38,11 @@
   <link rel="icon" href="images/logo.png" type="image/jpeg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
     rel="stylesheet">
   <style>
     body {
-      font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
     }
 
     /* تحسينات خاصة بقسم آراء العملاء */
@@ -73,6 +75,46 @@
 
       50% {
         box-shadow: 0 0 0 10px rgba(191, 161, 74, 0);
+      }
+    }
+
+    /* تنسيق العناصر العائمة للإحصائيات */
+    .stats-floating-item {
+      min-width: 80px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      animation: float-gentle 3s ease-in-out infinite;
+    }
+
+    .stats-floating-item:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .stats-floating-item:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    @keyframes float-gentle {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* تحسينات للشاشات المتوسطة */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .stats-floating-item {
+        min-width: 70px;
+        padding: 0.75rem !important;
+      }
+
+      .stats-floating-item .stats-number {
+        font-size: 1.25rem !important;
       }
     }
 
@@ -229,6 +271,20 @@
   <style>
     @media (max-width: 640px) {
 
+      /* تحسينات العناصر العائمة للجوال */
+      .stats-floating-item {
+        min-width: 60px !important;
+        padding: 0.5rem !important;
+      }
+
+      .stats-floating-item .stats-number {
+        font-size: 1rem !important;
+      }
+
+      .stats-floating-item .text-xs {
+        font-size: 0.65rem !important;
+      }
+
       .container,
       .about-image-center,
       .hero-image {
@@ -279,6 +335,316 @@
         grid-template-columns: 1fr 1fr 1fr !important;
       }
     }
+
+    /* تحسين عرض النصوص المقطوعة */
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* تحسينات الهيرو الجديد */
+    .hero-floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .hero-glow {
+      position: relative;
+    }
+
+
+
+    /* تأثيرات الكتابة */
+    .typewriter {
+      overflow: hidden;
+      border-right: 2px solid #a47909;
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink-caret {
+
+      from,
+      to {
+        border-color: transparent;
+      }
+
+      50% {
+        border-color: #a47909;
+      }
+    }
+
+    /* تحسينات الأزرار */
+
+
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    /* تحسينات قسم الهيرو */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(232, 245, 240, 0.3) 50%, rgba(244, 232, 166, 0.2) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* تحسينات متجاوبة للهيرو */
+    @media (max-width: 768px) {
+      .hero-section {
+        min-height: 90vh;
+        padding-top: 80px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem !important;
+      }
+
+      .course-cta-btn {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .hero-content-card {
+        margin: 0 1rem;
+      }
+    }
+
+    .hero-content-card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .hero-content-card:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(212, 175, 55, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* تأثيرات خاصة لزر الدورات */
+    .course-cta-btn {
+      animation: glow-pulse 2s ease-in-out infinite alternate;
+      position: relative;
+      transform: perspective(1000px) rotateX(0deg);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .course-cta-btn:hover {
+      transform: perspective(1000px) rotateX(-5deg) translateY(-5px);
+    }
+
+
+    @keyframes glow-pulse {
+      0% {
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4), 0 0 0 0 rgba(212, 175, 55, 0.7);
+      }
+
+      100% {
+        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6), 0 0 0 8px rgba(212, 175, 55, 0);
+      }
+    }
+
+    @keyframes rotate-glow {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.02);
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    /* تحسين البطاقات */
+    .hero-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .hero-card:hover::before {
+      left: 100%;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(26, 95, 63, 0.15);
+    }
+
+    /* تحسين الإحصائيات */
+    .stats-item {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .stats-item:hover {
+      transform: translateY(-5px) scale(1.05);
+    }
+
+    .stats-number {
+      background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 130, 60));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    /* تحسين الشارة */
+    .hero-badge {
+      animation: float-badge 3s ease-in-out infinite;
+    }
+
+    @keyframes float-badge {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-3px) rotate(1deg);
+      }
+    }
+
+    /* تحسين العنوان الرئيسي */
+
+
+
+    @keyframes title-underline {
+      to {
+        width: 100px;
+      }
+    }
+
+    /* Feature Cards Animation */
+    .feature-card {
+      animation: floatCard 4s ease-in-out infinite;
+    }
+
+    .feature-card:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .feature-card:nth-child(2) {
+      animation-delay: 1.3s;
+    }
+
+    .feature-card:nth-child(3) {
+      animation-delay: 2.6s;
+    }
+
+    .feature-card:nth-child(4) {
+      animation-delay: 0.7s;
+    }
+
+    .feature-card:nth-child(5) {
+      animation-delay: 2s;
+    }
+
+    .feature-card:nth-child(6) {
+      animation-delay: 3.3s;
+    }
+
+    @keyframes floatCard {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-5px) rotate(1deg);
+      }
+    }
+
+    /* Icon Animation */
+    .feature-card .w-16.h-16 {
+      animation: pulseIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseIcon {
+
+      0%,
+      100% {
+        transform: rotate(-5deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(-3deg) scale(1.05);
+      }
+    }
+
+    /* Hover Effects for Feature Cards */
+    .feature-card:hover {
+      transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+      box-shadow: 0 30px 60px rgba(26, 95, 63, 0.3);
+    }
+
+    /* Section Headers Styling */
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, rgb(191, 161, 74), rgb(150, 130, 60));
+      border-radius: 2px;
+    }
   </style>
   <script>
     // قائمة جانبية للجوال (Drawer) - هيكل فقط
@@ -300,7 +666,7 @@
       </a>
       <ul class="hidden md:flex items-center gap-6 text-base font-medium nav-links">
         <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 drop-shadow"
-            style="color:#ffe7a3;text-shadow:0 1px 6px #000a">الرئيسية</a></li>
+            style="color:rgb(191, 161, 74);text-shadow:0 1px 6px #000a">الرئيسية</a></li>
         <li><a href="blog.html" class="text-white hover:text-gold drop-shadow"
             style="text-shadow:0 1px 6px #000a">المدونة</a></li>
         <li class="relative group">
@@ -322,7 +688,7 @@
       <div class="hidden md:flex items-center gap-2 navbar-tools">
         <a href="reemcourceland/reemcourse.html"
           class="px-3 py-1 rounded flex items-center gap-1 text-sm font-bold shadow hover:opacity-90 transition"
-          style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06"><i
+          style="background:linear-gradient(90deg,rgb(191, 161, 74) 0%,#ffe7a3 100%);color:#3a2c06"><i
             class="fas fa-user-shield"></i> انظم الى دوارتي </a>
         <button class="border border-gold text-gold px-2 py-1 rounded hover:bg-gold/10" title="تغيير اللغة"><i
             class="fas fa-language"></i></button>
@@ -360,335 +726,386 @@
   <!-- <div class="pt-24"></div> -->
   <main class="flex-1">
     <!-- Hero Section -->
-    <section class="relative flex flex-col justify-center overflow-hidden max-w-full min-h-0 md:min-h-[420px] ">
+    <section class="hero-section relative flex flex-col justify-center overflow-hidden max-w-full min-h-screen"
+      style="background: linear-gradient(135deg, #e8f5f0 0%, rgba(255, 255, 255, 0.9) 50%, #f4e8a6 100%);">
       <!-- SVG Abstract Background -->
       <div class="absolute inset-0 z-0 pointer-events-none max-w-full overflow-x-hidden">
         <svg width="100%" height="100%" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg"
           class="w-full h-full max-w-full">
           <defs>
             <radialGradient id="circleGradient1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.55" />
-              <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.38" />
-              <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.18" />
+              <stop offset="0%" stop-color="#042618" stop-opacity="0.05" />
+              <stop offset="70%" stop-color="#042618" stop-opacity="0.03" />
+              <stop offset="100%" stop-color="#042618" stop-opacity="0.01" />
             </radialGradient>
             <radialGradient id="circleGradient2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.48" />
-              <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.32" />
-              <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.15" />
+              <stop offset="0%" stop-color="#a47909" stop-opacity="0.05" />
+              <stop offset="70%" stop-color="#a47909" stop-opacity="0.03" />
+              <stop offset="100%" stop-color="#a47909" stop-opacity="0.01" />
             </radialGradient>
             <radialGradient id="circleGradient3" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#0a2a1c" stop-opacity="0.38" />
-              <stop offset="70%" stop-color="#0a2a1c" stop-opacity="0.28" />
-              <stop offset="100%" stop-color="#0a2a1c" stop-opacity="0.10" />
+              <stop offset="0%" stop-color="#042618" stop-opacity="0.04" />
+              <stop offset="70%" stop-color="#a47909" stop-opacity="0.02" />
+              <stop offset="100%" stop-color="#042618" stop-opacity="0.01" />
             </radialGradient>
             <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#bfa14a" />
-              <stop offset="100%" stop-color="#ffe7a3" />
+              <stop offset="0%" stop-color="#a47909" stop-opacity="0.05" />
+              <stop offset="100%" stop-color="#ebdb79" stop-opacity="0.05" />
             </linearGradient>
           </defs>
-          <circle cx="-100" cy="300" r="300" stroke="url(#circleGradient1)" stroke-width="32" opacity="0.98" />
-          <circle cx="1300" cy="300" r="300" stroke="url(#circleGradient2)" stroke-width="24" opacity="0.98" />
-          <circle cx="600" cy="150" r="200" stroke="url(#circleGradient3)" stroke-width="18" opacity="0.93" />
-          <path d="M0 400 Q300 200 600 400 T1200 400" stroke="#0a2a1c" stroke-width="2" opacity="0.32" fill="none" />
-          <path d="M0 350 Q400 150 800 350 T1200 350" stroke="#0a2a1c" stroke-width="1.5" opacity="0.22" fill="none" />
-          <path d="M0 450 Q200 250 400 450 T800 450 T1200 450" stroke="#0a2a1c" stroke-width="1" opacity="0.18"
+          <circle cx="-100" cy="300" r="300" stroke="url(#circleGradient1)" stroke-width="32" opacity="0.3" />
+          <circle cx="1300" cy="300" r="300" stroke="url(#circleGradient2)" stroke-width="24" opacity="0.3" />
+          <circle cx="600" cy="150" r="200" stroke="url(#circleGradient3)" stroke-width="18" opacity="0.25" />
+          <path d="M0 400 Q300 200 600 400 T1200 400" stroke="#042618" stroke-width="2" opacity="0.05" fill="none" />
+          <path d="M0 350 Q400 150 800 350 T1200 350" stroke="#a47909" stroke-width="1.5" opacity="0.04" fill="none" />
+          <path d="M0 450 Q200 250 400 450 T800 450 T1200 450" stroke="#042618" stroke-width="1" opacity="0.03"
             fill="none" />
         </svg>
-        <div class="absolute inset-0 bg-primary/95 mix-blend-multiply z-0"></div>
       </div>
       <!-- Hero Content -->
-      <div
-        class="relative z-10 container mx-auto flex flex-col items-center justify-center text-center py-12 md:py-24 px-4 sm:px-6 md:px-8 lg:px-4 xl:px-8">
-        <!-- Badge أعلى العنوان -->
-        <div
-          class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-gold/30 rounded-full px-8 py-3 mb-10 shadow-lg">
-          <i class="fas fa-star text-gold animate-pulse"></i>
-          <span class="text-white font-bold text-lg">كاتبة ومؤلفة محترفة</span>
-          <i class="fas fa-star text-gold animate-pulse"></i>
-        </div>
+      <div class="relative z-10 container mx-auto py-16 md:py-24 px-4 sm:px-6 md:px-8">
 
-        <!-- العنوان الرئيسي مع تأثير إبداعي -->
-        <div class="relative mb-8">
-          <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-2xl"
-            style="text-shadow:0 4px 12px rgba(0,0,0,0.6);">ريم محمد الجهني</h1>
-          <!-- خط ذهبي تحت العنوان -->
-          <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4"></div>
-        </div>
+        <!-- Course Announcement Banner -->
+        <!-- <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-3 bg-gradient-to-r from-gold to-gold-light text-primary px-6 py-3 rounded-full shadow-lg animate-bounce">
+            <i class="fas fa-fire text-lg"></i>
+            <span class="font-bold">🔥 التسجيل مفتوح الآن في دوراتي التدريبية! 🔥</span>
+            <i class="fas fa-fire text-lg"></i>
+          </div>
+        </div> -->
 
-        <!-- العنوان الفرعي مع توزيع أفقي احترافي بدون دائرة أو صورة -->
-        <div
-          class="mb-12 flex flex-row items-center justify-center gap-1 sm:gap-4 md:gap-8 flex-nowrap overflow-x-auto px-2">
-          <span
-            class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition"
-            style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
-            مدربة كتابة إبداعية
-          </span>
-          <span
-            class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition"
-            style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
-            كاتبة ومؤلفة
-          </span>
-          <span
-            class="inline-block px-2 py-1 bg-green-700 rounded-lg shadow text-xs sm:text-sm md:text-lg lg:text-2xl font-bold text-gold-light whitespace-nowrap hover:scale-105 transition"
-            style="text-shadow:0 2px 8px rgba(0,0,0,0.15);">
-            صانعة محتوى
-          </span>
-        </div>
+        <!-- Hero Content Layout -->
+        <div class="max-w-4xl mx-auto min-h-[600px] flex flex-col justify-center relative ">
 
-        <!-- النص التسويقي الرئيسي مع تنظيم إبداعي -->
-        <div class="w-full max-w-7xl mx-auto space-y-8 mb-16">
-          <!-- أسماء الروايات مع تصميم مميز -->
-          <div class="bg-white/5 backdrop-blur-sm border border-gold/20 rounded-2xl p-8 lg:p-12 mb-8">
-            <h3 class="text-gold font-bold text-2xl md:text-3xl mb-4 text-center">رواياتي الإبداعية</h3>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-20">
-              <div class="text-center group">
-                <div
-                  class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">
-                  "غضّة العود"</div>
-                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
+
+
+          <!-- Main Content -->
+          <div class="">
+
+            <!-- Welcome Message -->
+
+
+            <!-- Main Introduction -->
+            <div class="text-center space-y-6">
+              <h1 class="hero-title text-2xl md:text-3xl lg:text-4xl font-bold text-green-900">
+                ريم محمد الجهني
+              </h1>
+              <p class="text-xl md:text-2xl text-primary/80 font-medium max-w-3xl mx-auto ">
+                روايات تلامس القلب وتنقل القارئ إلى عوالم من الخيال والإبداع
+              </p>
+            </div>
+          </div>
+
+          <!-- Bio Description -->
+          <div class="text-center max-w-4xl mx-auto">
+            <p class="text-lg md:text-xl text-primary/80 leading-relaxed font-light py-2 md:py-4 lg:py-6">
+              أساعدك في تطوير مهاراتك الكتابية وتحويل أفكارك إلى نصوص مؤثرة تلامس القلوب وتترك أثراً في نفوس القراء.
+              من خلال خبرتي في الكتابة والتدريب، أقدم لك الأدوات والتقنيات التي تحتاجها لتصبح كاتباً مميزاً.
+            </p>
+          </div>
+
+          <!-- Specialties -->
+          <div class="flex flex-wrap justify-center gap-4">
+            <span
+              class="px-6 py-3 bg-gold/10 border border-gold/30 rounded-xl text-primary font-bold text-sm hover:bg-gold/20 transition-all duration-300 hover:scale-105">
+              📚 روائية وكاتبة
+            </span>
+            <span
+              class="px-6 py-3 bg-primary/5 border border-primary/10 rounded-xl text-primary font-medium text-sm hover:bg-primary/10 transition-all duration-300 hover:scale-105">
+              🎓 مدربة كتابة إبداعية
+            </span>
+            <span
+              class="px-6 py-3 bg-primary/5 border border-primary/10 rounded-xl text-primary font-medium text-sm hover:bg-primary/10 transition-all duration-300 hover:scale-105">
+              ✍️ صانعة محتوى
+            </span>
+          </div>
+
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-6 justify-center items-center pt-6">
+            <a href="reemcourceland/reemcourse.html"
+              class="course-cta-btn inline-flex items-center justify-center gap-3 px-12 py-6 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 relative overflow-hidden"
+              style="background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 130, 60));">
+              <i class="fas fa-graduation-cap text-xl"></i>
+              <span> استكشف دوراتي التدريبية </span>
+            </a>
+            <a href="#novels"
+              class="inline-flex items-center justify-center gap-3 px-10 py-5 border-2 font-semibold rounded-2xl hover:scale-105 transition-all duration-300"
+              style="border-color: rgb(191, 161, 74); color: rgb(191, 161, 74); background: rgba(191, 161, 74, 0.05);">
+              <i class="fas fa-book-open"></i>
+              <span>اكتشف رواياتي</span>
+            </a>
+          </div>
+
+
+
+          <!-- Featured Works Section -->
+          <div class="mt-4 pt-4 border-t border-primary/10">
+            <div class="text-center mb-4">
+
+              <p class="text-primary/70 max-w-2xl mx-auto">مجموعة من الروايات والكتب التي تلامس القلب وتنقل القارئ إلى
+                عوالم جديدة</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div
+                class="group bg-white border border-gold/10 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:border-gold/30">
+                <div class="flex items-center gap-4 mb-4">
+                  <div
+                    class="w-12 h-12 bg-green-50 from-gold/20 to-gold/10 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-book text-green-900"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-primary group-hover:text-gold transition-colors">غضّة العود</h3>
+                    <p class="text-sm text-primary/60">رواية اجتماعية</p>
+                  </div>
+                </div>
+                <p class="text-sm text-primary/70 leading-relaxed">رواية تسلّط الضوء على قضية نفسية تمس الفرد والمجتمع
+                  معًا</p>
               </div>
-              <div class="hidden md:block text-gold text-2xl">•</div>
-              <div class="text-center group">
-                <div
-                  class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">
-                  "أدهم"</div>
-                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
+
+              <div
+                class="group bg-white border border-gold/10 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:border-gold/30">
+                <div class="flex items-center gap-4 mb-4">
+                  <div
+                    class="w-12 h-12 bg-green-50 from-gold/20 to-gold/10 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-magic text-green-900"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-primary group-hover:text-gold transition-colors">أدهم</h3>
+                    <p class="text-sm text-primary/60">رواية فانتازيا</p>
+                  </div>
+                </div>
+                <p class="text-sm text-primary/70 leading-relaxed">رواية خيالية تدور حول شاب يعيش في قرية معزولة مع
+                  أسرار
+                  غامضة</p>
               </div>
-              <div class="hidden md:block text-gold text-2xl">•</div>
-              <div class="text-center group">
-                <div
-                  class="text-white font-bold text-xl md:text-2xl mb-2 group-hover:text-gold transition-colors duration-300">
-                  "ثلاثية العلاقات"</div>
-                <div class="w-16 h-0.5 bg-gold mx-auto group-hover:w-20 transition-all duration-300"></div>
+
+              <div
+                class="group bg-white border border-gold/10 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:border-gold/30">
+                <div class="flex items-center gap-4 mb-4">
+                  <div
+                    class="w-12 h-12 bg-green-50 from-gold/20 to-gold/10 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-heart text-green-900"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-primary group-hover:text-gold transition-colors">ثلاثية العلاقات</h3>
+                    <p class="text-sm text-primary/60">كتاب تطوير ذات</p>
+                  </div>
+                </div>
+                <p class="text-sm text-primary/70 leading-relaxed">كتاب يتناول العلاقات الإنسانية والتعامل مع التحديات
+                  العاطفية</p>
               </div>
             </div>
           </div>
 
-          <!-- وصف الروايات -->
-          <div class="text-center mb-8">
-            <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg leading-relaxed"
-              style="text-shadow:0 2px 6px rgba(0,0,0,0.4);">
-              روايات تلامس القلب وتنقل القارئ إلى عوالم من الخيال والإبداع
-            </p>
-          </div>
-
-          <!-- إنجازات التدريب -->
-
         </div>
 
-        <!-- الأزرار التحفيزية -->
-        <div class="flex flex-col sm:flex-row gap-8 justify-center mb-12 w-full max-w-6xl mx-auto">
-          <a href="#novels"
-            class="px-10 py-4 rounded-2xl text-xl flex items-center gap-4 font-bold shadow-2xl hover:scale-105 transition-all duration-300 group"
-            style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%);color:#3a2c06">
-            <i class="fas fa-book-open text-3xl group-hover:rotate-12 transition-transform duration-300"></i>
-            <span>اكتشف رواياتي الإبداعية</span>
-            <i class="fas fa-arrow-left text-2xl group-hover:-translate-x-2 transition-transform duration-300"></i>
-          </a>
-          <a href="reemcourceland/reemcourse.html"
-            class="border-3 border-gold text-gold px-10 py-4 rounded-2xl text-xl flex items-center gap-4 font-bold hover:bg-gold/10 hover:scale-105 transition-all duration-300 group shadow-2xl">
-            <i class="fas fa-graduation-cap text-3xl group-hover:rotate-12 transition-transform duration-300"></i>
-            <span>انضم إلى دوراتي التدريبية</span>
-            <i class="fas fa-arrow-left text-2xl group-hover:-translate-x-2 transition-transform duration-300"></i>
-          </a>
-        </div>
+      </div>
 
-        <!-- إحصائيات سريعة -->
-        <div class="grid grid-cols-2 gap-8 md:gap-16 lg:gap-24 w-full max-w-5xl mx-auto">
-          <div class="text-center group">
-            <div
-              class="text-4xl md:text-5xl font-bold text-gold mb-2 group-hover:scale-110 transition-transform duration-300">
-              3</div>
-            <div class="text-sm md:text-base text-white/80 font-semibold">روايات منشورة</div>
-          </div>
-          <div class="text-center group">
-            <div
-              class="text-4xl md:text-5xl font-bold text-gold mb-2 group-hover:scale-110 transition-transform duration-300">
-              100+</div>
-            <div class="text-sm md:text-base text-white/80 font-semibold">متدربة</div>
-          </div>
-
-        </div>
 
 
       </div>
     </section>
     <!-- قسم عن الكاتبة مع تحسينات جمالية -->
-    <section class="relative py-20" style="background:linear-gradient(135deg,#143325 70%,#cbb87c 100%);">
+    <section class="relative py-32 overflow-hidden"
+      style="background: linear-gradient(135deg, #e8f5f0 0%, rgba(255, 255, 255, 0.9) 50%, #f4e8a6 100%);">
       <!-- Abstract shapes -->
-      <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
-        <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg"
-          class="w-full h-full">
-          <circle cx="200" cy="100" r="120" fill="#cbb87c" fill-opacity="0.06" />
-          <circle cx="1240" cy="220" r="90" fill="#cbb87c" fill-opacity="0.07" />
-          <ellipse cx="700" cy="300" rx="180" ry="60" fill="#cbb87c" fill-opacity="0.05" />
-        </svg>
+      <div class="absolute inset-0 pointer-events-none opacity-40"
+        style="background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><defs><pattern id=&quot;about-pattern&quot; width=&quot;40&quot; height=&quot;40&quot; patternUnits=&quot;userSpaceOnUse&quot;><circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;1.5&quot; fill=&quot;%23d4af37&quot; opacity=&quot;0.15&quot;/><circle cx=&quot;10&quot; cy=&quot;30&quot; r=&quot;1&quot; fill=&quot;%231a5f3f&quot; opacity=&quot;0.1&quot;/></pattern></defs><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(%23about-pattern)&quot;/></svg>');">
       </div>
+
       <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 text-center drop-shadow-lg about-title"
-          style="text-shadow:0 2px 8px #000a">عن الكاتبة</h2>
-        <!-- تصميم إبداعي جديد بدون صورة -->
-        <div class="relative w-full">
-          <!-- خلفية إبداعية متحركة -->
-          <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-10 left-10 w-32 h-32 bg-gold/10 rounded-full blur-xl animate-pulse"></div>
-            <div class="absolute bottom-20 right-20 w-40 h-40 bg-gold/5 rounded-full blur-2xl animate-bounce"></div>
-            <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-gold/15 rounded-full blur-lg animate-spin"></div>
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4 relative">
+            عن الكاتبة
+            <div
+              class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-20 h-1 bg-gradient-to-r from-gold to-gold rounded-full">
+            </div>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-8">
+            تعرف على مهاراتي وخبراتي في عالم الكتابة والإبداع
+          </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <!-- العنصر الأول - كاتبة ومؤلفة روايات -->
+          <div
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-500 shadow-lg transform -rotate-6 group-hover:rotate-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold group-hover:to-gold/80 group-hover:rounded-full relative z-20">
+              <i
+                class="fas fa-book-open text-white text-xl transition-all duration-500 transform rotate-6 group-hover:rotate-0 group-hover:scale-125"></i>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                كاتبة ومؤلفة روايات
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أكتب روايات وقصص تلامس القلب وتنقل القارئ إلى عوالم جديدة من الخيال والإبداع
+              </p>
+            </div>
           </div>
 
-          <!-- شبكة العناصر الإبداعية -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            <!-- العنصر الأول - كاتبة ومؤلفة روايات -->
-            <div class="group relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
-              </div>
-              <div
-                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-                <div
-                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-book-open text-white text-xl"></i>
-                </div>
-                <div class="mt-4">
-                  <h3
-                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                    كاتبة ومؤلفة روايات</h3>
-                  <p class="text-white/90 leading-relaxed">أكتب روايات وقصص تلامس القلب وتنقل القارئ إلى عوالم جديدة من
-                    الخيال والإبداع.</p>
-                </div>
-                <div
-                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
-                </div>
-              </div>
+          <!-- العنصر الثاني - محررة نصوص وصوتيات -->
+          <div
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
             </div>
 
-            <!-- العنصر الثاني - محررة نصوص وصوتيات -->
-            <div class="group relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
-              </div>
-              <div
-                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-                <div
-                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-edit text-white text-xl"></i>
-                </div>
-                <div class="mt-4">
-                  <h3
-                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                    محررة نصوص وصوتيات</h3>
-                  <p class="text-white/90 leading-relaxed">أحرر النصوص والمحتوى الصوتي لضمان الجودة والوضوح في كل كلمة.
-                  </p>
-                </div>
-                <div
-                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
-                </div>
-              </div>
+            <!-- Icon -->
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-500 shadow-lg transform -rotate-6 group-hover:rotate-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold group-hover:to-gold/80 group-hover:rounded-full relative z-20">
+              <i
+                class="fas fa-edit text-white text-xl transition-all duration-500 transform rotate-6 group-hover:rotate-0 group-hover:scale-125"></i>
             </div>
 
-            <!-- العنصر الثالث - البودكاست -->
-            <div class="group relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
-              </div>
-              <div
-                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-                <div
-                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-podcast text-white text-xl"></i>
-                </div>
-                <div class="mt-4">
-                  <h3
-                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                    أحرر البودكاست وأصنع حكايات تُسمع وتُحس</h3>
-                  <p class="text-white/90 leading-relaxed">أصنع محتوى صوتي مؤثر وحكايات تصل إلى القلب وتترك أثراً عميقاً
-                    في المستمع.</p>
-                </div>
-                <div
-                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
-                </div>
-              </div>
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                محررة نصوص وصوتيات
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أحرر النصوص والمحتوى الصوتي لضمان الجودة والوضوح في كل كلمة
+              </p>
+            </div>
+          </div>
+
+          <!-- العنصر الثالث - البودكاست -->
+          <div
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
             </div>
 
-            <!-- العنصر الرابع - مدربة -->
-            <div class="group relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
-              </div>
-              <div
-                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-                <div
-                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-chalkboard-teacher text-white text-xl"></i>
-                </div>
-                <div class="mt-4">
-                  <h3
-                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                    مدربة في القراءة والكتابة</h3>
-                  <p class="text-white/90 leading-relaxed">أدرب الآخرين على مهارات القراءة والكتابة الإبداعية لمساعدتهم
-                    في تطوير مواهبهم.</p>
-                </div>
-                <div
-                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
-                </div>
-              </div>
+            <!-- Icon -->
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-500 shadow-lg transform -rotate-6 group-hover:rotate-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold group-hover:to-gold/80 group-hover:rounded-full relative z-20">
+              <i
+                class="fas fa-podcast text-white text-xl transition-all duration-500 transform rotate-6 group-hover:rotate-0 group-hover:scale-125"></i>
             </div>
 
-            <!-- العنصر الخامس - السوشال ميديا -->
-            <div class="group relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
-              </div>
-              <div
-                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-                <div
-                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-share-alt text-white text-xl"></i>
-                </div>
-                <div class="mt-4">
-                  <h3
-                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                    صانعة محتوى أدبي وثقافي على السوشال ميديا</h3>
-                  <p class="text-white/90 leading-relaxed">أنشر محتوى أدبي وثقافي مؤثر على منصات التواصل الاجتماعي لوصول
-                    أوسع للجمهور.</p>
-                </div>
-                <div
-                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
-                </div>
-              </div>
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                البودكاست والحكايات
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أصنع محتوى صوتي مؤثر وحكايات تصل إلى القلب وتترك أثراً عميقاً في المستمع
+              </p>
+            </div>
+          </div>
+
+          <!-- العنصر الرابع - مدربة -->
+          <div
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
             </div>
 
-            <!-- العنصر السادس - مستشارة -->
-            <div class="group relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500">
-              </div>
-              <div
-                class="relative bg-white/10 backdrop-blur-md border border-gold/30 rounded-2xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/15">
-                <div
-                  class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-lightbulb text-white text-xl"></i>
-                </div>
-                <div class="mt-4">
-                  <h3
-                    class="font-bold text-gold text-lg mb-3 group-hover:text-yellow-300 transition-colors duration-300">
-                    مستشارة في تطوير المحتوى الرقمي</h3>
-                  <p class="text-white/90 leading-relaxed">أقدم استشارات متخصصة في تطوير المحتوى الرقمي واستراتيجيات
-                    التسويق بالمحتوى.</p>
-                </div>
-                <div
-                  class="absolute bottom-2 left-2 w-8 h-8 bg-gold/20 rounded-full group-hover:bg-gold/40 transition-all duration-300">
-                </div>
-              </div>
+            <!-- Icon -->
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-500 shadow-lg transform -rotate-6 group-hover:rotate-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold group-hover:to-gold/80 group-hover:rounded-full relative z-20">
+              <i
+                class="fas fa-chalkboard-teacher text-white text-xl transition-all duration-500 transform rotate-6 group-hover:rotate-0 group-hover:scale-125"></i>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                مدربة في القراءة والكتابة
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أدرب الآخرين على مهارات القراءة والكتابة الإبداعية لمساعدتهم في تطوير مواهبهم
+              </p>
+            </div>
+          </div>
+
+          <!-- العنصر الخامس - السوشال ميديا -->
+          <div
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-500 shadow-lg transform -rotate-6 group-hover:rotate-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold group-hover:to-gold/80 group-hover:rounded-full relative z-20">
+              <i
+                class="fas fa-share-alt text-white text-xl transition-all duration-500 transform rotate-6 group-hover:rotate-0 group-hover:scale-125"></i>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                صانعة محتوى رقمي
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أنشر محتوى أدبي وثقافي مؤثر على منصات التواصل الاجتماعي لوصول أوسع للجمهور
+              </p>
+            </div>
+          </div>
+
+          <!-- العنصر السادس - مستشارة -->
+          <div
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-all duration-500 shadow-lg transform -rotate-6 group-hover:rotate-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold group-hover:to-gold/80 group-hover:rounded-full relative z-20">
+              <i
+                class="fas fa-lightbulb text-white text-xl transition-all duration-500 transform rotate-6 group-hover:rotate-0 group-hover:scale-125"></i>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                مستشارة محتوى رقمي
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أقدم استشارات متخصصة في تطوير المحتوى الرقمي واستراتيجيات التسويق بالمحتوى
+              </p>
             </div>
           </div>
         </div>
+      </div>
       </div>
       <!-- موجة ذهبية تربط القسمين -->
       <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none z-10">
@@ -699,103 +1116,120 @@
     </section>
 
     <!-- ======= الدورات التدريبية (تصميم جديد ومبتكر) ======= -->
-    <section id="courses" class="relative py-24 overflow-hidden"
-      style="background: linear-gradient(145deg, #0a2a1c 0%, #14532d 100%);">
+    <section id="courses" class="relative py-32 overflow-hidden"
+      style="background: linear-gradient(135deg, #e8f5f0 0%, rgba(255, 255, 255, 0.9) 50%, #f4e8a6 100%);">
       <!-- خلفية إبداعية -->
-      <div class="absolute inset-0 pointer-events-none opacity-20">
-        <svg class="w-full h-full" width="100%" height="100%" viewBox="0 0 1200 800" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <circle cx="100" cy="100" r="400" stroke="#bfa14a" stroke-width="2" stroke-opacity="0.3" />
-          <circle cx="1100" cy="700" r="300" stroke="#bfa14a" stroke-width="1" stroke-opacity="0.2" />
-          <path d="M-200 400 C 200 200, 600 600, 1400 400" stroke="#bfa14a" stroke-width="1" stroke-opacity="0.25"
-            fill="none" />
-        </svg>
+      <div class="absolute inset-0 pointer-events-none opacity-40"
+        style="background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><defs><pattern id=&quot;courses-pattern&quot; width=&quot;40&quot; height=&quot;40&quot; patternUnits=&quot;userSpaceOnUse&quot;><circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;1.5&quot; fill=&quot;%23d4af37&quot; opacity=&quot;0.15&quot;/><circle cx=&quot;10&quot; cy=&quot;30&quot; r=&quot;1&quot; fill=&quot;%231a5f3f&quot; opacity=&quot;0.1&quot;/></pattern></defs><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(%23courses-pattern)&quot;/></svg>');">
       </div>
 
       <div class="container mx-auto px-4 relative z-10">
         <!-- العنوان -->
-        <div class="text-center mb-20">
-          <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg"
-            style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-            <span class="text-gold">دورات تدريبية</span> لإطلاق العنان لإبداعك
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4 relative">
+            دورات تدريبية لإطلاق العنان لإبداعك
+            <div
+              class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-20 h-1 bg-gradient-to-r from-gold to-gold rounded-full">
+            </div>
           </h2>
-          <p class="text-lg text-white/80 max-w-3xl mx-auto">
-            انضم إلى مجتمع من المبدعين وصقل مهاراتك من خلال دوراتنا المصممة بعناية لتناسب شغفك وتطلعاتك.
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-8">
+            انضم إلى مجتمع من المبدعين وصقل مهاراتك من خلال دوراتنا المصممة بعناية لتناسب شغفك وتطلعاتك
           </p>
         </div>
 
         <!-- شبكة البطاقات -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
           <!-- بطاقة 1: الكتابة الإبداعية -->
           <div
-            class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform">
-            <div class="absolute top-0 right-0 w-24 h-24 bg-gold/10 rounded-full blur-2xl -mt-8 -mr-8"></div>
-            <div class="relative z-10">
-              <div class="mb-6">
-                <div
-                  class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <img src="https://source.unsplash.com/400x200/?writing,book" alt="دورة الكتابة الإبداعية"
-                    class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
-                </div>
-              </div>
-              <h3 class="font-bold text-gold text-2xl mb-3 text-center">الكتابة الإبداعية</h3>
-              <p class="text-white/80 text-center mb-8 leading-relaxed">
-                أطلق العنان لكاتبك الداخلي وتعلم فنون السرد وبناء الشخصيات وخلق عوالم تأسر القلوب.
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
+            </div>
+
+            <!-- Image -->
+            <div
+              class="w-32 h-32 rounded-2xl overflow-hidden mx-auto mb-6 transition-all duration-500 shadow-xl transform -rotate-3 group-hover:rotate-0 group-hover:scale-110 group-hover:rounded-3xl relative z-20 border-3 border-primary/30 group-hover:border-gold">
+              <img
+                src="https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=90"
+                alt="الكتابة الإبداعية"
+                class="w-full h-full object-cover transition-all duration-500 group-hover:scale-125 filter group-hover:brightness-110">
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                الكتابة الإبداعية
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                أطلق العنان لكاتبك الداخلي وتعلم فنون السرد وبناء الشخصيات وخلق عوالم تأسر القلوب
               </p>
-              <button
-                class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-                <i class="fas fa-pen-nib"></i>
-                <span>سجل الآن</span>
-              </button>
             </div>
           </div>
 
           <!-- بطاقة 2: صناعة المحتوى -->
           <div
-            class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform lg:scale-105">
-            <div class="absolute top-0 left-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mt-12 -ml-12"></div>
-            <div class="relative z-10">
-              <div class="mb-6">
-                <div
-                  class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <img src="https://source.unsplash.com/400x200/?content,typing" alt="دورة صناعة المحتوى"
-                    class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
-                </div>
-              </div>
-              <h3 class="font-bold text-gold text-2xl mb-3 text-center">صناعة المحتوى</h3>
-              <p class="text-white/80 text-center mb-8 leading-relaxed">
-                احترف كتابة المحتوى الجذاب والمؤثر الذي يحقق أهدافك التسويقية ويبني جسوراً مع جمهورك.
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
+            </div>
+
+            <!-- Image -->
+            <div
+              class="w-32 h-32 rounded-2xl overflow-hidden mx-auto mb-6 transition-all duration-500 shadow-xl transform -rotate-3 group-hover:rotate-0 group-hover:scale-110 group-hover:rounded-3xl relative z-20 border-3 border-primary/30 group-hover:border-gold">
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=90"
+                alt="صناعة المحتوى"
+                class="w-full h-full object-cover transition-all duration-500 group-hover:scale-125 filter group-hover:brightness-110">
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                صناعة المحتوى
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                احترف كتابة المحتوى الجذاب والمؤثر الذي يحقق أهدافك التسويقية ويبني جسوراً مع جمهورك
               </p>
-              <button
-                class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-                <i class="fas fa-lightbulb"></i>
-                <span>سجل الآن</span>
-              </button>
             </div>
           </div>
 
           <!-- بطاقة 3: تطوير الذات -->
           <div
-            class="group relative bg-white/10 backdrop-blur-lg border border-gold/30 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:-translate-y-3 transform">
-            <div class="absolute bottom-0 right-0 w-28 h-28 bg-gold/10 rounded-full blur-2xl -mb-10 -mr-10"></div>
-            <div class="relative z-10">
-              <div class="mb-6">
-                <div
-                  class="w-20 h-20 rounded-full p-1 mx-auto bg-gradient-to-br from-gold to-gold/50 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <img src="https://source.unsplash.com/400x200/?self-development,success" alt="دورة تطوير الذات"
-                    class="w-full h-full object-cover rounded-full border-4 border-primary-dark">
-                </div>
-              </div>
-              <h3 class="font-bold text-gold text-2xl mb-3 text-center">تطوير الذات</h3>
-              <p class="text-white/80 text-center mb-8 leading-relaxed">
-                استثمر في نفسك واكتسب أدوات عملية لتعزيز ثقتك، تحقيق أهدافك، وبناء حياة أكثر نجاحاً.
+            class="feature-card bg-white p-6 rounded-3xl text-center transition-all duration-500 border-2 border-transparent relative overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transform hover:-translate-y-5 hover:border-gold/30 group"
+            style="height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- Background Gradient on Hover -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary to-gold opacity-0 group-hover:opacity-95 transition-all duration-500 z-10 rounded-3xl">
+            </div>
+
+            <!-- Image -->
+            <div
+              class="w-32 h-32 rounded-2xl overflow-hidden mx-auto mb-6 transition-all duration-500 shadow-xl transform -rotate-3 group-hover:rotate-0 group-hover:scale-110 group-hover:rounded-3xl relative z-20 border-3 border-primary/30 group-hover:border-gold">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=90"
+                alt="تطوير الذات"
+                class="w-full h-full object-cover transition-all duration-500 group-hover:scale-125 filter group-hover:brightness-110">
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-20">
+              <h3
+                class="font-bold text-primary text-xl mb-3 transition-all duration-500 group-hover:text-white group-hover:transform group-hover:-translate-y-1">
+                تطوير الذات
+              </h3>
+              <p
+                class="text-gray-600 leading-relaxed text-sm flex-1 flex items-center text-center transition-all duration-500 group-hover:text-white/95 group-hover:transform group-hover:-translate-y-1">
+                استثمر في نفسك واكتسب أدوات عملية لتعزيز ثقتك، تحقيق أهدافك، وبناء حياة أكثر نجاحاً
               </p>
-              <button
-                class="w-full bg-gradient-to-r from-gold to-yellow-300 text-primary-dark font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-yellow-300/40 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-                <i class="fas fa-rocket"></i>
-                <span>سجل الآن</span>
-              </button>
             </div>
           </div>
 
@@ -803,54 +1237,7 @@
       </div>
     </section>
 
-    <!-- بداية قسم آراء العملاء (سلايدر مبتكر) -->
-    <section class="relative py-20 bg-gradient-to-tr from-green-900/90 via-green-800/80 to-gold/10 overflow-hidden">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-14">
-          <h2 class="text-4xl sm:text-5xl font-black text-gold drop-shadow-lg mb-3 tracking-tight">آراء العملاء</h2>
-          <p class="text-xl text-white/90 font-medium">لقطات حقيقية من تفاعل العملاء على منصات التواصل</p>
-        </div>
-        <div class="swiper myClientsSwiper">
-          <div class="swiper-wrapper">
-            <!-- بطاقة 1 -->
-            <div class="swiper-slide client-card">
-              <img src="images/blog-1.png" alt="تعليق عميل 1" class="client-img" />
-              <a href="https://instagram.com/realclient1" target="_blank" class="client-link" title="رابط التعليق"><svg
-                  class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
-                  <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
-                </svg></a>
-              <span class="client-name">أحمد علي</span>
-            </div>
-            <!-- بطاقة 2 -->
-            <div class="swiper-slide client-card">
-              <img src="images/blog-2.png" alt="تعليق عميل 2" class="client-img" />
-              <a href="https://twitter.com/realclient2" target="_blank" class="client-link" title="رابط التعليق"><svg
-                  class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
-                  <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
-                </svg></a>
-              <span class="client-name">سارة محمد</span>
-            </div>
-            <!-- بطاقة 3 -->
-            <div class="swiper-slide client-card">
-              <img src="images/blog-3.webp" alt="تعليق عميل 3" class="client-img" />
-              <a href="https://facebook.com/realclient3" target="_blank" class="client-link" title="رابط التعليق"><svg
-                  class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
-                  <path d="M5 5v14h14v-7h-2v5H7V7h5V5H5z" />
-                </svg></a>
-              <span class="client-name">محمد يوسف</span>
-            </div>
-            <!-- يمكن إضافة المزيد من البطاقات هنا -->
-          </div>
-          <!-- أزرار التنقل -->
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
-    </section>
+
     <!-- نهاية قسم آراء العملاء (سلايدر مبتكر) -->
     <!-- إضافة Swiper.js CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -876,88 +1263,82 @@
     <!-- نهاية إضافة Swiper.js -->
 
     <!-- قسم الروايات الإبداعية -->
-    <section class="relative py-20 overflow-hidden"
-      style="background: linear-gradient(135deg, #0a2a1c 0%, #1a4a2c 50%, #0a2a1c 100%);">
-      <!-- خلفية إبداعية متحركة -->
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-10 left-10 w-64 h-64 bg-gold/5 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-20 w-80 h-80 bg-gold/3 rounded-full blur-3xl animate-bounce"></div>
-        <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-gold/8 rounded-full blur-2xl animate-spin"></div>
-        <!-- خطوط إبداعية -->
-        <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1200 600" fill="none">
-          <path d="M0,300 Q300,100 600,300 T1200,300" stroke="#bfa14a" stroke-width="2" fill="none" />
-          <path d="M0,200 Q400,50 800,200 T1200,200" stroke="#bfa14a" stroke-width="1.5" fill="none" />
-          <path d="M0,400 Q200,250 400,400 T800,400 T1200,400" stroke="#bfa14a" stroke-width="1" fill="none" />
-        </svg>
+    <section class="relative py-32 overflow-hidden"
+      style="background: linear-gradient(135deg, #e8f5f0 0%, rgba(255, 255, 255, 0.9) 50%, #f4e8a6 100%);">
+      <!-- خلفية إبداعية -->
+      <div class="absolute inset-0 pointer-events-none opacity-40"
+        style="background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><defs><pattern id=&quot;novels-pattern&quot; width=&quot;40&quot; height=&quot;40&quot; patternUnits=&quot;userSpaceOnUse&quot;><circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;1.5&quot; fill=&quot;%23d4af37&quot; opacity=&quot;0.15&quot;/><circle cx=&quot;10&quot; cy=&quot;30&quot; r=&quot;1&quot; fill=&quot;%231a5f3f&quot; opacity=&quot;0.1&quot;/></pattern></defs><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(%23novels-pattern)&quot;/></svg>');">
       </div>
 
       <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <!-- العنوان الرئيسي -->
         <div class="text-center mb-16">
-          <div class="inline-flex items-center gap-3 mb-4">
-            <div class="w-12 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
-            <i class="fas fa-book-open text-gold text-2xl"></i>
-            <div class="w-12 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
-          </div>
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" style="text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
-            رواياتي الإبداعية</h2>
-          <p class="text-gold-light text-lg max-w-2xl mx-auto">اكتشف عوالم من الخيال والإبداع في رواياتي الثلاث التي
-            تلامس القلب وتنقل القارئ إلى عوالم جديدة</p>
+          <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4 relative">
+            رواياتي الإبداعية
+            <div
+              class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-20 h-1 bg-gradient-to-r from-gold to-gold rounded-full">
+            </div>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-8">
+            اكتشف عوالم من الخيال والإبداع في رواياتي التي تلامس القلب وتنقل القارئ إلى عوالم جديدة
+          </p>
         </div>
 
         <!-- عرض الروايات -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div class="flex flex-wrap justify-center gap-8 mb-12">
           <!-- رواية غضّة العود -->
-          <div class="group relative">
+          <div class="group relative w-80">
             <div
               class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
             </div>
             <div
-              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              class="relative bg-white border border-gold/20 rounded-3xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 overflow-hidden">
               <!-- خلفية الرواية -->
               <div
-                class="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-amber-800/15 to-amber-700/10 rounded-3xl">
+                class="absolute inset-0 bg-gradient-to-br from-amber-900/5 via-amber-800/3 to-amber-700/2 rounded-3xl">
               </div>
 
               <!-- صورة الغلاف -->
-              <div class="relative mb-6">
+              <div class="relative mb-4">
                 <div
-                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  class="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
                   <img src="rwayah_images/رواية_غصة_ _العود.jpg" alt="غضّة العود"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                    class="w-full h-full object-contain bg-white group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- شارة الرواية -->
-                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-leaf text-white text-xl"></i>
+                <div class="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,rgb(191, 161, 74) 0%,#ffe7a3 100%)">
+                  <i class="fas fa-leaf text-white text-sm"></i>
                 </div>
               </div>
 
               <!-- محتوى الرواية -->
               <div class="relative z-10">
-                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                <h3
+                  class="font-bold text-primary text-lg mb-2 group-hover:text-primary-light transition-colors duration-300">
                   غضّة العود</h3>
-                <p class="text-white/90 leading-relaxed mb-4">رواية اجتماعية تسلّط الضوء على قضية نفسية تمس الفرد
-                  والمجتمع معًا، وتتناول آثارها الممتدة على العلاقات والسلوك والقرارات المصيرية. بأسلوب سردي مؤثر، ترصد
-                  الرواية رحلة التعافي والتعامل مع الألم.</p>
+                <p class="text-primary/80 text-sm leading-relaxed mb-3 line-clamp-3">رواية اجتماعية تسلّط الضوء على قضية
+                  نفسية تمس الفرد
+                  والمجتمع معًا، وتتناول آثارها الممتدة على العلاقات والسلوك والقرارات المصيرية.</p>
 
                 <!-- تفاصيل الرواية -->
-                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                <div class="flex items-center justify-between text-xs text-primary/70 mb-3">
                   <span><i class="fas fa-calendar-alt text-gold"></i> 2021</span>
                   <span><i class="fas fa-file-alt text-gold"></i> 156 صفحة</span>
                 </div>
 
                 <!-- أزرار التفاعل -->
-                <div class="flex gap-3">
+                <div class="flex gap-2">
                   <a href="#"
-                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    class="flex-1 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    style="background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 130, 60));"
                     title="اشتري رواية غضّة العود من دار ألسن">
-                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                    <i class="fas fa-shopping-cart ml-1"></i>اشتري الآن
                   </a>
                   <button
-                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    class="w-10 h-8 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
                     title="أضف رواية غضّة العود إلى المفضلة">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -965,56 +1346,58 @@
           </div>
 
           <!-- رواية أدهم -->
-          <div class="group relative">
+          <div class="group relative w-80">
             <div
               class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
             </div>
             <div
-              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              class="relative bg-white border border-gold/20 rounded-3xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 overflow-hidden">
               <!-- خلفية الرواية -->
               <div
-                class="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-slate-800/15 to-slate-700/10 rounded-3xl">
+                class="absolute inset-0 bg-gradient-to-br from-slate-900/5 via-slate-800/3 to-slate-700/2 rounded-3xl">
               </div>
 
               <!-- صورة الغلاف -->
-              <div class="relative mb-6">
+              <div class="relative mb-4">
                 <div
-                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  class="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
                   <img src="rwayah_images/رواية_أدهم.jpg" alt="أدهم"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                    class="w-full h-full object-contain bg-white group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- شارة الرواية -->
-                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-user-secret text-white text-xl"></i>
+                <div class="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,rgb(191, 161, 74) 0%,#ffe7a3 100%)">
+                  <i class="fas fa-user-secret text-white text-sm"></i>
                 </div>
               </div>
 
               <!-- محتوى الرواية -->
               <div class="relative z-10">
-                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                <h3
+                  class="font-bold text-primary text-lg mb-2 group-hover:text-primary-light transition-colors duration-300">
                   أدهم</h3>
-                <p class="text-white/90 leading-relaxed mb-4">رواية خيالية من أدب الفانتازيا، تدور حول أدهم، الشاب الذي
-                  يعيش مع عجوز غامضة في قرية معزولة، بينما يرزح تحت وطأة ضغط نفسي خانق. من خلال صوته الداخلي وأحاديثه
-                  الصامتة، يكشف لنا أدهم حقيقة لا يراها سواه.</p>
+                <p class="text-primary/80 text-sm leading-relaxed mb-3 line-clamp-3">رواية خيالية من أدب الفانتازيا،
+                  تدور حول أدهم، الشاب الذي
+                  يعيش مع عجوز غامضة في قرية معزولة، بينما يرزح تحت وطأة ضغط نفسي خانق.</p>
 
                 <!-- تفاصيل الرواية -->
-                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                <div class="flex items-center justify-between text-xs text-primary/70 mb-3">
                   <span><i class="fas fa-calendar-alt text-gold"></i> 2024</span>
                   <span><i class="fas fa-file-alt text-gold"></i> 160 صفحة</span>
                 </div>
 
                 <!-- أزرار التفاعل -->
-                <div class="flex gap-3">
+                <div class="flex gap-2">
                   <a href="#"
-                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    class="flex-1 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    style="background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 130, 60));"
                     title="اشتري رواية أدهم من دار ألسن">
-                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                    <i class="fas fa-shopping-cart ml-1"></i>اشتري الآن
                   </a>
                   <button
-                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    class="w-10 h-8 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
                     title="أضف رواية أدهم إلى المفضلة">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -1022,56 +1405,58 @@
           </div>
 
           <!-- كتاب ثلاثية العلاقات -->
-          <div class="group relative">
+          <div class="group relative w-80">
             <div
               class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
             </div>
             <div
-              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              class="relative bg-white border border-gold/20 rounded-3xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 overflow-hidden">
               <!-- خلفية الرواية -->
               <div
-                class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-purple-800/15 to-purple-700/10 rounded-3xl">
+                class="absolute inset-0 bg-gradient-to-br from-purple-900/5 via-purple-800/3 to-purple-700/2 rounded-3xl">
               </div>
 
               <!-- صورة الغلاف -->
-              <div class="relative mb-6">
+              <div class="relative mb-4">
                 <div
-                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  class="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
                   <img src="rwayah_images/رواية_ثلاثية_العلاقات.jpg" alt="ثلاثية العلاقات"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                    class="w-full h-full object-contain bg-white group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- شارة الرواية -->
-                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-users text-white text-xl"></i>
+                <div class="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,rgb(191, 161, 74) 0%,#ffe7a3 100%)">
+                  <i class="fas fa-users text-white text-sm"></i>
                 </div>
               </div>
 
               <!-- محتوى الرواية -->
               <div class="relative z-10">
-                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                <h3
+                  class="font-bold text-primary text-lg mb-2 group-hover:text-primary-light transition-colors duration-300">
                   ثلاثية العلاقات</h3>
-                <p class="text-white/90 leading-relaxed mb-4">ثمرة تعاون مع الدكتورة الهنوف، يقدّم هذا الكتاب محتوى
-                  بودكاستات تم تحويلها بعناية من الصوت إلى النص. يتناول الكتاب ثلاثة محاور عميقة: الابتزاز العاطفي،
-                  العلاقات السامة، والتعلّق.</p>
+                <p class="text-primary/80 text-sm leading-relaxed mb-3 line-clamp-3">ثمرة تعاون مع الدكتورة الهنوف،
+                  يقدّم هذا الكتاب محتوى
+                  بودكاستات تم تحويلها بعناية من الصوت إلى النص. يتناول الكتاب ثلاثة محاور عميقة.</p>
 
                 <!-- تفاصيل الرواية -->
-                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                <div class="flex items-center justify-between text-xs text-primary/70 mb-3">
                   <span><i class="fas fa-calendar-alt text-gold"></i> 2024</span>
                   <span><i class="fas fa-users text-gold"></i> تعاون مع د. الهنوف</span>
                 </div>
 
                 <!-- أزرار التفاعل -->
-                <div class="flex gap-3">
+                <div class="flex gap-2">
                   <a href="#"
-                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    class="flex-1 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    style="background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 130, 60));"
                     title="اشتري كتاب ثلاثية العلاقات من دار ألسن">
-                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                    <i class="fas fa-shopping-cart ml-1"></i>اشتري الآن
                   </a>
                   <button
-                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    class="w-10 h-8 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
                     title="أضف كتاب ثلاثية العلاقات إلى المفضلة">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -1079,56 +1464,58 @@
           </div>
 
           <!-- كتاب ولكن -->
-          <div class="group relative">
+          <div class="group relative w-80">
             <div
               class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
             </div>
             <div
-              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              class="relative bg-white border border-gold/20 rounded-3xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 overflow-hidden">
               <!-- خلفية الرواية -->
               <div
-                class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-emerald-800/15 to-emerald-700/10 rounded-3xl">
+                class="absolute inset-0 bg-gradient-to-br from-emerald-900/5 via-emerald-800/3 to-emerald-700/2 rounded-3xl">
               </div>
 
               <!-- صورة الغلاف -->
-              <div class="relative mb-6">
+              <div class="relative mb-4">
                 <div
-                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  class="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
                   <img src="rwayah_images/كتاب_ولكن.jpg" alt="كتاب ولكن"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                    class="w-full h-full object-contain bg-white group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- شارة الرواية -->
-                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-trophy text-white text-xl"></i>
+                <div class="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,rgb(191, 161, 74) 0%,#ffe7a3 100%)">
+                  <i class="fas fa-trophy text-white text-sm"></i>
                 </div>
               </div>
 
               <!-- محتوى الرواية -->
               <div class="relative z-10">
-                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                <h3
+                  class="font-bold text-primary text-lg mb-2 group-hover:text-primary-light transition-colors duration-300">
                   ولكن</h3>
-                <p class="text-white/90 leading-relaxed mb-4">كتاب جماعي شارك في تأليفه أكثر من 400 كاتب وكاتبة، ما جعله
-                  يدخل موسوعة غينيس للأرقام القياسية كأول كتاب يضم هذا العدد من الكتّاب في إصدار واحد. يقدّم مجموعة
-                  مقالات متنوعة تتناول قضايا المجتمع من زوايا مختلفة.</p>
+                <p class="text-primary/80 text-sm leading-relaxed mb-3 line-clamp-3">كتاب جماعي شارك في تأليفه أكثر من
+                  400 كاتب وكاتبة، ما جعله
+                  يدخل موسوعة غينيس للأرقام القياسية كأول كتاب يضم هذا العدد من الكتّاب في إصدار واحد.</p>
 
                 <!-- تفاصيل الرواية -->
-                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                <div class="flex items-center justify-between text-xs text-primary/70 mb-3">
                   <span><i class="fas fa-trophy text-gold"></i> غينيس</span>
                   <span><i class="fas fa-users text-gold"></i> 400+ كاتب</span>
                 </div>
 
                 <!-- أزرار التفاعل -->
-                <div class="flex gap-3">
+                <div class="flex gap-2">
                   <a href="#"
-                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    class="flex-1 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    style="background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 13ري كتاب "
                     title="اشتري كتاب ولكن من دار ألسن">
-                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                    <i class="fas fa-shopping-cart ml-1"></i>اشتري الآن
                   </a>
                   <button
-                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    class="w-10 h-8 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
                     title="أضف كتاب ولكن إلى المفضلة">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -1136,56 +1523,57 @@
           </div>
 
           <!-- كتاب الجُمار -->
-          <div class="group relative">
+          <div class="group relative w-80">
             <div
               class="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-700">
             </div>
             <div
-              class="relative bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 hover:bg-white/10 overflow-hidden">
+              class="relative bg-white border border-gold/20 rounded-3xl p-6 shadow-2xl hover:shadow-gold/20 transition-all duration-500 hover:scale-105 overflow-hidden">
               <!-- خلفية الرواية -->
-              <div
-                class="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-teal-800/15 to-teal-700/10 rounded-3xl">
+              <div class="absolute inset-0 bg-gradient-to-br from-teal-900/5 via-teal-800/3 to-teal-700/2 rounded-3xl">
               </div>
 
               <!-- صورة الغلاف -->
-              <div class="relative mb-6">
+              <div class="relative mb-4">
                 <div
-                  class="w-full h-64 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
+                  class="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-gold/30 transition-all duration-500">
                   <img src="rwayah_images/كتاب_الجمار.jpg" alt="كتاب الجُمار"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 rounded-3xl">
+                    class="w-full h-full object-contain bg-white group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- شارة الرواية -->
-                <div class="absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
-                  style="background:linear-gradient(90deg,#bfa14a 0%,#ffe7a3 100%)">
-                  <i class="fas fa-quran text-white text-xl"></i>
+                <div class="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                  style="background:linear-gradient(90deg,rgb(191, 161, 74) 0%,#ffe7a3 100%)">
+                  <i class="fas fa-quran text-white text-sm"></i>
                 </div>
               </div>
 
               <!-- محتوى الرواية -->
               <div class="relative z-10">
-                <h3 class="font-bold text-gold text-xl mb-3 group-hover:text-yellow-300 transition-colors duration-300">
+                <h3
+                  class="font-bold text-primary text-lg mb-2 group-hover:text-primary-light transition-colors duration-300">
                   الجُمار</h3>
-                <p class="text-white/90 leading-relaxed mb-4">عمل جماعي شارك في تأليفه 500 كاتب وكاتبة، يسلّط الضوء على
-                  أثر آيات مختارة من القرآن الكريم في نفوس الكتّاب. يجمع الكتاب بين تجارب شخصية وتأملات روحانية، مدعومة
-                  بتفسير مبسّط لكل آية.</p>
+                <p class="text-primary/80 text-sm leading-relaxed mb-3 line-clamp-3">عمل جماعي شارك في تأليفه 500 كاتب
+                  وكاتبة، يسلّط الضوء على
+                  أثر آيات مختارة من القرآن الكريم في نفوس الكتّاب. يجمع الكتاب بين تجارب شخصية وتأملات روحانية.</p>
 
                 <!-- تفاصيل الرواية -->
-                <div class="flex items-center justify-between text-sm text-white/70 mb-4">
+                <div class="flex items-center justify-between text-xs text-primary/70 mb-3">
                   <span><i class="fas fa-quran text-gold"></i> قرآني</span>
                   <span><i class="fas fa-users text-gold"></i> 500 كاتب</span>
                 </div>
 
                 <!-- أزرار التفاعل -->
-                <div class="flex gap-3">
+                <div class="flex gap-2">
                   <a href="#"
-                    class="flex-1 bg-gradient-to-r from-gold to-yellow-400 text-primary px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    class="flex-1 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 text-center"
+                    style="background: linear-gradient(135deg, rgb(191, 161, 74), rgb(150, 130, 60));"
                     title="اشتري كتاب الجُمار من دار ألسن">
-                    <i class="fas fa-shopping-cart ml-2"></i>اشتري الآن
+                    <i class="fas fa-shopping-cart ml-1"></i>اشتري الآن
                   </a>
                   <button
-                    class="w-12 h-10 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
+                    class="w-10 h-8 bg-white/10 border border-gold/30 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300"
                     title="أضف كتاب الجُمار إلى المفضلة">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -1206,9 +1594,26 @@
     </section>
 
     <!-- قسم آراء العملاء (Testimonials Slider) -->
-    <section class="relative py-20 bg-gradient-to-b from-gold/10 via-white/80 to-gold/5">
-      <div class="container mx-auto px-4 sm:px-6 md:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary text-center mb-10">آراء العملاء</h2>
+    <section class="relative py-32 overflow-hidden"
+      style="background: linear-gradient(135deg, #e8f5f0 0%, rgba(255, 255, 255, 0.9) 50%, #f4e8a6 100%);">
+      <!-- خلفية إبداعية -->
+      <div class="absolute inset-0 pointer-events-none opacity-40"
+        style="background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><defs><pattern id=&quot;testimonials-pattern&quot; width=&quot;40&quot; height=&quot;40&quot; patternUnits=&quot;userSpaceOnUse&quot;><circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;1.5&quot; fill=&quot;%23d4af37&quot; opacity=&quot;0.15&quot;/><circle cx=&quot;10&quot; cy=&quot;30&quot; r=&quot;1&quot; fill=&quot;%231a5f3f&quot; opacity=&quot;0.1&quot;/></pattern></defs><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(%23testimonials-pattern)&quot;/></svg>');">
+      </div>
+
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4 relative">
+            آراء العملاء
+            <div
+              class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-20 h-1 bg-gradient-to-r from-gold to-gold rounded-full">
+            </div>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-8">
+            تجارب حقيقية من متدربات سابقات شاركن معنا رحلة التعلم والإبداع
+          </p>
+        </div>
         <div id="testimonials-slider" class="relative flex flex-col items-center">
           <!-- الأسهم -->
           <button id="testimonial-prev" title="السابق"
