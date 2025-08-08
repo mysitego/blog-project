@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> ريم محمد الجهني  </title>
+  <title> ريم محمد الجهني </title>
   <meta name="description" content=" روايات تلامس القلب وتنقل القارئ إلى عوالم من الخيال والإبداع ">
   <!-- Tailwind CSS CDN with custom colors -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -107,6 +107,22 @@
     }
 
     /* تحسينات للشاشات المتوسطة */
+    /* تنسيق الأزرار العائمة */
+    #scrollToTop,
+    #whatsappBtn {
+      animation: float-gentle 3s ease-in-out infinite;
+    }
+
+    #whatsappBtn {
+      animation-delay: 1.5s;
+    }
+
+    #scrollToTop:hover,
+    #whatsappBtn:hover {
+      animation: none;
+      transform: scale(1.1);
+    }
+
     @media (min-width: 768px) and (max-width: 1023px) {
       .stats-floating-item {
         min-width: 70px;
@@ -115,6 +131,21 @@
 
       .stats-floating-item .stats-number {
         font-size: 1.25rem !important;
+      }
+
+      #scrollToTop,
+      #whatsappBtn {
+        width: 3rem !important;
+        height: 3rem !important;
+        bottom: 1rem !important;
+      }
+
+      #scrollToTop {
+        right: 1rem !important;
+      }
+
+      #whatsappBtn {
+        left: 1rem !important;
       }
     }
 
@@ -283,6 +314,27 @@
 
       .stats-floating-item .text-xs {
         font-size: 0.65rem !important;
+      }
+
+      /* تحسينات الأزرار العائمة للجوال */
+      #scrollToTop,
+      #whatsappBtn {
+        width: 2.75rem !important;
+        height: 2.75rem !important;
+        bottom: 1rem !important;
+      }
+
+      #scrollToTop {
+        right: 1rem !important;
+      }
+
+      #whatsappBtn {
+        left: 1rem !important;
+      }
+
+      #scrollToTop i,
+      #whatsappBtn i {
+        font-size: 1rem !important;
       }
 
       .container,
@@ -652,6 +704,42 @@
       const menu = document.getElementById('mobile-drawer');
       if (menu) menu.classList.toggle('hidden');
     }
+
+    // وظائف الأزرار العائمة
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    function openWhatsApp() {
+      // يمكنك تغيير رقم الهاتف هنا
+      const phoneNumber = '+966561456488'; // ضع رقم الهاتف الصحيح هنا
+      const message = 'مرحباً، أريد الاستفسار عن دوراتك التدريبية';
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // إظهار وإخفاء الأزرار العائمة عند التمرير
+    window.addEventListener('scroll', function () {
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      const whatsappBtn = document.getElementById('whatsappBtn');
+
+      if (window.pageYOffset > 300) {
+        // إظهار الأزرار
+        scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+        scrollToTopBtn.classList.add('opacity-100', 'visible');
+        whatsappBtn.classList.remove('opacity-0', 'invisible');
+        whatsappBtn.classList.add('opacity-100', 'visible');
+      } else {
+        // إخفاء الأزرار
+        scrollToTopBtn.classList.add('opacity-0', 'invisible');
+        scrollToTopBtn.classList.remove('opacity-100', 'visible');
+        whatsappBtn.classList.add('opacity-0', 'invisible');
+        whatsappBtn.classList.remove('opacity-100', 'visible');
+      }
+    });
   </script>
 </head>
 
@@ -787,18 +875,19 @@
 
             <!-- Main Introduction -->
             <div class="text-center space-y-6">
-              <h1 class="hero-title text-2xl md:text-3xl lg:text-4xl font-bold text-green-900">
+              <h1 class=" text-3xl md:text-3xl lg:text-4xl font-bold text-green-900">
                 الأستاذه/ريم محمد الجهني
               </h1>
               <p class="text-xl md:text-2xl text-primary/80 font-medium max-w-3xl mx-auto ">
-                كاتبــــــــــــــــــــــــة ومحــــــــــــــــــــــــــررة روائيــــــــــــــــــــــــــة <br> مدربة معتمدة في مجال الكتابة الاإبداعية 
+                كاتبــــــــــــــــــــــــة ومحــــــــــــــــــــــــــررة روائيــــــــــــــــــــــــــة <br>
+                مدربة معتمدة في مجال الكتابة الاإبداعية
               </p>
             </div>
           </div>
 
           <!-- Bio Description -->
-          <div class="text-center max-w-4xl mx-auto">
-            <p class="text-lg md:text-xl text-primary/80 leading-relaxed font-light py-2 md:py-4 lg:py-6">
+          <div class="text-center max-w-4xl mx-auto ">
+            <p class="text-lg md:text-xl text-primary/80 leading-relaxed font-light py-6 md:py-4 lg:py-6">
               أساعدك في تطوير مهاراتك الكتابية وتحويل أفكارك إلى نصوص مؤثرة تلامس القلوب وتترك أثراً في نفوس القراء.
               من خلال خبرتي في الكتابة والتدريب، أقدم لك الأدوات والتقنيات التي تحتاجها لتصبح كاتباً مميزاً.
             </p>
@@ -2014,6 +2103,22 @@
       </div>
     </div>
   </footer>
+
+  <!-- الأزرار العائمة -->
+  <!-- زر العودة للأعلى -->
+  <button id="scrollToTop"
+    class="fixed bottom-6 right-6 w-14 h-14 bg-primary/90 hover:bg-primary text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 opacity-0 invisible hover:scale-110 z-50 backdrop-blur-sm border border-white/20"
+    onclick="scrollToTop()" title="العودة للأعلى">
+    <i class="fas fa-arrow-up text-xl"></i>
+  </button>
+
+  <!-- زر الواتساب -->
+  <button id="whatsappBtn"
+    class="fixed bottom-6 left-6 w-14 h-14 bg-green-500/90 hover:bg-green-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 opacity-0 invisible hover:scale-110 z-50 backdrop-blur-sm border border-white/20"
+    onclick="openWhatsApp()" title="تواصل معنا عبر الواتساب">
+    <i class="fab fa-whatsapp text-xl"></i>
+  </button>
+
 </body>
 
 </html>
